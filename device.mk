@@ -31,17 +31,35 @@ PRODUCT_COPY_FILES += \
     device/nexell/con_svma/memtester:system/bin/memtester \
     device/nexell/con_svma/memtester:root/memtester
 
+# nx_3d_avm_camsys
 PRODUCT_COPY_FILES += \
-    device/nexell/con_svma/nx_3d_avm/nx_3d_avm:system/bin/nx_3d_avm/nx_3d_avm \
-    device/nexell/con_svma/nx_3d_avm/3DS/gtr3ds_complexed/GTR.3ds:system/bin/nx_3d_avm/3DS/gtr3ds_complexed/GTR.3ds \
-    device/nexell/con_svma/nx_3d_avm/3DS/gtr3ds_complexed/body.bmp:system/bin//nx_3d_avm/3DS/gtr3ds_complexed/body.bmp \
-    device/nexell/con_svma/nx_3d_avm/3DS/gtr3ds/GTR.3ds:system/bin//nx_3d_avm/3DS/gtr3ds/GTR.3ds \
-    device/nexell/con_svma/nx_3d_avm/3DS/gtr3ds/body.bmp:system/bin//nx_3d_avm/3DS/gtr3ds/body.bmp \
-    device/nexell/con_svma/nx_3d_avm/3DS/spot_light_256x256.BMP:system/bin//nx_3d_avm/3DS/spot_light_256x256.BMP \
-    device/nexell/con_svma/nx_3d_avm/avm/input_image/avm_full_data.yuv:system/bin//nx_3d_avm/avm/input_image/avm_full_data.yuv \
-    device/nexell/con_svma/nx_3d_avm/avm/avm_info_3dview.data:system/bin//nx_3d_avm/avm/avm_info_3dview.data \
-    device/nexell/con_svma/nx_3d_avm/avm/avm_info_topview.data:system/bin//nx_3d_avm/avm/avm_info_topview.data
-
+    device/nexell/con_svma/nx_3d_avm/3DS/gtr3ds/body.bmp:system/bin/nx_3d_avm/3DS/gtr3ds/body.bmp \
+	device/nexell/con_svma/nx_3d_avm/3DS/gtr3ds/GTR.3ds:system/bin/nx_3d_avm/3DS/gtr3ds/GTR.3ds \
+	device/nexell/con_svma/nx_3d_avm/3DS/gtr3ds_complexed/body.bmp:system/bin/nx_3d_avm/3DS/gtr3ds_complexed/body.bmp \
+	device/nexell/con_svma/nx_3d_avm/3DS/gtr3ds_complexed/body_512x512.bmp:system/bin/nx_3d_avm/3DS/gtr3ds_complexed/body_512x512.bmp \
+	device/nexell/con_svma/nx_3d_avm/3DS/gtr3ds_complexed/GTR.3ds:system/bin/nx_3d_avm/3DS/gtr3ds_complexed/GTR.3ds \
+	device/nexell/con_svma/nx_3d_avm/3DS/gtr3ds_complexed/spot_light_256x256.BMP:system/bin/nx_3d_avm/3DS/gtr3ds_complexed/spot_light_256x256.BMP \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_256.pkm:system/bin/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_256.pkm \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_256_yuv.bmp:system/bin/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_256_yuv.bmp \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_256_yuv.pkm:system/bin/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_256_yuv.pkm \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_512.pkm:system/bin/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_512.pkm \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_512_yuv.bmp:system/bin/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_512_yuv.bmp \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_512_yuv.pkm:system/bin/nx_3d_avm/3DS/mobis_sonata2018/body_cmf09_512_yuv.pkm \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/model.3ds:system/bin/nx_3d_avm/3DS/mobis_sonata2018/model.3ds \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/model.nx:system/bin/nx_3d_avm/3DS/mobis_sonata2018/model.nx \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/normal64.bmp:system/bin/nx_3d_avm/3DS/mobis_sonata2018/normal64.bmp \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/normal512.bmp:system/bin/nx_3d_avm/3DS/mobis_sonata2018/normal512.bmp \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/spot128.pkm:system/bin/nx_3d_avm/3DS/mobis_sonata2018/spot128.pkm \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/spot128_yuv.bmp:system/bin/nx_3d_avm/3DS/mobis_sonata2018/spot128_yuv.bmp \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/spot128_yuv.pkm:system/bin/nx_3d_avm/3DS/mobis_sonata2018/spot128_yuv.pkm \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/spot256.bmp:system/bin/nx_3d_avm/3DS/mobis_sonata2018/spot256.bmp \
+	device/nexell/con_svma/nx_3d_avm/3DS/mobis_sonata2018/spot256_yuv.bmp:system/bin/nx_3d_avm/3DS/mobis_sonata2018/spot256_yuv.bmp \
+	device/nexell/con_svma/nx_3d_avm/3DS/spot_light_256x256.BMP:system/bin/nx_3d_avm/3DS/spot_light_256x256.BMP \
+	device/nexell/con_svma/nx_3d_avm/avm/input_image/avm_full_data.yuv:system/bin/nx_3d_avm/avm/input_image/avm_full_data.yuv \
+	device/nexell/con_svma/nx_3d_avm/avm/avm_info_3dview.data:system/bin/nx_3d_avm/avm/avm_info_3dview.data \
+	device/nexell/con_svma/nx_3d_avm/avm/avm_info_eventview.data:system/bin/nx_3d_avm/avm/avm_info_eventview.data \
+	device/nexell/con_svma/nx_3d_avm/avm/avm_info_topview.data:system/bin/nx_3d_avm/avm/avm_info_topview.data \
+	device/nexell/con_svma/nx_3d_avm/nx_3d_avm_camsys:system/bin/nx_3d_avm/nx_3d_avm_camsys
 
 PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
