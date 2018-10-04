@@ -155,6 +155,16 @@ ifeq ($(EN_FFMPEG_EXTRACTOR),true)
 PRODUCT_PACKAGES += libNX_FFMpegExtractor
 endif
 
+# wifi
+PRODUCT_PACKAGES += \
+	libwpa_client \
+	hostapd \
+	wpa_supplicant \
+	wpa_supplicant.conf
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	wifi.interface=wlan0
+
 DEVICE_PACKAGE_OVERLAYS := device/nexell/con_svma/overlay
 
 # increase dex2oat threads to improve booting time
@@ -185,12 +195,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.text_large_cache_width=2048 \
     ro.hwui.text_large_cache_height=1024
 
-#skip boot jars check
+# skip boot jars check
 SKIP_BOOT_JARS_CHECK := true
 
-#bootanimation
+# bootanimation
 PRODUCT_COPY_FILES += \
 	device/nexell/con_svma/bootanimation.zip:system/media/bootanimation.zip
 
+# wifi
+PRODUCT_COPY_FILES += \
+	device/nexell/con_svma/wifi/dhd:system/bin/dhd \
+	device/nexell/con_svma/wifi/wl:system/bin/wl \
+	device/nexell/con_svma/wifi/bcmdhd.cal:system/etc/wifi/bcmdhd.cal \
+	device/nexell/con_svma/wifi/fw_bcmdhd.bin:system/etc/firmware/fw_bcmdhd.bin \
+	device/nexell/con_svma/wifi/fw_bcmdhd_apsta.bin:system/etc/firmware/fw_bcmdhd_apsta.bin
 
 $(call inherit-product, frameworks/base/data/fonts/fonts.mk)
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)
