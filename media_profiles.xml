@@ -78,7 +78,7 @@
 <MediaSettings>
     <!-- Each camcorder profile defines a set of predefined configuration parameters -->
     <CamcorderProfiles cameraId="0">
-
+<!--
         <EncoderProfile quality="qvga" fileFormat="mp4" duration="50">
             <Video codec="h264"
                    bitRate="512000"
@@ -104,7 +104,7 @@
                    sampleRate="16000"
 		   channels="1" />
 	</EncoderProfile>
-
+-->
 	<EncoderProfile quality="720p" fileFormat="mp4" duration="50">
             <Video codec="h264"
                    bitRate="18000000"
@@ -116,7 +116,7 @@
                    sampleRate="16000"
                    channels="1" />
         </EncoderProfile>
-
+<!--
 	<EncoderProfile quality="1080p" fileFormat="mp4" duration="50">
             <Video codec="h264"
                    bitRate="33000000"
@@ -128,7 +128,7 @@
                    sampleRate="16000"
                    channels="1" />
         </EncoderProfile>
-
+-->
 	<!-- ToDo : add quality="high"(qsxga:2592*1944) -->
 
         <!--<EncoderProfile quality="timelapse1080p" fileFormat="mp4" duration="60">-->
