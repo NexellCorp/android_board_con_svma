@@ -110,14 +110,16 @@ WIFI_DRIVER_FW_PATH_STA     := "/system/etc/firmware/fw_bcmdhd.bin"
 PRODUCT_DEFAULT_DEV_CERTIFICATE := device/nexell/con_svma/signing_keys/release
 
 # camera
+# for TP2825
 # camera video device number for back-the orientation of the camera
 BOARD_CAMERA_BACK_DEVICE := "7"
 BOARD_CAMERA_BACK_ORIENTATION := "0"
-BOARD_CAMERA_BACK_INTERLACED := "1"
+BOARD_CAMERA_BACK_INTERLACED := "0"
 BOARD_CAMERA_NUM := 1
 # default = false or none
-BOARD_CAMERA_USE_ZOOM := false
+BOARD_CAMERA_USE_ZOOM := true
 # default = none
 #BOARD_CAMERA_SKIP_FRAME := 10
+
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 
