@@ -77,8 +77,6 @@ fi
 
 if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_ANDROID}" == "true" ]; then
 	generate_key ${BOARD_NAME}
-	test -f ${DEVICE_DIR}/domain.te && cp ${DEVICE_DIR}/domain.te ${TOP}/system/sepolicy
-	test -f ${DEVICE_DIR}/app.te && cp ${DEVICE_DIR}/app.te ${TOP}/system/sepolicy
 	build_android ${TARGET_SOC} ${BOARD_NAME} userdebug
 fi
 
