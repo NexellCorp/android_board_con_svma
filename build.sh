@@ -5,7 +5,7 @@ set -e
 TOP=`pwd`
 export TOP
 
-source ${TOP}/device/nexell/con_svma/common.sh
+source ${TOP}/device/nexell/tools/common.sh
 source ${TOP}/device/nexell/tools/dir.sh
 source ${TOP}/device/nexell/tools/make_build_info.sh
 source ${TOP}/device/nexell/tools/revert_patches.sh
