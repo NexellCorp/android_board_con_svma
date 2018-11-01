@@ -49,9 +49,6 @@ TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 # see surfaceflinger
 MAX_VIRTUAL_DISPLAY_DIMENSION := 2048
 
-# hwcomposer
-BOARD_USES_NX_HWCOMPOSER := true
-
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)
