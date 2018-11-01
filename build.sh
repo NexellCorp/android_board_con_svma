@@ -15,9 +15,6 @@ print_args
 setup_toolchain
 export_work_dir
 
-revert_common ${TOP}/device/nexell/con_svma/patch
-patch_common ${TOP}/device/nexell/con_svma/patch
-
 DEV_PORTNUM=0
 MEMSIZE="2GB"
 
