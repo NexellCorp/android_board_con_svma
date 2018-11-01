@@ -187,10 +187,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # skip boot jars check
 SKIP_BOOT_JARS_CHECK := true
 
-# bootanimation
-PRODUCT_COPY_FILES += \
-	device/nexell/con_svma/bootanimation.zip:system/media/bootanimation.zip
-
 # wifi
 PRODUCT_COPY_FILES += \
 	device/nexell/con_svma/wifi/dhd:system/bin/dhd \
