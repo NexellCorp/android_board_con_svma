@@ -10,6 +10,7 @@ allow init self:capability sys_nice;
 # allow init rootfs:file create_file_perms;
 # allow init nx_3d_avm:file { open read setattr search };
 allow init nx_3d_avm:file create_file_perms;
+allow init nx_3d_avm_quick:file create_file_perms;
 #allow init system_block_device:blk_file { open read setattr search };
 #allow init system_block_device:blk_file { write };
 #allow init mmcblk_block_device:blk_file { open read write };
