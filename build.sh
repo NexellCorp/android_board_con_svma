@@ -5,7 +5,7 @@ set -e
 TOP=`pwd`
 export TOP
 
-source ${TOP}/device/nexell/tools/common.sh
+source ${TOP}/device/nexell/con_svma/common.sh
 source ${TOP}/device/nexell/tools/dir.sh
 source ${TOP}/device/nexell/tools/make_build_info.sh
 source ${TOP}/device/nexell/tools/revert_patches.sh
@@ -15,16 +15,56 @@ print_args
 setup_toolchain
 export_work_dir
 
+if [ "${QUICKBOOT}" == "true" ] || [ "${QUICKSVM}" == "true" ]; then
+	KERNEL_ZIMAGE=false
+fi
+
+
+if [ "${QUICKSVM}" == "true" ] || [ "${QUICKBOOT}" == "true" ] ; then
+    if [ "${KERNEL_ZIMAGE}" == "false" ] ; then
+        PARTMAP_FILE=${TOP}/device/nexell/con_svma/partmap_svm_image.txt
+    else
+        PARTMAP_FILE=${TOP}/device/nexell/con_svma/partmap_svm.txt
+    fi
+else
+    PARTMAP_FILE=${TOP}/device/nexell/con_svma/partmap.txt
+fi
+
 DEV_PORTNUM=0
 MEMSIZE="2GB"
+
+ADDRESS=0x93c00000
+if [ "${MEMSIZE}" == "2GB" ]; then
+    ADDRESS=0x63c00000
+    UBOOT_LOAD_ADDR=0x40007800
+    UBOOT_IMG_LOAD_ADDR=0x43c00000
+    UBOOT_IMG_JUMP_ADDR=0x43c00000
+
+elif [ "${MEMSIZE}" == "1GB" ]; then
+    ADDRESS=0x83c00000
+    UBOOT_LOAD_ADDR=0x71007800
+    UBOOT_IMG_LOAD_ADDR=0x74c00000
+    UBOOT_IMG_JUMP_ADDR=0x74c00000
+fi
 
 DEVICE_DIR=${TOP}/device/nexell/${BOARD_NAME}
 OUT_DIR=${TOP}/out/target/product/${BOARD_NAME}
 
-KERNEL_IMG=${KERNEL_DIR}/arch/arm/boot/zImage
+if [ "${KERNEL_ZIMAGE}" == "false" ] ; then
+    if [ "${MEMSIZE}" == "2GB" ]; then
+        UBOOT_LOAD_ADDR=0x40008000
+    elif [ "${MEMSIZE}" == "1GB" ]; then
+        UBOOT_LOAD_ADDR=0x71008000
+    fi
+
+    KERNEL_IMG=${KERNEL_DIR}/arch/arm/boot/Image
+else
+    KERNEL_IMG=${KERNEL_DIR}/arch/arm/boot/zImage
+fi
+
+RECOVERY_KERNEL_IMG=${KERNEL_DIR}/arch/arm/boot/zImage
 DTB_IMG=${KERNEL_DIR}/arch/arm/boot/dts/s5p4418-con_svma-rev00.dtb
 
-UBOOT_LOAD_ADDR=0x40007800
 
 CROSS_COMPILE="arm-eabi-"
 
@@ -33,9 +73,10 @@ if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_BL1}" == "true" ]; then
 fi
 
 if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_UBOOT}" == "true" ]; then
-	build_uboot ${UBOOT_DIR} ${TARGET_SOC} ${BOARD_NAME} ${CROSS_COMPILE}
-	gen_third ${TARGET_SOC} ${UBOOT_DIR}/u-boot.bin \
-		0x43c00000 0x43c00000 ${TOP}/device/nexell/secure/bootloader.img
+    build_uboot ${UBOOT_DIR} ${TARGET_SOC} ${BOARD_NAME} ${CROSS_COMPILE}
+    gen_third ${TARGET_SOC} ${UBOOT_DIR}/u-boot.bin \
+        ${UBOOT_IMG_LOAD_ADDR} ${UBOOT_IMG_JUMP_ADDR} \
+        ${TOP}/device/nexell/secure/bootloader.img
 fi
 
 if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_SECURE}" == "true" ]; then
@@ -62,47 +103,117 @@ if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_SECURE}" == "true" ]; then
 fi
 
 if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_KERNEL}" == "true" ]; then
-	build_kernel ${KERNEL_DIR} ${TARGET_SOC} ${BOARD_NAME} s5p4418_con_svma_nougat_defconfig ${CROSS_COMPILE}
-	test -d ${OUT_DIR} && \
-		cp ${KERNEL_IMG} ${OUT_DIR}/kernel && \
-		cp ${DTB_IMG} ${OUT_DIR}/2ndbootloader
+    if [ "${QUICKBOOT}" == "true" ] || [ "${QUICKSVM}" == "true" ]; then
+            if [ "${BUILD_SKIP_RECOVERY_KERNEL}" == "false" ]; then
+                print_build_info kernel_recovery
+                build_kernel ${KERNEL_DIR} ${TARGET_SOC} ${BOARD_NAME} s5p4418_con_svma_nougat_defconfig ${CROSS_COMPILE}
+                if [ ! -d ${OUT_DIR} ]; then
+                    mkdir -p ${OUT_DIR}
+                fi
+                cp ${RECOVERY_KERNEL_IMG} ${OUT_DIR}/kernel_recovery
+            fi
+        print_build_info kernel_Quickboot
+        build_kernel ${KERNEL_DIR} ${TARGET_SOC} ${BOARD_NAME} s5p4418_con_svma_nougat_quickboot_defconfig ${CROSS_COMPILE}
+        if [ ! -d ${OUT_DIR} ]; then
+            mkdir -p ${OUT_DIR}
+        fi
+        cp ${KERNEL_IMG} ${OUT_DIR}/kernel && \
+        cp ${DTB_IMG} ${OUT_DIR}/2ndbootloader
+    else
+        build_kernel ${KERNEL_DIR} ${TARGET_SOC} ${BOARD_NAME} s5p4418_con_svma_nougat_defconfig ${CROSS_COMPILE}
+        if [ ! -d ${OUT_DIR} ]; then
+            mkdir -p ${OUT_DIR}
+        fi
+        cp ${KERNEL_IMG} ${OUT_DIR}/kernel && \
+        cp ${DTB_IMG} ${OUT_DIR}/2ndbootloader
+    fi
+
 fi
 
 if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_MODULE}" == "true" ]; then
-	build_module ${KERNEL_DIR} ${TARGET_SOC} ${CROSS_COMPILE}
+    build_module ${KERNEL_DIR} ${TARGET_SOC} ${CROSS_COMPILE}
 fi
 
-if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_ANDROID}" == "true" ]; then
-	generate_key ${BOARD_NAME}
-	build_android ${TARGET_SOC} ${BOARD_NAME} userdebug
+test -d ${OUT_DIR} && test -f ${DEVICE_DIR}/bootloader && cp ${DEVICE_DIR}/bootloader ${OUT_DIR}
+
+if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_ANDROID}" == "true" ] || [ "${BUILD_DIST}" == "true" ]; then
+    if [ "${QUICKBOOT}" == "true" ]; then
+        # cp ${DEVICE_DIR}/quickboot/* ${DEVICE_DIR}
+        cp ${DEVICE_DIR}/aosp_con_svma_quickboot.mk ${DEVICE_DIR}/aosp_con_svma.mk
+    else
+        cp ${DEVICE_DIR}/aosp_con_svma_normalboot.mk ${DEVICE_DIR}/aosp_con_svma.mk
+    fi
+
+    rm -rf ${OUT_DIR}/system
+    rm -rf ${OUT_DIR}/root
+    rm -rf ${OUT_DIR}/data
+    generate_key ${BOARD_NAME}
+    test -f ${DEVICE_DIR}/domain.te && cp ${DEVICE_DIR}/domain.te ${TOP}/system/sepolicy
+    test -f ${DEVICE_DIR}/app.te && cp ${DEVICE_DIR}/app.te ${TOP}/system/sepolicy
+
+    build_android ${TARGET_SOC} ${BOARD_NAME} ${BUILD_TAG}
+
+#    test -d ${DEVICE_DIR}/apk_install && install_zh_apk
+#    test -d ${DEVICE_DIR}/nx_3d_avm && install_avm_apk
 fi
+
 
 # u-boot envs
 if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
-	UBOOT_BOOTCMD=$(make_uboot_bootcmd \
-		${DEVICE_DIR}/partmap.txt \
-		${UBOOT_LOAD_ADDR} \
-		2048 \
-		${KERNEL_IMG} \
-		${DTB_IMG} \
-		${OUT_DIR}/ramdisk.img \
-		"boot:emmc")
+    if [  "${QUICKSVM}" == "true" ] || [  "${QUICKBOOT}" == "true" ]; then
+        UBOOT_BOOTCMD=$(make_uboot_bootcmd_svm \
+            ${PARTMAP_FILE} \
+            ${UBOOT_LOAD_ADDR} \
+            2048 \
+            ${KERNEL_IMG} \
+            ${DTB_IMG} \
+            ${OUT_DIR}/ramdisk.img \
+            "boot:emmc")
+    else
+        UBOOT_BOOTCMD=$(make_uboot_bootcmd \
+            ${PARTMAP_FILE} \
+            ${UBOOT_LOAD_ADDR} \
+            2048 \
+            ${KERNEL_IMG} \
+            ${DTB_IMG} \
+            ${OUT_DIR}/ramdisk.img \
+            "boot:emmc")
+    fi
 
-	UBOOT_RECOVERYCMD="ext4load mmc 0:6 0x49000000 recovery.dtb; ext4load mmc 0:6 0x40008000 recovery.kernel; ext4load mmc 0:6 0x48000000 ramdisk-recovery.img; bootz 40008000 0x48000000:27f000 0x49000000"
+if [ "${MEMSIZE}" == "2GB" ]; then
+    UBOOT_RECOVERYCMD=$(make_uboot_recoverycmd \
+                    0x40008000 \
+                    0x48000000 \
+                    0x49000000 \
+                    ${OUT_DIR}/ramdisk-recovery.img)
+elif [ "${MEMSIZE}" == "1GB" ]; then
+    UBOOT_RECOVERYCMD=$(make_uboot_recoverycmd \
+                    0x71008000 \
+                    0x79000000 \
+                    0x7A000000 \
+                    ${OUT_DIR}/ramdisk-recovery.img)
+fi
 
-	UBOOT_BOOTARGS="console=ttyAMA3,115200n8 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCFEF"
+if [ "${QUICKSVM}" == "true" ]; then
+    UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF root=\/dev\/mmcblk0p1 rw rootwait init=\/sbin\/nx_init quiet androidboot.selinux=permissive"
+elif [ "${QUICKBOOT}" == "true" ]; then
+    UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF quiet root=\/dev\/mmcblk0p1 rw rootwait init=\/init androidboot.selinux=permissive"
+else
+    UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF quiet androidboot.selinux=permissive"
+fi
+    RECOVERY_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF androidboot.selinux=permissive"
+    SPLASH_SOURCE="mmc"
+    SPLASH_OFFSET="0x2e4200"
 
-	SPLASH_SOURCE="mmc"
-	SPLASH_OFFSET="0x2e4200"
+    echo "UBOOT_BOOTCMD ==> ${UBOOT_BOOTCMD}"
+    echo "UBOOT_BOOTARGS ==> ${UBOOT_BOOTARGS}"
+    echo "UBOOT_RECOVERYCMD ==> ${UBOOT_RECOVERYCMD}"
+    echo "UBOOT_RECOVERYARGS ==> ${RECOVERY_BOOTARGS}"
 
-	echo "UBOOT_BOOTCMD ==> ${UBOOT_BOOTCMD}"
-	echo "UBOOT_RECOVERYCMD ==> ${UBOOT_RECOVERYCMD}"
-
-	pushd `pwd`
-	cd ${UBOOT_DIR}
-	build_uboot_env_param ${CROSS_COMPILE} "${UBOOT_BOOTCMD}" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}"
-	popd
-
+    pushd `pwd`
+    cd ${UBOOT_DIR}
+    build_uboot_env_param ${CROSS_COMPILE} "${UBOOT_BOOTCMD}" "${UBOOT_BOOTARGS}" "${RECOVERY_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}"
+    popd
 fi
 
 # make bootloader
@@ -151,27 +262,46 @@ if [ "${BUILD_KERNEL}" == "true" ]; then
 fi
 
 post_process ${TARGET_SOC} \
-	${DEVICE_DIR}/partmap.txt \
-	${RESULT_DIR} \
-	${BL1_DIR}/bl1-${TARGET_SOC}/out \
-	${TOP}/device/nexell/secure \
-	${UBOOT_DIR} \
-	${KERNEL_DIR}/arch/arm/boot \
-	${KERNEL_DIR}/arch/arm/boot/dts \
-	67108864 \
-	${OUT_DIR} \
-	con_svma \
-	${DEVICE_DIR}/logo.bmp
+    ${PARTMAP_FILE} \
+    ${RESULT_DIR} \
+    ${BL1_DIR}/bl1-${TARGET_SOC}/out \
+    ${TOP}/device/nexell/secure \
+    ${UBOOT_DIR} \
+    ${KERNEL_DIR}/arch/arm/boot \
+    ${KERNEL_DIR}/arch/arm/boot/dts \
+    ${OUT_DIR} \
+    con_svma
 
 make_ext4_recovery_image \
-	${KERNEL_DIR}/arch/arm/boot/zImage \
-	${KERNEL_DIR}/arch/arm/boot/dts/s5p4418-con_svma-rev00.dtb \
-	${OUT_DIR}/ramdisk-recovery.img \
-	67108864 \
-	${RESULT_DIR}
+    ${OUT_DIR}/kernel \
+    ${KERNEL_DIR}/arch/arm/boot/dts/s5p4418-con_svma-rev00.dtb \
+    ${OUT_DIR}/ramdisk-recovery.img \
+    67108864 \
+    ${RESULT_DIR}
 
-ADDRESS=0x83c00000
+if [ "${BUILD_DIST}" == "true" ]; then
+    build_dist ${TARGET_SOC} ${BOARD_NAME} ${BUILD_TAG}
+    cp ${TOP}/out/dist/aosp_con_svma-target_files-eng.$(whoami).zip ${RESULT_DIR}/target_files.zip
+    if [ "${OTA_INCREMENTAL}" == "true" ]; then
+        test -z ${OTA_PREVIOUS_FILE} && echo "No valid previous target.zip(${OTA_PREVIOUS_FILE})" || \
+        ${TOP}/build/tools/releasetools/ota_from_target_files \
+            -i ${OTA_PREVIOUS_FILE} ${RESULT_DIR}/target_files.zip \
+            ${RESULT_DIR}/ota_update.zip
+    else
+        ${TOP}/build/tools/releasetools/ota_from_target_files \
+            ${RESULT_DIR}/target_files.zip ${RESULT_DIR}/ota_update.zip
+    fi
+fi
 
 gen_boot_usb_script_4418 nxp4330 ${ADDRESS} ${RESULT_DIR}
 
 make_build_info ${RESULT_DIR}
+
+if [ -f "${DTB_IMG}" ];then
+cp -af ${DTB_IMG} ${RESULT_DIR}
+fi
+
+if [ -f "${KERNEL_IMG}" ];then
+cp -af ${KERNEL_IMG} ${RESULT_DIR}
+fi
+
