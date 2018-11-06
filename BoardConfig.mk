@@ -35,7 +35,15 @@ TARGET_NO_RECOVERY := false
 # recovery
 TARGET_RELEASETOOLS_EXTENSIONS := device/nexell/con_svma
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_nexell
-TARGET_RECOVERY_FSTAB := device/nexell/con_svma/recovery.fstab
+ifeq ($(QUICKBOOT), 1)
+TARGET_RECOVERY_FSTAB := device/nexell/con_svma/recovery.fstab_svm
+else
+ifeq ($(QUICKSVM), 1)
+TARGET_RECOVERY_FSTAB := device/nexell/con_svma/recovery.fstab_svm
+else
+    TARGET_RECOVERY_FSTAB := device/nexell/con_svma/recovery.fstab
+endif
+endif
 
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := false
@@ -81,7 +89,7 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2147483648
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_CACHEIMAGE_PARTITION_SIZE := 536870912
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 4914675712
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 3265265664
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 # boot image layout
