@@ -15,7 +15,7 @@
 #
 
 # Inherit the full_base and device configurations
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+$(call inherit-product, device/nexell/quickboot/component.mk)
 
 PRODUCT_NAME := aosp_con_svma
 PRODUCT_DEVICE := con_svma
@@ -32,16 +32,21 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.product.first_api_level=21
 
+# vold check fs
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.vold.check_fs=0
+
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_bluetooth=false ro.bluetooth.hfp.ver=1.6
 
 # Disable other feature no needed in con_svma board
-#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_serial=true
-#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_samplingprof=true
-#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_consumerir=true
-#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_rtt=true
-#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_vrmanager=true
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.quickboot=true
 
 $(call inherit-product, device/nexell/con_svma/device.mk)
 
 PRODUCT_PACKAGES += \
-	Launcher3
+	Launcher3 \
+	Settings \
+	Gallery2 \
+	Camera2 \
+	BluetoothMidiService \
+	ContactsProvider
