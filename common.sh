@@ -423,10 +423,6 @@ function build_kernel()
 		image_type=zImage
 	fi
 
-	#if [ "${QUICKBOOT}" == "true" ]; then
-	#	config="${soc}_${board}_nougat_quickboot_defconfig"
-	#fi
-
 	pushd `pwd`
 	cd ${src}
 	make ARCH=${arch} distclean

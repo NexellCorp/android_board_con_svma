@@ -35,11 +35,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_bluetooth=false ro.bluetooth.hfp.ver=1.6
 
 # Disable other feature no needed in con_svma board
-#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_serial=true
-#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_samplingprof=true
-#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_consumerir=true
-#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_rtt=true
-#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_vrmanager=true
 
 $(call inherit-product, device/nexell/con_svma/device.mk)
 
