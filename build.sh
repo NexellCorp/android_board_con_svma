@@ -305,8 +305,6 @@ if [ "${BUILD_DIST}" == "true" ]; then
     fi
 fi
 
-gen_boot_usb_script_4418 nxp4330 ${ADDRESS} ${RESULT_DIR}
-
 make_build_info ${RESULT_DIR}
 
 if [ -f "${DTB_IMG}" ];then
