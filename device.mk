@@ -60,41 +60,9 @@ PRODUCT_COPY_FILES += \
 	device/nexell/con_svma/nx_3d_avm/avm/avm_info_topview.data:system/bin/nx_3d_avm/avm/avm_info_topview.data \
 	device/nexell/con_svma/nx_3d_avm/nx_3d_avm_camsys:system/bin/nx_3d_avm/nx_3d_avm_camsys
 
-ifeq ($(QUICKSVM), 1)
-# QUICKSVM
-PRODUCT_COPY_FILES += \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/gtr3ds/body.bmp:root/sbin/3DS/gtr3ds/body.bmp \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/gtr3ds/GTR.3ds:root/sbin/3DS/gtr3ds/GTR.3ds \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/gtr3ds_complexed/body.bmp:root/sbin/3DS/gtr3ds_complexed/body.bmp \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/gtr3ds_complexed/body_512x512.bmp:root/sbin/3DS/gtr3ds_complexed/body_512x512.bmp \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/gtr3ds_complexed/GTR.3ds:root/sbin/3DS/gtr3ds_complexed/GTR.3ds \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/gtr3ds_complexed/spot_light_256x256.BMP:root/sbin/3DS/gtr3ds_complexed/spot_light_256x256.BMP \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/body_cmf09_256.pkm:root/sbin/3DS/mobis_sonata2018/body_cmf09_256.pkm \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/body_cmf09_256_yuv.bmp:root/sbin/3DS/mobis_sonata2018/body_cmf09_256_yuv.bmp \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/body_cmf09_256_yuv.pkm:root/sbin/3DS/mobis_sonata2018/body_cmf09_256_yuv.pkm \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/body_cmf09_512.pkm:root/sbin/3DS/mobis_sonata2018/body_cmf09_512.pkm \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/body_cmf09_512_yuv.bmp:root/sbin/3DS/mobis_sonata2018/body_cmf09_512_yuv.bmp \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/body_cmf09_512_yuv.pkm:root/sbin/3DS/mobis_sonata2018/body_cmf09_512_yuv.pkm \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/model.3ds:root/sbin/3DS/mobis_sonata2018/model.3ds \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/model.nx:root/sbin/3DS/mobis_sonata2018/model.nx \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/normal64.bmp:root/sbin/3DS/mobis_sonata2018/normal64.bmp \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/normal512.bmp:root/sbin/3DS/mobis_sonata2018/normal512.bmp \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/spot128.pkm:root/sbin/3DS/mobis_sonata2018/spot128.pkm \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/spot128_yuv.bmp:root/sbin/3DS/mobis_sonata2018/spot128_yuv.bmp \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/spot128_yuv.pkm:root/sbin/3DS/mobis_sonata2018/spot128_yuv.pkm \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/spot256.bmp:root/sbin/3DS/mobis_sonata2018/spot256.bmp \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/mobis_sonata2018/spot256_yuv.bmp:root/sbin/3DS/mobis_sonata2018/spot256_yuv.bmp \
-    device/nexell/con_svma/nx_3d_avm_quick/3DS/spot_light_256x256.BMP:root/sbin/3DS/spot_light_256x256.BMP \
-    device/nexell/con_svma/nx_3d_avm_quick/avm/input_image/avm_full_data.yuv:root/sbin/avm/input_image/avm_full_data.yuv \
-    device/nexell/con_svma/nx_3d_avm_quick/avm/avm_info_3dview.data:root/sbin/avm/avm_info_3dview.data \
-    device/nexell/con_svma/nx_3d_avm_quick/avm/avm_info_eventview.data:root/sbin/avm/avm_info_eventview.data \
-    device/nexell/con_svma/nx_3d_avm_quick/avm/avm_info_topview.data:root/sbin/avm/avm_info_topview.data \
-    device/nexell/con_svma/nx_3d_avm_quick/nx_3d_avm_quick:root/sbin/nx_3d_avm_quick
 
 PRODUCT_PACKAGES += \
-    nx_init \
-    nx_3d_avm_quick
-endif
+    nx_init 
 
 PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \

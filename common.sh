@@ -36,7 +36,6 @@ OTA_INCREMENTAL=false
 OTA_PREVIOUS_FILE=
 BUILD_TAG=userdebug
 QUICKBOOT=false
-QUICKSVM=false
 AES_KEY=none
 RSA_KEY=none
 MODULE=none
@@ -57,7 +56,7 @@ function usage()
 
 function parse_args()
 {
-	TEMP=`getopt -o "Ss:t:hvV:d:T:i:k:p:m:q" -- "$@"`
+	TEMP=`getopt -o "s:t:hvV:d:T:i:k:p:m:q" -- "$@"`
 	eval set -- "$TEMP"
 
 	while true; do
@@ -81,7 +80,6 @@ function parse_args()
 			-T ) BUILD_TAG=$2; shift 2;;
 			-i ) OTA_INCREMENTAL=true; OTA_PREVIOUS_FILE=$2; shift 2;;
 			-q ) QUICKBOOT=true; shift 1 ;;
-            -S ) QUICKSVM=true; shift 1 ;;
 			-k ) AES_KEY=$2; shift 2;;
 			-p ) RSA_KEY=$2; shift 2;;
 			-m ) MODULE=$2; shift 2;;
@@ -120,7 +118,6 @@ function print_args()
 	echo "RSA_KEY ==> ${RSA_KEY}"
 	echo "CPU_MODULE ==> ${MODULE}"
 	echo "QUICKBOOT ==> ${QUICKBOOT}"
-    echo "QUICKSVM ==> ${QUICKSVM}"
 }
 
 function get_board_name()
@@ -485,12 +482,8 @@ function build_android()
 	print_build_info android
 
     local product=PRODUCT-aosp_${2}-${3}
-    if [ "${QUICKBOOT}" == "true" ] && [ "${QUICKSVM}" == "true" ]; then
-        make ${product} TARGET_SOC=${1} MODULE=${4} QUICKBOOT=1 QUICKSVM=1 -j8
-    elif [ "${QUICKBOOT}" == "true" ]; then
+    if [ "${QUICKBOOT}" == "true" ]; then
         make ${product} TARGET_SOC=${1} MODULE=${4} QUICKBOOT=1 -j8
-    elif [ "${QUICKSVM}" == "true" ]; then
-        make ${product} TARGET_SOC=${1} MODULE=${4} QUICKSVM=1 -j8
     else
         make ${product} TARGET_SOC=${1} MODULE=${4} -j8
     fi
@@ -513,18 +506,10 @@ function build_dist()
 	print_build_info dist
 
     local product=PRODUCT-aosp_${2}-${3}
-    if [ "${QUICKBOOT}" == "true" ] && [ "${QUICKSVM}" == "true" ]; then
-        cp -f ${TOP}/device/nexell/con_svma/ota_from_target_files_svm.py ${TOP}/build/tools/releasetools/ota_from_target_files.py
-        cp -f ${TOP}/device/nexell/con_svma/releasetools_svm.py ${TOP}/device/nexell/con_svma/releasetools.py
-        make ${product} TARGET_SOC=${1} QUICKBOOT=1 QUICKSVM=1 dist -j8
-    elif [ "${QUICKBOOT}" == "true" ]; then
+    if [ "${QUICKBOOT}" == "true" ]; then
         cp -f ${TOP}/device/nexell/con_svma/ota_from_target_files_svm.py ${TOP}/build/tools/releasetools/ota_from_target_files.py
         cp -f ${TOP}/device/nexell/con_svma/releasetools_svm.py ${TOP}/device/nexell/con_svma/releasetools.py
         make ${product} TARGET_SOC=${1} QUICKBOOT=1 dist -j8
-    elif [ "${QUICKSVM}" == "true" ]; then
-        cp -f ${TOP}/device/nexell/con_svma/ota_from_target_files_svm.py ${TOP}/build/tools/releasetools/ota_from_target_files.py
-        cp -f ${TOP}/device/nexell/con_svma/releasetools_svm.py ${TOP}/device/nexell/con_svma/releasetools.py
-        make ${product} TARGET_SOC=${1} QUICKSVM=1 dist -j8
     else
         cp -f ${TOP}/device/nexell/con_svma/ota_from_target_files_normal.py ${TOP}/build/tools/releasetools/ota_from_target_files.py
         cp -f ${TOP}/device/nexell/con_svma/releasetools_normal.py ${TOP}/device/nexell/con_svma/releasetools.py
@@ -629,7 +614,7 @@ function make_ext4_recovery_image()
 	local result_dir=${5}
 
     mkdir -p ${result_dir}/recovery
-    if [ "${QUICKBOOT}" == "true" ] || [ "${QUICKSVM}" == "true" ]; then
+    if [ "${QUICKBOOT}" == "true" ]; then
         if [ "${BUILD_SKIP_RECOVERY_KERNEL}" == "false" ]; then
             cp ${kernel_img}_recovery ${result_dir}/recovery/recovery.kernel
         else
@@ -732,7 +717,7 @@ function post_process()
     #rm -rf ${result_dir}/vendor
 
 
-    if [ "${QUICKSVM}" == "true" ] || [ "${QUICKBOOT}" == "true" ] ; then
+    if [ "${QUICKBOOT}" == "true" ] ; then
         root_size=$(get_partition_size ${partmap} "root:ext4")
         ${TOP}/out/host/linux-x86/bin/make_ext4fs -s -l ${root_size} \
         -S ${android_out}/root/file_contexts.bin -L root \
@@ -902,7 +887,7 @@ function make_uboot_recoverycmd()
     local dtb_load=$3
     local ramdisk_size=$(printf "%x" $(ls -al ${4} | awk '{print $5}'))
 
-    bootcmd="ext4load mmc 0:5 ${kernel_load} recovery.kernel; ext4load mmc 0:5 ${ramdisk_load} ramdisk-recovery.img; ext4load mmc 0:5 ${dtb_load} recovery.dtb; bootz $(printf "%x" ${kernel_load}) $(printf "%x" ${ramdisk_load}):${ramdisk_size} $(printf "%x" ${dtb_load})"
+    bootcmd="ext4load mmc 0:6 ${kernel_load} recovery.kernel; ext4load mmc 0:6 ${ramdisk_load} ramdisk-recovery.img; ext4load mmc 0:6 ${dtb_load} recovery.dtb; bootz $(printf "%x" ${kernel_load}) $(printf "%x" ${ramdisk_load}):${ramdisk_size} $(printf "%x" ${dtb_load})"
     echo -n ${bootcmd}
 
 }

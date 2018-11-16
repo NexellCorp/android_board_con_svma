@@ -38,11 +38,7 @@ TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_nexell
 ifeq ($(QUICKBOOT), 1)
 TARGET_RECOVERY_FSTAB := device/nexell/con_svma/recovery.fstab_svm
 else
-ifeq ($(QUICKSVM), 1)
-TARGET_RECOVERY_FSTAB := device/nexell/con_svma/recovery.fstab_svm
-else
     TARGET_RECOVERY_FSTAB := device/nexell/con_svma/recovery.fstab
-endif
 endif
 
 BOARD_USES_GENERIC_AUDIO := false

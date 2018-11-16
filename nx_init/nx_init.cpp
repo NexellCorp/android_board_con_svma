@@ -21,11 +21,6 @@ int main(int argc, char *argv[])
 		}
 		case 0:
 		{
-			execl("/sbin/nx_3d_avm_quick","nx_3d_avm_quick", NULL);
-		}
-		default:
-		{
-			sleep(1);
 			execl("/init","init", NULL);
 		}
 	}

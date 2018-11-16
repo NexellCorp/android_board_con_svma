@@ -15,12 +15,12 @@ print_args
 setup_toolchain
 export_work_dir
 
-if [ "${QUICKBOOT}" == "true" ] || [ "${QUICKSVM}" == "true" ]; then
+if [ "${QUICKBOOT}" == "true" ]; then
 	KERNEL_ZIMAGE=false
 fi
 
 
-if [ "${QUICKSVM}" == "true" ] || [ "${QUICKBOOT}" == "true" ] ; then
+if [ "${QUICKBOOT}" == "true" ] ; then
     if [ "${KERNEL_ZIMAGE}" == "false" ] ; then
         PARTMAP_FILE=${TOP}/device/nexell/con_svma/partmap_svm_image.txt
     else
@@ -117,7 +117,7 @@ if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_SECURE}" == "true" ]; then
 fi
 
 if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_KERNEL}" == "true" ]; then
-    if [ "${QUICKBOOT}" == "true" ] || [ "${QUICKSVM}" == "true" ]; then
+    if [ "${QUICKBOOT}" == "true" ]; then
             if [ "${BUILD_SKIP_RECOVERY_KERNEL}" == "false" ]; then
                 print_build_info kernel_recovery
                 build_kernel ${KERNEL_DIR} ${TARGET_SOC} ${BOARD_NAME} s5p4418_con_svma_nougat_defconfig ${CROSS_COMPILE}
@@ -174,7 +174,7 @@ fi
 
 # u-boot envs
 if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
-    if [  "${QUICKSVM}" == "true" ] || [  "${QUICKBOOT}" == "true" ]; then
+    if [  "${QUICKBOOT}" == "true" ]; then
         UBOOT_BOOTCMD=$(make_uboot_bootcmd_svm \
             ${PARTMAP_FILE} \
             ${UBOOT_LOAD_ADDR} \
@@ -208,10 +208,8 @@ elif [ "${MEMSIZE}" == "1GB" ]; then
                     ${OUT_DIR}/ramdisk-recovery.img)
 fi
 
-if [ "${QUICKSVM}" == "true" ]; then
+if [ "${QUICKBOOT}" == "true" ]; then
     UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF root=\/dev\/mmcblk0p1 rw rootwait init=\/sbin\/nx_init quiet androidboot.selinux=permissive"
-elif [ "${QUICKBOOT}" == "true" ]; then
-    UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF quiet root=\/dev\/mmcblk0p1 rw rootwait init=\/init androidboot.selinux=permissive"
 else
     UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF quiet androidboot.selinux=permissive"
 fi
