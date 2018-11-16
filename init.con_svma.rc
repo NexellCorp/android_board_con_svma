@@ -73,7 +73,6 @@ on late-fs
     start audioserver
     start bootanim
     mount_all ./fstab.con_svma --late
-	#start nx_3d_avm
 
 on post-fs-data
     setprop vold.post_fs_data_done 1
@@ -111,11 +110,6 @@ service wpa_supplicant /system/bin/wpa_supplicant \
 	disabled
 	oneshot
 
-service nx_3d_avm /system/bin/nx_3d_avm/nx_3d_avm
-    class late_start
-    disabled
-    user root
-    group root
 
 on property:sys.boot_completed=1
     write /dev/cpuset/top-app/cpus 0-3
