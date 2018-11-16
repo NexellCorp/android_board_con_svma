@@ -284,6 +284,8 @@ post_process ${TARGET_SOC} \
     ${OUT_DIR} \
     con_svma
 
+cp -f ${TOP}/device/nexell/con_svma/boot_by_usb.sh ${RESULT_DIR}
+
 make_ext4_recovery_image \
     ${OUT_DIR}/kernel \
     ${KERNEL_DIR}/arch/arm/boot/dts/s5p4418-con_svma-rev00.dtb \
