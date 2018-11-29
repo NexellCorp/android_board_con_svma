@@ -29,9 +29,6 @@ TARGET_CPU_VARIANT := cortex-a9
 # do not stop building despite of build warning
 BUILD_BROKEN_DUP_RULES := true
 
-# below config must be false when SoC is s5p4418
-TARGET_USES_64_BIT_BINDER := false
-
 # images
 TARGET_NO_BOOTLOADER := false 
 TARGET_NO_KERNEL := false
@@ -72,9 +69,6 @@ MAX_VIRTUAL_DISPLAY_DIMENSION := 2048
 
 #sepolicy
 BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
-
-# touch
-BOARD_USES_TSLIB := false
 
 # vendor interface manifest
 DEVICE_MANIFEST_FILE := $(LOCAL_PATH)/manifest.xml
