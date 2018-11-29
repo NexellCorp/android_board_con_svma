@@ -129,7 +129,7 @@ PRODUCT_PACKAGES += \
 # kernel
 PRODUCT_COPY_FILES += \
     device/nexell/kernel/kernel-4.4.x/arch/arm/boot/zImage:kernel \
-    device/nexell/kernel/kernel-4.4.x/arch/arm/boot/dts/s5p6818-con_svma-rev00.dtb:2ndbootloader
+    device/nexell/kernel/kernel-4.4.x/arch/arm/boot/dts/s5p4418-con_svma-rev00.dtb:2ndbootloader
 
 # init rc
 PRODUCT_COPY_FILES += \
