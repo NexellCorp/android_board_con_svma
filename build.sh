@@ -87,8 +87,9 @@ if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_SECURE}" == "true" ]; then
     dd if=${TOP}/device/nexell/secure/fip-loader-usb.bin >> ${TOP}/device/nexell/secure/fip-loader-usb.img
 fi
 
+CROSS_COMPILE_KERNEL=arm-linux-androideabi-
 if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_KERNEL}" == "true" ]; then
-    build_kernel ${KERNEL_DIR} ${TARGET_SOC} ${BOARD_NAME} s5p4418_con_svma_nougat_defconfig ${CROSS_COMPILE}
+    build_kernel ${KERNEL_DIR} ${TARGET_SOC} ${BOARD_NAME} s5p4418_con_svma_pie_defconfig ${CROSS_COMPILE_KERNEL}
     if [ ! -d ${OUT_DIR} ]; then
         mkdir -p ${OUT_DIR}
     fi
@@ -96,9 +97,9 @@ if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_KERNEL}" == "true" ]; then
         cp ${DTB_IMG} ${OUT_DIR}/2ndbootloader
 fi
 
-if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_MODULE}" == "true" ]; then
-    build_module ${KERNEL_DIR} ${TARGET_SOC} ${CROSS_COMPILE}
-fi
+# if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_MODULE}" == "true" ]; then
+#     build_module ${KERNEL_DIR} ${TARGET_SOC} ${CROSS_COMPILE}
+# fi
 
 test -d ${OUT_DIR} && test -f ${DEVICE_DIR}/bootloader && cp ${DEVICE_DIR}/bootloader ${OUT_DIR}
 
