@@ -108,7 +108,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-service
 
 # launcher
-PRODUCT_PACKAGES += \
+# PRODUCT_PACKAGES += \
     Launcher3
 
 # VNDK libraries
@@ -121,6 +121,12 @@ PRODUCT_PACKAGES += \
     wificond \
     wifilogd \
     libwpa_client
+
+#
+# Bluetooth HAL and Compatibility Bluetooth library (for older revs).
+#
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0-service.sim
 
 ########################################################################
 # PRODUCT_COPY_FILES
@@ -189,6 +195,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.xml \
     device/nexell/con_svma/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml \
     device/nexell/con_svma/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml
 
 ########################################################################
 # PRODUCT_PROPERTY_OVERRIDES
