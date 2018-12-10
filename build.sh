@@ -108,7 +108,7 @@ if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_ANDROID}" == "true" ]; then
     rm -rf ${OUT_DIR}/root
     rm -rf ${OUT_DIR}/data
     cp -R ${DEVICE_DIR}/source_overlay/* ${TOP}
-    build_android ${TARGET_SOC} ${BOARD_NAME} ${BUILD_TAG}
+    build_android ${TARGET_SOC} "${BOARD_NAME}_auto" ${BUILD_TAG}
 fi
 
 # u-boot envs
