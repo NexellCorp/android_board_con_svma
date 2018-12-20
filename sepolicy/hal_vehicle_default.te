@@ -1,0 +1,2 @@
+allow hal_vehicle_default node:tcp_socket node_bind;
+allow hal_vehicle_default self:tcp_socket { accept bind create listen };

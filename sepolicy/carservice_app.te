@@ -1,0 +1,2 @@
+allow carservice_app cgroup:file write;
+allow carservice_app sysfs:file { getattr open read };
