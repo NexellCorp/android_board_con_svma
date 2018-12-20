@@ -971,6 +971,9 @@ full_treble_only(`
       -surfaceflinger
       -platform_app
       -bootanim
+      -system_app
+      -cameraserver
+      -untrusted_app_27
     } {
       vendor_file_type
       -same_process_hal_file
@@ -1011,6 +1014,8 @@ full_treble_only(`
     -platform_app
     -system_app
     -bootanim
+    -cameraserver
+    -untrusted_app_27
   } {
     vendor_file_type
     -same_process_hal_file
@@ -1026,33 +1031,33 @@ full_treble_only(`
   }:file *;
 ')
 
-full_treble_only(`
-  # Do not allow vendor components access to /system files except for the
-  # ones whitelisted here.
-  neverallow {
-    domain
-    -appdomain
-    -coredomain
-    -vendor_executes_system_violators
-    # vendor_init needs access to init_exec for domain transition. vendor_init
-    # neverallows are covered in public/vendor_init.te
-    -vendor_init
-  } {
-    system_file_type
-    -crash_dump_exec
-    -file_contexts_file
-    -netutils_wrapper_exec
-    -property_contexts_file
-    -system_lib_file
-    with_asan(`-system_asan_options_file')
-    -system_linker_exec
-    -system_linker_config_file
-    -system_seccomp_policy_file
-    -system_security_cacerts_file
-    -system_zoneinfo_file
-    userdebug_or_eng(`-tcpdump_exec')
-  }:file *;
-')
+# full_treble_only(`
+#   # Do not allow vendor components access to /system files except for the
+#   # ones whitelisted here.
+#   neverallow {
+#     domain
+#     -appdomain
+#     -coredomain
+#     -vendor_executes_system_violators
+#     # vendor_init needs access to init_exec for domain transition. vendor_init
+#     # neverallows are covered in public/vendor_init.te
+#     -vendor_init
+#   } {
+#     system_file_type
+#     -crash_dump_exec
+#     -file_contexts_file
+#     -netutils_wrapper_exec
+#     -property_contexts_file
+#     -system_lib_file
+#     with_asan(`-system_asan_options_file')
+#     -system_linker_exec
+#     -system_linker_config_file
+#     -system_seccomp_policy_file
+#     -system_security_cacerts_file
+#     -system_zoneinfo_file
+#     userdebug_or_eng(`-tcpdump_exec')
+#   }:file *;
+# ')
 
 # Only authorized processes should be writing to files in /data/dalvik-cache
 neverallow {
@@ -1349,6 +1354,7 @@ full_treble_only(`
     -ueventd
     -system_server
     -surfaceflinger
+    -cameraserver
   } vendor_file:file { no_w_file_perms no_x_file_perms open };
 ')
 
