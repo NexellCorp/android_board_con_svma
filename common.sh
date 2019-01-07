@@ -135,14 +135,14 @@ function setup_toolchain()
 	# external
 	# arm-linux-gnueabihf for optee 32bit build
 	test -d ${TOP}/device/nexell/tools/toolchain/gcc-linaro-4.9-2014.11-x86_64_arm-linux-gnueabihf ||\
-		tar xvjf ${TOP}/device/nexell/tools/toolchain/gcc-linaro-4.9-2014.11-x86_64_arm-linux-gnueabihf.tar.bz2 -C \
-		${TOP}/device/nexell/tools/toolchain/
+		cat ${TOP}/device/nexell/tools/toolchain/gcc-linaro-4.9-2014.11-x86_64_arm-linux-gnueabihf-splita* | \
+		tar -zxvpf - -C ${TOP}/device/nexell/tools/toolchain
 	export PATH=${TOP}/device/nexell/tools/toolchain/gcc-linaro-4.9-2014.11-x86_64_arm-linux-gnueabihf/bin:$PATH
 
 	# aarch64-linux-gnu for optee 64bit build
 	test -d ${TOP}/device/nexell/tools/toolchain/gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu ||\
-		tar xvJf ${TOP}/device/nexell/tools/toolchain/gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu.tar.xz -C \
-		${TOP}/device/nexell/tools/toolchain/
+		cat ${TOP}/device/nexell/tools/toolchain/gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu-split* | \
+		tar -zxvpf - -C ${TOP}/device/nexell/tools/toolchain
 	export PATH=${TOP}/device/nexell/tools/toolchain/gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu/bin:$PATH
 }
 
