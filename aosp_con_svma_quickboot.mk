@@ -43,10 +43,13 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.quickboot=true
 
 $(call inherit-product, device/nexell/con_svma/device.mk)
 
-PRODUCT_PACKAGES += \
+# PRODUCT_PACKAGES += \
 	Launcher3 \
 	Settings \
 	Gallery2 \
 	Camera2 \
 	BluetoothMidiService \
 	ContactsProvider
+
+PRODUCT_PACKAGES += \
+	Home
