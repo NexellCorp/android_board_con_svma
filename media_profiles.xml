@@ -78,33 +78,6 @@
 <MediaSettings>
     <!-- Each camcorder profile defines a set of predefined configuration parameters -->
     <CamcorderProfiles cameraId="0">
-<!--
-        <EncoderProfile quality="qvga" fileFormat="mp4" duration="50">
-            <Video codec="h264"
-                   bitRate="512000"
-                   width="320"
-                   height="240"
-                   frameRate="20" />
-
-            <Audio codec="aac"
-                   bitRate="16000"
-                   sampleRate="16000"
-                   channels="1" />
-        </EncoderProfile>
-
-	<EncoderProfile quality="480p" fileFormat="mp4" duration="50">
-            <Video codec="h264"
-                   bitRate="4000000"
-                   width="640"
-                   height="480"
-                   frameRate="20" />
-
-            <Audio codec="aac"
-                   bitRate="16000"
-                   sampleRate="16000"
-		   channels="1" />
-	</EncoderProfile>
--->
 	<EncoderProfile quality="720p" fileFormat="mp4" duration="33">
             <Video codec="h264"
                    bitRate="18000000"
@@ -116,49 +89,27 @@
                    sampleRate="16000"
                    channels="1" />
         </EncoderProfile>
-<!--
-	<EncoderProfile quality="1080p" fileFormat="mp4" duration="50">
-            <Video codec="h264"
-                   bitRate="33000000"
-                   width="1920"
-                   height="1080"
-                   frameRate="20" />
-            <Audio codec="aac"
-                   bitRate="16000"
-                   sampleRate="16000"
-                   channels="1" />
-        </EncoderProfile>
--->
-	<!-- ToDo : add quality="high"(qsxga:2592*1944) -->
 
-        <!--<EncoderProfile quality="timelapse1080p" fileFormat="mp4" duration="60">-->
-            <!--<Video codec="h264"-->
-                   <!--bitRate="12000000"-->
-                   <!--width="1600"-->
-                   <!--height="1200"-->
-                   <!--frameRate="8" />-->
+        <ImageEncoding quality="90" />
+        <ImageEncoding quality="80" />
+        <ImageEncoding quality="70" />
+        <ImageDecoding memCap="20000000" />
 
-            <!--[> Audio settings are not used for timealpse video recording <]-->
-            <!--<Audio codec="aac"-->
-                   <!--bitRate="96000"-->
-                   <!--sampleRate="44100"-->
-                   <!--channels="1" />-->
-        <!--</EncoderProfile>-->
+    </CamcorderProfiles>
 
-        <!--<EncoderProfile quality="timelapse720p" fileFormat="mp4" duration="30">
+    <CamcorderProfiles cameraId="1">
+        <EncoderProfile quality="480p" fileFormat="mp4" duration="30">
             <Video codec="h264"
                    bitRate="8000000"
                    width="704"
                    height="480"
                    frameRate="30" />
-	-->
-            <!-- Audio settings are not used for timealpse video recording -->
-        <!--<Audio codec="aac"
+
+            <Audio codec="aac"
                    bitRate="96000"
                    sampleRate="44100"
                    channels="1" />
         </EncoderProfile>
-	-->
 
         <ImageEncoding quality="90" />
         <ImageEncoding quality="80" />
