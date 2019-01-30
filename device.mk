@@ -59,6 +59,12 @@ PRODUCT_COPY_FILES += \
 	device/nexell/con_svma/media_profiles.xml:system/etc/media_profiles.xml \
 	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml
 
+ifeq ($(QUICKBOOT), 1)
+# wifi module
+PRODUCT_COPY_FILES += \
+	device/nexell/kernel/kernel-4.4.x/drivers/net/wireless/bcmdhd_cypress/bcmdhd.ko:system/lib/modules/bcmdhd.ko
+endif
+
 # bluetooth
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
