@@ -23,13 +23,19 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	device/nexell/con_svma/init.con_svma.rc:root/init.con_svma.rc \
 	device/nexell/con_svma/init.con_svma.usb.rc:root/init.con_svma.usb.rc \
-	device/nexell/con_svma/fstab.con_svma:root/fstab.con_svma \
 	device/nexell/con_svma/ueventd.con_svma.rc:root/ueventd.con_svma.rc \
 	device/nexell/con_svma/init.recovery.con_svma.rc:root/init.recovery.con_svma.rc \
     device/nexell/con_svma/busybox:system/bin/busybox \
     device/nexell/con_svma/hwreg_cmd:system/bin/hwreg_cmd \
     device/nexell/con_svma/memtester:system/bin/memtester
 
+ifeq ($(QUICKBOOT), 1)
+PRODUCT_COPY_FILES += \
+device/nexell/con_svma/fstab.con_svma_svm:root/fstab.con_svma
+else
+PRODUCT_COPY_FILES += \
+device/nexell/con_svma/fstab.con_svma:root/fstab.con_svma
+endif
 
 PRODUCT_PACKAGES += \
     nx_init
@@ -60,9 +66,11 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml
 
 ifeq ($(QUICKBOOT), 1)
-# wifi module
+# nx_vpu, wifi, sdio module
 PRODUCT_COPY_FILES += \
-	device/nexell/kernel/kernel-4.4.x/drivers/net/wireless/bcmdhd_cypress/bcmdhd.ko:system/lib/modules/bcmdhd.ko
+    device/nexell/kernel/kernel-4.4.x/drivers/net/wireless/bcmdhd_cypress/bcmdhd.ko:system/lib/modules/bcmdhd.ko \
+    device/nexell/kernel/kernel-4.4.x/drivers/media/platform/nx-vpu/nx_vpu.ko:system/lib/modules/nx_vpu.ko \
+    device/nexell/kernel/kernel-4.4.x/drivers/mmc/host/dw_mmc-nexell_sdio_1.ko:system/lib/modules/dw_mmc-nexell_sdio_1.ko
 endif
 
 # bluetooth

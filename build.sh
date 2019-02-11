@@ -209,7 +209,7 @@ elif [ "${MEMSIZE}" == "1GB" ]; then
 fi
 
 if [ "${QUICKBOOT}" == "true" ]; then
-    UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF root=\/dev\/mmcblk0p1 rw rootwait init=\/sbin\/nx_init quiet androidboot.selinux=permissive"
+    UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF root=\/dev\/mmcblk0p1 rw rootfstype=ext4 rootwait init=\/sbin\/nx_init quiet androidboot.selinux=permissive"
 else
     UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF quiet androidboot.selinux=permissive"
 fi
