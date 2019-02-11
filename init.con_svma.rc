@@ -63,6 +63,9 @@ on boot
     chmod 0660 /dev/ttyAMA1
     chown bluetooth net_bt_stack /dev/ttyAMA1
 
+    # nx_vpu, sdio module
+    insmod /system/lib/modules/nx_vpu.ko
+    insmod /system/lib/modules/dw_mmc-nexell_sdio_1.ko
 on post-fs
     chmod 0755 /sys/kernel/debug/tracing
     chmod 0666 /sys/class/backlight/pwm-backlight/brightness

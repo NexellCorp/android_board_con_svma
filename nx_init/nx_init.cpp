@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 {
 	pid_t pid;
 	pid_t pid2;
+	int status;
 
     mount("sysfs", "/sys", "sysfs", 0, NULL);
 	pid = fork();
@@ -24,7 +25,6 @@ int main(int argc, char *argv[])
 			execl("/init","init", NULL);
 		}
 	}
-	int status;
     waitpid(pid, &status, 0);
 	return 0;
 }
