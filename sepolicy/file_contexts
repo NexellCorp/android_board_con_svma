@@ -18,3 +18,4 @@
 /sbin/3DS/* u:object_r:rootfs:s0
 /sbin/avm/* u:object_r:rootfs:s0
 /sbin/ui/*  u:object_r:rootfs:s0
+/sbin/NxQuickRearCam u:object_r:NxQuickRearCam_exec:s0

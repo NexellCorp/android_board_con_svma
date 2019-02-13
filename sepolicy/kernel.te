@@ -4,3 +4,4 @@ allow kernel device:chr_file { create setattr getattr unlink };
 allow kernel device:dir { remove_name rmdir };
 allow kernel device:blk_file { create setattr getattr unlink };
 allow kernel self:system module_request;
+allow kernel sysfs:file { write };

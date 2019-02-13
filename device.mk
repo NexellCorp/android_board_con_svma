@@ -25,20 +25,28 @@ PRODUCT_COPY_FILES += \
 	device/nexell/con_svma/init.con_svma.usb.rc:root/init.con_svma.usb.rc \
 	device/nexell/con_svma/ueventd.con_svma.rc:root/ueventd.con_svma.rc \
 	device/nexell/con_svma/init.recovery.con_svma.rc:root/init.recovery.con_svma.rc \
-    device/nexell/con_svma/busybox:system/bin/busybox \
-    device/nexell/con_svma/hwreg_cmd:system/bin/hwreg_cmd \
-    device/nexell/con_svma/memtester:system/bin/memtester
+	device/nexell/con_svma/busybox:system/bin/busybox \
+	device/nexell/con_svma/hwreg_cmd:system/bin/hwreg_cmd \
+	device/nexell/con_svma/memtester:system/bin/memtester \
+	device/nexell/con_svma/modetest:system/bin/modetest
 
 ifeq ($(QUICKBOOT), 1)
 PRODUCT_COPY_FILES += \
-device/nexell/con_svma/fstab.con_svma_svm:root/fstab.con_svma
+	device/nexell/con_svma/fstab.con_svma_svm:root/fstab.con_svma \
+	device/nexell/con_svma/media_profiles_quick.xml:system/etc/media_profiles.xml
 else
 PRODUCT_COPY_FILES += \
-device/nexell/con_svma/fstab.con_svma:root/fstab.con_svma
+	device/nexell/con_svma/fstab.con_svma:root/fstab.con_svma \
+	device/nexell/con_svma/media_profiles.xml:system/etc/media_profiles.xml
 endif
 
+# NxQuickRearCam
+PRODUCT_COPY_FILES += \
+    device/nexell/con_svma/NxQuickRearCam/NxQuickRearCam:root/sbin/NxQuickRearCam
+
 PRODUCT_PACKAGES += \
-    nx_init
+    nx_init \
+    NxQuickRearCam
 
 PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -62,11 +70,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
 	device/nexell/con_svma/media_codecs.xml:system/etc/media_codecs.xml \
-	device/nexell/con_svma/media_profiles.xml:system/etc/media_profiles.xml \
 	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml
 
-ifeq ($(QUICKBOOT), 1)
 # nx_vpu, wifi, sdio module
+ifeq ($(QUICKBOOT), 1)
 PRODUCT_COPY_FILES += \
     device/nexell/kernel/kernel-4.4.x/drivers/net/wireless/bcmdhd_cypress/bcmdhd.ko:system/lib/modules/bcmdhd.ko \
     device/nexell/kernel/kernel-4.4.x/drivers/media/platform/nx-vpu/nx_vpu.ko:system/lib/modules/nx_vpu.ko \
