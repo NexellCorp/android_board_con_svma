@@ -6,11 +6,13 @@
 #include <sys/wait.h>
 #include <sys/mount.h>
 
+#define NXQUICKREARCAM
+
 int main(int argc, char *argv[])
 {
 	pid_t pid;
-	pid_t pid2;
 	int status;
+	int access_ret = 0;
 
     mount("sysfs", "/sys", "sysfs", 0, NULL);
 	pid = fork();
@@ -21,8 +23,17 @@ int main(int argc, char *argv[])
 			return -1;
 		}
 		case 0:
+		{		
+#ifdef NXQUICKREARCAM
+			execl("/sbin/NxQuickRearCam", "NxQuickRearCam", "-m1", "-b1", "-c26", "-r704x480", NULL);
+#endif
+			break;
+		}
+		default:
 		{
+			sleep(1);
 			execl("/init","init", NULL);
+			break;
 		}
 	}
     waitpid(pid, &status, 0);
