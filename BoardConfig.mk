@@ -69,6 +69,12 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/nexell/con_svma/bluetooth
 BOARD_CUSTOM_BT_CONFIG := device/nexell/con_svma/bluetooth/vnd_generic.txt
 
+# bluetooth audio paths
+SND_BT_CARD_ID := 0
+SND_BT_DEVICE_ID := 0
+SND_BT_SCO_CARD_ID := 0
+SND_BT_SCO_DEVICE_ID := 1
+
 BOARD_CHARGER_ENABLE_SUSPEND := false
 
 # ffmpeg libraries
