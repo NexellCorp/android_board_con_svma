@@ -38,6 +38,14 @@ else
 PRODUCT_COPY_FILES += \
 	device/nexell/con_svma/fstab.con_svma:root/fstab.con_svma \
 	device/nexell/con_svma/media_profiles.xml:system/etc/media_profiles.xml
+
+# tinyalsa
+PRODUCT_PACKAGES += \
+	libtinyalsa \
+	tinyplay \
+	tinycap \
+	tinymix \
+	tinypcminfo
 endif
 
 # NxQuickRearCam
