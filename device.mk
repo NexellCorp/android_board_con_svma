@@ -139,7 +139,8 @@ PRODUCT_PACKAGES += \
 	hwcomposer.con_svma \
 	audio.primary.con_svma \
 	memtrack.con_svma \
-	camera.con_svma
+	camera.con_svma \
+	lights.con_svma
 
 PRODUCT_PACKAGES += fs_config_files
 
