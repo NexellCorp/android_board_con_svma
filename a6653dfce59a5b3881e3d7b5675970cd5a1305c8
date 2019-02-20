@@ -45,6 +45,30 @@
       "revId": "a6653dfce59a5b3881e3d7b5675970cd5a1305c8",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a06b0284_84a997d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-02-20T00:49:44Z",
+      "side": 1,
+      "message": "\u003e tinyalsa is needed for convergence board?\n\nTest",
+      "parentUuid": "353b8fd7_461e8f41",
+      "range": {
+        "startLine": 9,
+        "startChar": 15,
+        "endLine": 9,
+        "endChar": 32
+      },
+      "revId": "a6653dfce59a5b3881e3d7b5675970cd5a1305c8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
