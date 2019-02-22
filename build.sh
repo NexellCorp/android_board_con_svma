@@ -170,14 +170,13 @@ if [ -f ${bl1} ] && [ -f ${loader} ] && [ -f ${secure} ] && [ -f ${nonsecure} ] 
     test -d ${OUT_DIR} && cp ${DEVICE_DIR}/bootloader ${OUT_DIR}
 fi
 
-test -f ${OUT_DIR}/ramdisk.img && \
-    make_android_bootimg \
-        ${KERNEL_IMG} \
-        ${DTB_IMG} \
-        ${OUT_DIR}/ramdisk.img \
-        ${OUT_DIR}/boot.img \
-        2048 \
-        "buildvariant=${BUILD_TAG}"
+make_android_bootimg \
+	${KERNEL_IMG} \
+	${DTB_IMG} \
+	${OUT_DIR}/ramdisk.img \
+	${OUT_DIR}/boot.img \
+	2048 \
+	"buildvariant=${BUILD_TAG}"
 
 post_process ${TARGET_SOC} \
     ${DEVICE_DIR}/partmap.txt \
