@@ -17,6 +17,7 @@ export_work_dir
 
 if [ "${QUICKBOOT}" == "true" ]; then
 	KERNEL_ZIMAGE=false
+	BUILD_SKIP_RECOVERY_KERNEL=false
 fi
 
 
@@ -256,10 +257,6 @@ if [ -f ${bl1} ] && [ -f ${loader} ] && [ -f ${secure} ] && [ -f ${nonsecure} ] 
 		${out_file}
 
 	test -d ${OUT_DIR} && cp ${DEVICE_DIR}/bootloader ${OUT_DIR}
-fi
-
-if [ "${BUILD_DIST}" == "true" ]; then
-	build_dist ${TARGET_SOC} ${BOARD_NAME} ${BUILD_TAG}
 fi
 
 if [ "${BUILD_KERNEL}" == "true" ]; then

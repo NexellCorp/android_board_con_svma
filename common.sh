@@ -28,7 +28,7 @@ BUILD_BL1=false
 BUILD_UBOOT=false
 BUILD_SECURE=false
 BUILD_KERNEL=false
-BUILD_MODULE=false
+BUILD_SKIP_RECOVERY_KERNEL=true
 BUILD_ANDROID=false
 BUILD_DIST=false
 VERBOSE=false
@@ -184,6 +184,7 @@ function build_uboot_env_param()
 	tr '\0' '\n' < copy_env_common.o > default_envs.txt
 	sed -i -e 's/bootcmd=.*/bootcmd='"${bootcmd}"'/g' default_envs.txt
 	sed -i -e 's/bootargs=.*/bootargs='"${bootargs}"'/g' default_envs.txt
+	sed -i -e 's/recovery_bootargs=.*/recovery_bootargs='"${recovery_bootargs}"'/g' default_envs.txt
 	if [ "${splashsource}" != "nosplash" ]; then
 		sed -i -e 's/splashsource=.*/splashsource='"${splashsource}"'/g' default_envs.txt
 	fi
@@ -483,7 +484,7 @@ function build_android()
 
     local product=PRODUCT-aosp_${2}-${3}
     if [ "${QUICKBOOT}" == "true" ]; then
-        make ${product} TARGET_SOC=${1} MODULE=${4} QUICKBOOT=1 -j8
+        make ${product} TARGET_SOC=${1} MODULE=${4} QUICKBOOT=1 QPART=1 -j8
     else
         make ${product} TARGET_SOC=${1} MODULE=${4} -j8
     fi
@@ -509,7 +510,7 @@ function build_dist()
     if [ "${QUICKBOOT}" == "true" ]; then
         cp -f ${TOP}/device/nexell/con_svma/ota_from_target_files_svm.py ${TOP}/build/tools/releasetools/ota_from_target_files.py
         cp -f ${TOP}/device/nexell/con_svma/releasetools_svm.py ${TOP}/device/nexell/con_svma/releasetools.py
-        make ${product} TARGET_SOC=${1} QUICKBOOT=1 dist -j8
+        make ${product} TARGET_SOC=${1} QUICKBOOT=1 QPART=1 dist -j8
     else
         cp -f ${TOP}/device/nexell/con_svma/ota_from_target_files_normal.py ${TOP}/build/tools/releasetools/ota_from_target_files.py
         cp -f ${TOP}/device/nexell/con_svma/releasetools_normal.py ${TOP}/device/nexell/con_svma/releasetools.py
