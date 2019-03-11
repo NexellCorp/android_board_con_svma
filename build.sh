@@ -126,7 +126,7 @@ if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
 
     UBOOT_RECOVERYCMD="ext4load mmc 0:6 0x49000000 recovery.dtb; ext4load mmc 0:6 0x40008000 recovery.kernel; ext4load mmc 0:6 0x48000000 ramdisk-recovery.img; bootz 40008000 0x48000000:2d0f8f 0x49000000"
 
-    UBOOT_BOOTARGS='console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789abcdef root=\/dev\/mmcblk0p2 rootwait rootfstype=ext4 init=\/init skip_initramfs androidboot.selinux=permissive blkdevparts=mmcblk0:64M@5242880(boot),1G(system),256M(vendor),6101663744(userdata)'
+    UBOOT_BOOTARGS='console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789abcdef root=\/dev\/mmcblk0p2 rootwait rw rootfstype=ext4 init=\/init skip_initramfs androidboot.selinux=permissive blkdevparts=mmcblk0:64M@5242880(boot),1G(system),256M(vendor),6101663744(userdata) quiet'
 
     SPLASH_SOURCE="mmc"
     SPLASH_OFFSET="0x2e4200"
