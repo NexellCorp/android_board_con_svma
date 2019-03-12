@@ -135,6 +135,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sf.lcd_density=160
 
+# default none for usb
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.sys.usb.config=none
+
 # libion needed by gralloc, ogl
 PRODUCT_PACKAGES += libion iontest
 
