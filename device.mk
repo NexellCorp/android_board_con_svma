@@ -219,3 +219,43 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heaptargetutilization=0.75 \
     dalvik.vm.heapminfree=512k \
     dalvik.vm.heapmaxfree=2m
+
+########################################################################
+# A/B OTA UPDATE
+########################################################################
+# target definitions
+AB_OTA_UPDATER := true
+AB_OTA_PARTITIONS := \
+  boot
+
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+TARGET_NO_RECOVERY := true
+BOARD_USES_RECOVERY_AS_BOOT := true
+PRODUCT_PACKAGES += \
+  update_engine \
+  update_verifier
+
+
+PRODUCT_PACKAGES_DEBUG += update_engine_client
+
+# bootctrl HAL
+PRODUCT_PACKAGES += \
+    bootctrl.default \
+    bootctrl.$(TARGET_BOARD_PLATFORM) \
+    bootctl
+
+# A/B OTA post actions
+PRODUCT_PACKAGES += cfigPostInstall
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_system=true \
+    POSTINSTALL_PATH_system=bin/cfigPostInstall \
+    FILESYSTEM_TYPE_system=ext4 \
+    POSTINSTALL_OPTIONAL_system=true
+
+# App compilation in background
+PRODUCT_PACKAGES += otapreopt_script
+AB_OTA_POSTINSTALL_CONFIG += \
+  RUN_POSTINSTALL_system=true \
+  POSTINSTALL_PATH_system=system/bin/otapreopt_script \
+  FILESYSTEM_TYPE_system=ext4 \
+  POSTINSTALL_OPTIONAL_system=true
