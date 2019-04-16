@@ -175,6 +175,10 @@ ifeq ($(EN_FFMPEG_EXTRACTOR),true)
 PRODUCT_PACKAGES += libNX_FFMpegExtractor
 endif
 
+PRODUCT_PACKAGES += \
+	libcurl \
+	libusb1.0
+
 # wifi
 PRODUCT_PACKAGES += \
 	libwpa_client \
