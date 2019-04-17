@@ -41,6 +41,7 @@ else
     TARGET_RECOVERY_FSTAB := device/nexell/con_svma/recovery.fstab
 endif
 
+BOARD_USES_ECNR := true
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := false
 
