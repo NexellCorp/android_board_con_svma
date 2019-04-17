@@ -179,6 +179,11 @@ PRODUCT_PACKAGES += \
 	libcurl \
 	libusb1.0
 
+# libvcp for alango ecnr
+ifeq ($(BOARD_USES_ECNR),true)
+PRODUCT_PACKAGES += libvcp
+endif
+
 # wifi
 PRODUCT_PACKAGES += \
 	libwpa_client \
