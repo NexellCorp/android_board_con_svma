@@ -13,3 +13,6 @@ on fs
 on boot
     class_start main
     class_start late_start
+
+    # for omx videobufcopy (0:Disable, 1:Enable)
+    setprop videobufcopy.mode 0
