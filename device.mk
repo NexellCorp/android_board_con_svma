@@ -128,6 +128,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-service.sim
 
+# omx
+PRODUCT_PACKAGES += \
+    libstagefrighthw \
+    libNX_OMX_VIDEO_DECODER \
+    libNX_OMX_VIDEO_ENCODER \
+    libNX_OMX_Base \
+    libNX_OMX_Core \
+    libNX_OMX_Common
+
 ########################################################################
 # PRODUCT_COPY_FILES
 ########################################################################
