@@ -77,7 +77,7 @@ Only the three quirks included above are recognized at this point:
 
 <MediaCodecs>
     <Include href="media_codecs_google_audio.xml" />
-    <!--Decoders-->
+    <Decoders>
         <!-- Nexell Audio Decoder for FFMPEG -->
   <!--
         <MediaCodec name="OMX.NX.AUDIO_DECODER.FFMPEG.ac3" type="audio/ac3" />
@@ -92,7 +92,7 @@ Only the three quirks included above are recognized at this point:
   -->
 
         <!-- Nexell Video Decoder -->
-        <!--MediaCodec name="OMX.NX.VIDEO_DECODER.3gpp" type="video/3gpp">
+        <MediaCodec name="OMX.NX.VIDEO_DECODER.3gpp" type="video/3gpp">
             <Limit name="size" min="32x32" max="1920x1088" />
             <Limit name="alignment" value="16x16" />
             <Limit name="block-size" value="16x16" />
@@ -160,9 +160,9 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-20000000" />
             <Feature name="adaptive-playback" />
         </MediaCodec>
-    </Decoders-->
+    </Decoders>
 
-    <!--Encoders>
+    <Encoders>
         <MediaCodec name="OMX.NX.VIDEO_ENCODER.avc" type="video/avc">
             <Limit name="size" min="96x16" max="1920x1088" />
             <Limit name="alignment" value="2x2" />
@@ -184,7 +184,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="blocks-per-second" range="6-244800" />
             <Limit name="bitrate" range="1-40000000" />
         </MediaCodec>
-    </Encoders-->
+    </Encoders>
 
     <Include href="media_codecs_google_video.xml" />
 </MediaCodecs>
