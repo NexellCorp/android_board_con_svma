@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd39a9ce_e1daf490",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-04-22T00:08:01Z",
+      "side": 1,
+      "message": "Remove this line.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 50
+      },
+      "revId": "5ed7e55f6a641cc6d4c991ffa0ab284df63454ef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
