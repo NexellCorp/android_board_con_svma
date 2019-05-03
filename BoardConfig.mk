@@ -68,7 +68,12 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 MAX_VIRTUAL_DISPLAY_DIMENSION := 2048
 
 #sepolicy
-BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
+BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy/vendor
+BOARD_PLAT_PUBLIC_SEPOLICY_DIR := $(LOCAL_PATH)/sepolicy/public
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR := $(LOCAL_PATH)/sepolicy/private
+# car related sepolicy
+BOARD_PLAT_PUBLIC_SEPOLICY_DIR += packages/services/Car/car_product/sepolicy/public
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += packages/services/Car/car_product/sepolicy/private
 
 # vendor interface manifest
 DEVICE_MANIFEST_FILE := $(LOCAL_PATH)/manifest.xml
