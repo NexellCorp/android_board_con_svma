@@ -237,6 +237,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # target definitions
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS := \
+  bootloader \
   boot \
   system \
   vendor
@@ -261,6 +262,9 @@ PRODUCT_PACKAGES += \
     bootctrl.default \
     bootctrl.$(TARGET_BOARD_PLATFORM) \
     bootctl
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.ota_update_verifier=true
 
 # A/B OTA post actions
 PRODUCT_PACKAGES += cfigPostInstall
