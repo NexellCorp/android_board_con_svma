@@ -16,6 +16,7 @@ export_work_dir
 DEV_PORTNUM=0
 MEMSIZE="2GB"
 PAGESIZE=4096
+OTA_AB_UPDATE=true
 
 ADDRESS=0x93c00000
 if [ "${MEMSIZE}" == "2GB" ]; then
@@ -39,6 +40,11 @@ RECOVERY_KERNEL_IMG=${KERNEL_DIR}/arch/arm/boot/zImage
 DTB_IMG=${KERNEL_DIR}/arch/arm/boot/dts/s5p4418-con_svma-rev00.dtb
 
 CROSS_COMPILE="arm-eabi-"
+PARTMAP_TXT="partmap_legacy.txt"
+
+if [ "${OTA_AB_UPDATE}" == "true" ]; then
+    PARTMAP_TXT="partmap_AB_update.txt"
+fi
 
 function run_bl1_build()
 {
@@ -113,19 +119,23 @@ test -d ${OUT_DIR} && test -f ${DEVICE_DIR}/bootloader && cp ${DEVICE_DIR}/bootl
 
 function run_android_build()
 {
-    if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_ANDROID}" == "true" ]; then
-        rm -rf ${OUT_DIR}/system
-        rm -rf ${OUT_DIR}/root
-        rm -rf ${OUT_DIR}/data
-        generate_key ${BOARD_NAME}
-        cp -R ${DEVICE_DIR}/source_overlay/* ${TOP}
-        build_android ${TARGET_SOC} "${BOARD_NAME}_auto" ${BUILD_TAG}
+    if [ "${BUILD_DIST}" == "false" ]; then
+        if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_ANDROID}" == "true" ]; then
+            rm -rf ${OUT_DIR}/system
+            rm -rf ${OUT_DIR}/root
+            rm -rf ${OUT_DIR}/data
+            generate_key ${BOARD_NAME}
+            cp -R ${DEVICE_DIR}/source_overlay/* ${TOP}
+            build_android ${TARGET_SOC} "${BOARD_NAME}_auto" ${BUILD_TAG}
+        fi
     fi
 }
 
 function run_dist_build()
 {
     if [ "${BUILD_DIST}" == "true" ]; then
+        rm -rf ${OUT_DIR}/obj/PACKAGING/
+        rm -rf ${TOP}/out/dist/
         build_dist ${TARGET_SOC} ${BOARD_NAME} ${BUILD_TAG}
     fi
 }
@@ -138,7 +148,7 @@ function run_make_uboot_env()
     local VENDOR_BLK_SELECT
     if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
         test -f ${UBOOT_DIR}/u-boot.bin && \
-        make_uboot_bootcmd ${DEVICE_DIR}/partmap.txt \
+        make_uboot_bootcmd ${DEVICE_DIR}/${PARTMAP_TXT} \
                            ${UBOOT_LOAD_ADDR} \
                            ${PAGESIZE} \
                            ${KERNEL_IMG} \
@@ -175,28 +185,37 @@ function run_make_bootloader()
 {
     # make bootloader
     echo "make bootloader"
-    bl1=${BL1_DIR}/bl1-${TARGET_SOC}/out/bl1-emmcboot.bin
     loader=${TOP}/device/nexell/secure/loader-emmc.img
     secure=${TOP}/device/nexell/secure/bl_mon.img
     nonsecure=${TOP}/device/nexell/secure/bootloader.img
     param=${UBOOT_DIR}/params.bin
     boot_logo=${DEVICE_DIR}/logo.bmp
     out_file=${DEVICE_DIR}/bootloader
+    #65536=(0x10000)
+    offset_secure=262144        #0x40000
+    offset_nonsecure=1966080    #0x1E0000
+    offset_param=3014656        #0x2E0000
+    offset_bootlogo=3031040     #0x2E4000
+    
+    if [ "${OTA_AB_UPDATE}" == "true" ]; then
+        offset_secure=196608        # 0x40000 - 0x10000 = 0x 30000
+        offset_nonsecure=1900544    #0x1E0000 - 0x10000 = 0x1D0000
+        offset_param=2949120        #0x2E0000 - 0x10000 = 0x2D0000
+        offset_bootlogo=2965504     #0x2E4000 - 0x10000 = 0x2D4000
+    fi
 
-    if [ -f ${bl1} ] && [ -f ${loader} ] && [ -f ${secure} ] && [ -f ${nonsecure} ] && [ -f ${param} ] && [ -f ${boot_logo} ]; then
-        BOOTLOADER_PARTITION_SIZE=$(get_partition_size ${DEVICE_DIR}/partmap.txt bootloader)
+    if [ -f ${loader} ] && [ -f ${secure} ] && [ -f ${nonsecure} ] && [ -f ${param} ] && [ -f ${boot_logo} ]; then
+        BOOTLOADER_PARTITION_SIZE=$(get_partition_size ${DEVICE_DIR}/${PARTMAP_TXT} bootloader_a)
         make_bootloader \
             ${BOOTLOADER_PARTITION_SIZE} \
-            ${bl1} \
-            65536 \
             ${loader} \
-            262144 \
+            ${offset_secure} \
             ${secure} \
-            1966080 \
+            ${offset_nonsecure} \
             ${nonsecure} \
-            3014656 \
+            ${offset_param} \
             ${param} \
-            3031040 \
+            ${offset_bootlogo} \
             ${boot_logo} \
             ${out_file}
 
@@ -218,7 +237,7 @@ function run_make_android_bootimg()
 function run_post_process()
 {
     post_process ${TARGET_SOC} \
-        ${DEVICE_DIR}/partmap.txt \
+        ${DEVICE_DIR}/${PARTMAP_TXT} \
         ${RESULT_DIR} \
         ${BL1_DIR}/bl1-${TARGET_SOC}/out \
         ${TOP}/device/nexell/secure \
