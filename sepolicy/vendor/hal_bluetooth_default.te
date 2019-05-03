@@ -1,0 +1,2 @@
+typeattribute hal_bluetooth_default hal_telephony_server;
+allow hal_bluetooth_default hal_bluetooth_default:tcp_socket create;
