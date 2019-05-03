@@ -237,6 +237,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # target definitions
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS := \
+  bootloader \
   boot \
   system \
   vendor
