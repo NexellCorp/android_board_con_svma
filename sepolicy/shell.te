@@ -1,3 +1,0 @@
-allow shell rootfs:file { getattr read open };
-allow shell vendor_file:file { execute getattr open read execute_no_trans };
-allow shell kernel:system syslog_read;
