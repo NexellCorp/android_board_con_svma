@@ -5,26 +5,33 @@ on init
     chmod 0755 /sys/kernel/debug
 
     mkdir /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name 0770 system system
-    wait /dev/block/mmcblk0p8
-    symlink /dev/block/mmcblk0p8 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/misc
 
     wait /dev/block/mmcblk0p1
-    symlink /dev/block/mmcblk0p1 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/boot_a
+    symlink /dev/block/mmcblk0p1 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/bootloader_a
 
     wait /dev/block/mmcblk0p2
-    symlink /dev/block/mmcblk0p2 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/boot_b
+    symlink /dev/block/mmcblk0p2 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/bootloader_b
 
     wait /dev/block/mmcblk0p3
-    symlink /dev/block/mmcblk0p3 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/system_a
+    symlink /dev/block/mmcblk0p3 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/boot_a
 
     wait /dev/block/mmcblk0p5
-    symlink /dev/block/mmcblk0p5 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/system_b
+    symlink /dev/block/mmcblk0p5 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/boot_b
 
     wait /dev/block/mmcblk0p6
-    symlink /dev/block/mmcblk0p6 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/vendor_a
+    symlink /dev/block/mmcblk0p6 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/system_a
 
     wait /dev/block/mmcblk0p7
-    symlink /dev/block/mmcblk0p7 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/vendor_b
+    symlink /dev/block/mmcblk0p7 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/system_b
+
+    wait /dev/block/mmcblk0p8
+    symlink /dev/block/mmcblk0p8 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/vendor_a
+
+    wait /dev/block/mmcblk0p9
+    symlink /dev/block/mmcblk0p9 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/vendor_b
+
+    wait /dev/block/mmcblk0p10
+    symlink /dev/block/mmcblk0p10 /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/misc
 
 on fs
     # Start HW service manager early
@@ -38,3 +45,6 @@ on boot
 
     # for omx videobufcopy (0:Disable, 1:Enable)
     setprop videobufcopy.mode 0
+
+on boot && property:ro.vendor.ota_update_verifier=true
+    exec_start update_verifier_nonencrypted
