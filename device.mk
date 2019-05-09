@@ -232,6 +232,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     media.settings.xml=/vendor/etc/media_profiles.xml
 
+# Enable AAudio MMAP/NOIRQ data path.
+# 1 is AAUDIO_POLICY_NEVER  means only use Legacy path.
+# 2 is AAUDIO_POLICY_AUTO   means try MMAP then fallback to Legacy path.
+# 3 is AAUDIO_POLICY_ALWAYS means only use MMAP path.
+PRODUCT_PROPERTY_OVERRIDES += aaudio.mmap_policy=2
+# 1 is AAUDIO_POLICY_NEVER  means only use SHARED mode
+# 2 is AAUDIO_POLICY_AUTO   means try EXCLUSIVE then fallback to SHARED mode.
+# 3 is AAUDIO_POLICY_ALWAYS means only use EXCLUSIVE mode.
+PRODUCT_PROPERTY_OVERRIDES += aaudio.mmap_exclusive_policy=2
+
 # target definitions
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS := \
