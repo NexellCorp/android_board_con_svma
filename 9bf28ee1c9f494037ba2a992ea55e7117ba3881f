@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cffb4b6_8a363153",
+        "filename": "sepolicy/vendor/file.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-05-13T23:53:17Z",
+      "side": 1,
+      "message": "Remove this red space",
+      "range": {
+        "startLine": 3,
+        "startChar": 42,
+        "endLine": 3,
+        "endChar": 43
+      },
+      "revId": "9bf28ee1c9f494037ba2a992ea55e7117ba3881f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fc39d3d_6a78c0ab",
+        "filename": "sepolicy/vendor/fsck.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-05-13T23:53:17Z",
+      "side": 1,
+      "message": "Remove empty blank",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 0
+      },
+      "revId": "9bf28ee1c9f494037ba2a992ea55e7117ba3881f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd8df9f7_1affee9c",
+        "filename": "sepolicy/vendor/hal_camera_default.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-05-13T23:53:17Z",
+      "side": 1,
+      "message": "Remove these lines",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 0
+      },
+      "revId": "9bf28ee1c9f494037ba2a992ea55e7117ba3881f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09bb1b2f_3cee66e2",
+        "filename": "sepolicy/vendor/hal_vehicle_default.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-05-13T23:53:17Z",
+      "side": 1,
+      "message": "Remove these lines",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 0
+      },
+      "revId": "9bf28ee1c9f494037ba2a992ea55e7117ba3881f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58ca8c18_f16284fb",
+        "filename": "sepolicy/vendor/init.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-05-13T23:53:17Z",
+      "side": 1,
+      "message": "Remove blank lines",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "9bf28ee1c9f494037ba2a992ea55e7117ba3881f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3850e1fc_fc83f7c6",
+        "filename": "sepolicy/vendor/shell.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-05-13T23:53:17Z",
+      "side": 1,
+      "message": "Remove blank lines",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 0
+      },
+      "revId": "9bf28ee1c9f494037ba2a992ea55e7117ba3881f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
