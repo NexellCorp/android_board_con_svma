@@ -12,6 +12,8 @@
 # bluetooth hal service exec file context
 /vendor/bin/hw/android.hardware.bluetooth@1.0-service.sim			u:object_r:hal_bluetooth_default_exec:s0
 
+# usb hal
+/vendor/bin/hw/android.hardware.usb@1.1-service-nexell u:object_r:hal_usb_default_exec:s0
 
 #########################
 # Devices
