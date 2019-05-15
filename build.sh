@@ -259,3 +259,4 @@ run_make_uboot_env
 run_make_bootloader
 run_make_android_bootimg
 run_post_process
+gen_boot_usb_script_4418 nxp4330 0xffff0000 ${RESULT_DIR}
