@@ -125,7 +125,6 @@ function run_android_build()
             rm -rf ${OUT_DIR}/root
             rm -rf ${OUT_DIR}/data
             generate_key ${BOARD_NAME}
-            cp -R ${DEVICE_DIR}/source_overlay/* ${TOP}
             build_android ${TARGET_SOC} "${BOARD_NAME}_auto" ${BUILD_TAG}
         fi
     fi
@@ -260,4 +259,3 @@ run_make_uboot_env
 run_make_bootloader
 run_make_android_bootimg
 run_post_process
-
