@@ -129,6 +129,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-service.sim
 
+# power
+PRODUCT_PACKAGES += \
+    android.hardware.power@1.1-service \
+
+PRODUCT_PROPERTY_OVERRIDES += ro.hardware.power=nexell
+
 # omx
 PRODUCT_PACKAGES += \
     libstagefrighthw \
