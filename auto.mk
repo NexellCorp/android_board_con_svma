@@ -17,6 +17,7 @@
 # DEVICE_MANIFEST_FILE += device/nexell/con_svma/manifest-auto.xml
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
+$(call inherit-product, device/nexell/con_svma/soc.mk)
 $(call inherit-product, device/nexell/con_svma/device.mk)
 
 ################################################
