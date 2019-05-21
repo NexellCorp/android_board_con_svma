@@ -1,0 +1,2 @@
+allow crash_dump system_data_file:file { getattr open };
+allow crash_dump app_data_file:file { read getattr open };
