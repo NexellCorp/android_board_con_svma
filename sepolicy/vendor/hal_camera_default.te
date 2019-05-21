@@ -1,1 +1,5 @@
+typeattribute hal_camera_default hal_camera_server;
+
 allow hal_camera_default vndbinder_device:chr_file { read write open ioctl };
+allow hal_camera_default nx_scaler_device:chr_file { read write open };
+allow hal_camera_default hal_graphics_mapper_hwservice:hwservice_manager find;
