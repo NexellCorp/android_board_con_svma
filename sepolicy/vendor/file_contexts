@@ -13,7 +13,8 @@
 /vendor/bin/hw/android.hardware.bluetooth@1.0-service.sim			u:object_r:hal_bluetooth_default_exec:s0
 
 # usb hal
-/vendor/bin/hw/android.hardware.usb@1.1-service-nexell u:object_r:hal_usb_default_exec:s0
+#/vendor/bin/hw/android.hardware.usb@1.1-service-nexell u:object_r:hal_usb_default_exec:s0
+/vendor/bin/hw/android.hardware.usb@1.1-service-nexell u:object_r:hal_usb_nexell_default_exec:s0
 
 # files in /vendor
 /vendor/bin/hw/android\.hardware\.power@1\.1-service          u:object_r:hal_power_default_exec:s0
@@ -28,6 +29,7 @@
 /dev/block/mmcblk[0-9]*    u:object_r:nx_block_device:s0
 /dev/block/mmcblk0p[0-9]*    u:object_r:nx_block_device:s0
 /dev/ttyAMA[0-9]*       u:object_r:console_device:s0
+/dev/scaler				u:object_r:nx_scaler_device:s0
 
 #/system/bin/com.android.car.powertestservice			u:object_r:power_test_service_exec:s0
 /system/bin/com.android.car.procfsinspector				u:object_r:procfs_inspector_exec:s0
