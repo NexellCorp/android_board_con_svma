@@ -87,7 +87,7 @@
                    frameRate="30" />
             <Audio codec="aac"
                    bitRate="96000"
-                   sampleRate="441000"
+                   sampleRate="44100"
                    channels="1" />
         </EncoderProfile>
 
@@ -99,7 +99,7 @@
                    frameRate="30" />
             <Audio codec="aac"
                    bitRate="156000"
-                   sampleRate="441000"
+                   sampleRate="44100"
                    channels="1" />
         </EncoderProfile>
 
@@ -111,11 +111,12 @@
                    frameRate="30" />
             <Audio codec="aac"
                    bitRate="96000"
-                   sampleRate="441000"
+                   sampleRate="44100"
                    channels="1" />
         </EncoderProfile>
 
-	<EncoderProfile quality="vga" fileFormat="mp4" duration="30">
+
+	<EncoderProfile quality="480p" fileFormat="mp4" duration="30">
             <Video codec="h264"
                    bitRate="6000000"
                    width="640"
@@ -149,7 +150,7 @@
                    frameRate="30" />
             <Audio codec="aac"
                    bitRate="96000"
-                   sampleRate="441000"
+                   sampleRate="44100"
                    channels="1" />
         </EncoderProfile>
 
