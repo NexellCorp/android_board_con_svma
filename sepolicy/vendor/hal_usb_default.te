@@ -1,9 +1,0 @@
-allow hal_usb_default configfs:file { ioctl open read write unlink };
-allow hal_usb_default configfs:dir { ioctl open read write remove_name add_name };
-allow hal_usb_default configfs:lnk_file { ioctl open read write unlink create };
-allow hal_usb_default device:file { ioctl open read write unlink };
-allow hal_usb_default device:dir { ioctl open read write remove_name add_name };
-allow hal_usb_default device:lnk_file { ioctl open read write unlink create };
-allow hal_usb_default functionfs:dir { ioctl open read write unlink};
-allow hal_usb_default functionfs:file { ioctl open read write unlink};
-allow hal_usb_default hal_usb_default:capability { sys_resource };
