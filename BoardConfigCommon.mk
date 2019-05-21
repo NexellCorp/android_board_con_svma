@@ -20,12 +20,6 @@ LOCAL_PATH := device/nexell/con_svma
 TARGET_BOARD_PLATFORM := s5pxx18
 TARGET_BOOTLOADER_BOARD_NAME := con_svma
 
-TARGET_ARCH := arm
-TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_CPU_ABI := armeabi-v7a
-TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_VARIANT := cortex-a9
-
 # do not stop building despite of build warning
 BUILD_BROKEN_DUP_RULES := true
 
