@@ -1,3 +1,18 @@
 allow shell console_device:chr_file { read write };
 allow shell keychar_file:dir getattr;
 allow shell keylayout_file:dir getattr;
+allow shell vendor_toolbox_nx_exec:file { getattr execute };
+dontaudit shell kernel:system syslog_read;
+allow shell e2fs_exec:file { getattr execute };
+allow shell fsck_exec:file { getattr execute };
+allow shell vendor_file:file { getattr execute };
+allow shell cache_file:lnk_file { read getattr };
+allow shell init_exec:file getattr;
+allow shell postinstall_mnt_dir:dir getattr;
+allow shell rootfs:file getattr;
+allow shell fsck_exec:file { read open execute_no_trans };
+allow shell proc_swaps:file { read getattr open };
+allow shell bootanim_exec:file { getattr execute };
+allow shell bootstat_exec:file { getattr execute };
+allow shell servicemanager_exec:file { getattr execute };
+allow shell runtime_event_log_tags_file:file getattr;
