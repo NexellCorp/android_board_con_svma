@@ -1,1 +1,1 @@
-type nx_block_device, dev_type;
+type nx_scaler_device, dev_type;
