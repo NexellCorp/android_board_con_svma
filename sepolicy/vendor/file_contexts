@@ -29,6 +29,7 @@
 /dev/block/mmcblk[0-9]*    u:object_r:nx_block_device:s0
 /dev/block/mmcblk0p[0-9]*    u:object_r:nx_block_device:s0
 /dev/ttyAMA[0-9]*       u:object_r:console_device:s0
+/dev/ttySAC[0-9]*       u:object_r:console_device:s0
 /dev/scaler				u:object_r:nx_scaler_device:s0
 
 #/system/bin/com.android.car.powertestservice			u:object_r:power_test_service_exec:s0
