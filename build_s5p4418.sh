@@ -119,7 +119,6 @@ function run_dist_build()
 {
     if [ "${BUILD_DIST}" == "true" ]; then
         rm -rf ${OUT_DIR}/obj/PACKAGING/
-        rm -rf ${TOP}/out/dist/
         build_dist ${TARGET_SOC} ${BOARD_NAME} ${BUILD_TAG}
     fi
 }

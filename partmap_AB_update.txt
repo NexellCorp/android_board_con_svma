@@ -3,7 +3,7 @@
 # Target device uses this partmap information to fuse flash images by fastboot
 flash=mmc,0:bl1:2nd:0x200,0xFE00:bl1-emmcboot.bin;
 flash=mmc,0:bootloader_a:emmc:0x10200,0x4B0000:bootloader;
-flash=mmc,0:bootloader_b:emmc:0x4D0200,0x4B0000:bootloader_b;
+flash=mmc,0:bootloader_b:emmc:0x4D0200,0x4B0000:dummy.img;
 flash=mmc,0:boot_a:emmc:0xA90000,0x4000000:boot.img;
 flash=mmc,0:boot_b:emmc:0x4B90000,0x4000000:dummy.img;
 flash=mmc,0:system_a:ext4:0x8C90000,0x40000000:system.img;
