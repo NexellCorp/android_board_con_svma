@@ -21,3 +21,6 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a9
 
 include device/nexell/con_svma/BoardConfigCommon.mk
+
+# misc by-name path
+NEXELL_MISC_PARTITION := /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/misc
