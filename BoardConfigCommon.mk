@@ -97,6 +97,3 @@ BOARD_CAMERA_BACK_ORIENTATION := "0"
 BOARD_CAMERA_NUM := 1
 BOARD_CAMERA_USE_ZOOM := false
 BOARD_CAMERA_SUPPORT_SCALING := true
-
-# misc by-name path
-NEXELL_MISC_PARTITION := /dev/block/platform/c0000000.soc/c0062000.dwmmc/by-name/misc

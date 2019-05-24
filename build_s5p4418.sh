@@ -32,6 +32,13 @@ if [ "${OTA_AB_UPDATE}" == "true" ]; then
     PARTMAP_TXT="partmap_AB_update.txt"
 fi
 
+function run_clean_packages()
+{
+    if [ "${BUILD_DIST}" == "true" ]; then
+        rm -rf ${OUT_DIR}/obj/PACKAGING/
+    fi
+}
+
 function run_bl1_build()
 {
     if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_BL1}" == "true" ]; then
@@ -118,8 +125,6 @@ function run_android_build()
 function run_dist_build()
 {
     if [ "${BUILD_DIST}" == "true" ]; then
-        rm -rf ${OUT_DIR}/obj/PACKAGING/
-        rm -rf ${TOP}/out/dist/
         build_dist ${TARGET_SOC} ${BOARD_NAME} ${BUILD_TAG}
     fi
 }

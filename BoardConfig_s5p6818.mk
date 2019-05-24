@@ -23,3 +23,6 @@ TARGET_CPU_VARIANT := cortex-a9
 include device/nexell/con_svma/BoardConfigCommon.mk
 
 TARGET_USES_64_BIT_BINDER := true
+
+# misc by-name path
+NEXELL_MISC_PARTITION := /dev/block/platform/c0000000.soc/c0069000.dw_mmc/by-name/misc
