@@ -2,14 +2,30 @@
 
 set -e
 
-# PAGESIZE=4096
 PAGESIZE=2048
-OTA_AB_UPDATE=false
+OTA_AB_UPDATE=true
+
+UBOOT_LOAD_ADDR=0x4007f000
 
 PARTMAP_TXT="partmap_legacy.txt"
 
+OFFSET_LOADER=65536
+OFFSET_SECURE=393216             #0x60000
+OFFSET_SECURE_HEAD=0x60200       #0x60200 : 0x60000 + 0x200(NSIH) = 393728
+OFFSET_NONSECURE=1966080         #0x1E0000
+OFFSET_NONSECURE_HEAD=0x1E0200   #0x1E0000 : 0x1E0000 + 0x200(NSIH) = 1966592
+OFFSET_PARAM=3014656             #0x2E0000
+OFFSET_BOOTLOGO=3031040          #0x2E4000
+
 if [ "${OTA_AB_UPDATE}" == "true" ]; then
+    PAGESIZE=4096
+    # PARTMAP_TXT="partmap_AB_update_temp.txt"
     PARTMAP_TXT="partmap_AB_update.txt"
+
+    OFFSET_SECURE=327680             #0x50000 = 0x60000 - 0x10000
+    OFFSET_NONSECURE=1900544         #0x1D0000 = 0x1E0000 - 0x10000
+    OFFSET_PARAM=2949120             #0x2D0000 = 0x2E0000 - 0x10000
+    OFFSET_BOOTLOGO=2965504          #0x2D4000 = 0x2E4000 - 0x10000
 fi
 
 DEVID_USB=0
@@ -44,6 +60,10 @@ OPTEE_BUILD_OPT+=" CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE32=${CROSS_COMP
 OPTEE_BUILD_OPT+=" UBOOT_DIR=${UBOOT_DIR}"
 if [ "${QUICKBOOT}" == "true" ]; then
 OPTEE_BUILD_OPT+=" QUICKBOOT=1"
+fi
+
+if [ "${OTA_AB_UPDATE}" == "true" ]; then
+OPTEE_BUILD_OPT+=" SUPPORT_OTA_AB_UPDATE=1"
 fi
 
 KERNEL_IMG=${KERNEL_DIR}/arch/arm64/boot/Image
@@ -190,10 +210,12 @@ function gen_loader()
 			devname="sd"
 		fi
 
-		# 0x60200 : MBR (0x200) + 2ndboot (0x10000) + FIP-LOADER size (0x50000)
-		# 0x1E0200 : 0x50200 + FIP-SECURE size(0x180000)
-		dev_offset_opts="-m 0x60200 -b ${bootdev} -p ${portnum} \
-			-m 0x1E0200 -b ${bootdev} -p ${portnum}"
+                # 0x60200 : MBR (0x200) + 2ndboot (0x10000) + FIP-LOADER size (0x50000)
+                # 0x1E0200 : 0x50200 + FIP-SECURE size(0x180000)
+
+                dev_offset_opts="-m ${OFFSET_SECURE_HEAD} -b ${bootdev} -p ${portnum} \
+                        -m ${OFFSET_NONSECURE_HEAD} -b ${bootdev} -p ${portnum}"
+
 	elif [ ${bootdev} == ${DEVID_USB} ]; then
 		dev_offset_opts="-u -m 0x7fb00000 -z ${FIP_SEC_SIZE} \
 			-m 0x7df00000 -z ${FIP_NONSEC_SIZE}"
@@ -422,12 +444,13 @@ function run_secure_build()
         gen_third ${TARGET_SOC} \
             ${OPTEE_DIR}/optee_build/result/fip-loader.bin \
             0xbfcc0000 0xbfd00800 ${OPTEE_DIR}/optee_build/result/fip-loader-emmc.img \
-            "-k 3 -m 0x60200 -b 3 -p 2 -m 0x1E0200 -b 3 -p 2"
+            "-k 3 -m ${OFFSET_SECURE_HEAD} -b 3 -p 2 -m ${OFFSET_NONSECURE_HEAD} -b 3 -p 2"
+
         # generate fip-loader-sd.img
         gen_third ${TARGET_SOC} \
             ${OPTEE_DIR}/optee_build/result/fip-loader.bin \
             0xbfcc0000 0xbfd00800 ${OPTEE_DIR}/optee_build/result/fip-loader-sd.img \
-            "-k 3 -m 0x60200 -b 3 -p 0 -m 0x1E0200 -b 3 -p 0"
+            "-k 3 -m ${OFFSET_SECURE_HEAD} -b 3 -p 0 -m ${OFFSET_NONSECURE_HEAD} -b 3 -p 0"
         # generate fip-secure.img
         gen_third ${TARGET_SOC} ${OPTEE_DIR}/optee_build/result/fip-secure.bin \
             0xbfb00000 0x00000000 ${OPTEE_DIR}/optee_build/result/fip-secure.img
@@ -475,7 +498,6 @@ function run_dist_build()
 {
     if [ "${BUILD_DIST}" == "true" ]; then
         rm -rf ${OUT_DIR}/obj/PACKAGING/
-        rm -rf ${TOP}/out/dist/
         build_dist ${TARGET_SOC} ${BOARD_NAME} ${BUILD_TAG}
     fi
 }
@@ -483,16 +505,20 @@ function run_dist_build()
 function run_make_uboot_env()
 {
     echo "make u-boot env"
+    local UBOOT_BOOTCMD
+    local VENDOR_BLK_SELECT
     if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
         test -f ${UBOOT_DIR}/u-boot.bin && \
-            UBOOT_BOOTCMD=$(make_uboot_bootcmd_legacy \
-            ${DEVICE_DIR}/${PARTMAP_TXT} \
-            0x4007f800 \
-            2048 \
-            ${KERNEL_IMG} \
-            ${DTB_IMG} \
-            ${DEVICE_DIR}/ramdisk-dummy \
-            "boot:emmc")
+            make_uboot_bootcmd ${DEVICE_DIR}/${PARTMAP_TXT} \
+                   ${UBOOT_LOAD_ADDR} \
+                   ${PAGESIZE} \
+                   ${KERNEL_IMG} \
+                   ${DTB_IMG} \
+                   ${DEVICE_DIR}/ramdisk-dummy \
+                   "boot_a:emmc" \
+                   "boot_b:emmc" \
+                   UBOOT_BOOTCMD \
+                   VENDOR_BLK_SELECT
 
         UBOOT_RECOVERYCMD="ext4load mmc 0:6 0x49000000 recovery.dtb; ext4load mmc 0:6 0x40080000 recovery.kernel; ext4load mmc 0:6 0x48000000 ramdisk-recovery.img; booti 40080000 0x48000000:2d0f8f 0x49000000"
 
@@ -503,12 +529,20 @@ function run_make_uboot_env()
 
         AUTORECOVERY_CMD="nxrecovery mmc 1 mmc 0"
 
-        echo "UBOOT_BOOTCMD ==> ${UBOOT_BOOTCMD}"
-        echo "UBOOT_RECOVERYCMD ==> ${UBOOT_RECOVERYCMD}"
+        echo -e "----------------------------------------------------"
+        echo -e "UBOOT_BOOTCMD_A = ${UBOOT_BOOTCMD[0]}"
+        echo -e "UBOOT_BOOTCMD_B = ${UBOOT_BOOTCMD[1]}"
+        echo -e "VENDOR_BLK_SELECT_A = ${VENDOR_BLK_SELECT[0]}"
+        echo -e "VENDOR_BLK_SELECT_B = ${VENDOR_BLK_SELECT[1]}"
+        echo -e "----------------------------------------------------"
+        echo -e "UBOOT_RECOVERYCMD ==> ${UBOOT_RECOVERYCMD}\n"
 
         pushd `pwd`
         cd ${UBOOT_DIR}
-        build_uboot_env_param_legacy ${CROSS_COMPILE} "${UBOOT_BOOTCMD}" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}"
+
+        build_uboot_env_param ${CROSS_COMPILE} "UBOOT_BOOTCMD[@]" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}" "VENDOR_BLK_SELECT[@]"
+
+        # build_uboot_env_param_legacy ${CROSS_COMPILE} "${UBOOT_BOOTCMD}" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}"
         # for sd card auto recovery
         #build_uboot_env_param ${CROSS_COMPILE} "${UBOOT_BOOTCMD}" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}" "${AUTORECOVERY_CMD}" "params_sd.bin"
         popd
@@ -528,20 +562,18 @@ function run_make_bootloader()
     local boot_logo=${DEVICE_DIR}/logo.bmp
     local out_file=${DEVICE_DIR}/bootloader
 
-    if [ -f ${bl1} ] && [ -f ${loader} ] && [ -f ${secure} ] && [ -f ${nonsecure} ] && [ -f ${param} ] && [ -f ${boot_logo} ]; then
-        local boot_part_size=$(get_partition_size ${DEVICE_DIR}/${PARTMAP_TXT} bootloader)
-        make_bootloader_legacy \
+    if [ -f ${loader} ] && [ -f ${secure} ] && [ -f ${nonsecure} ] && [ -f ${param} ] && [ -f ${boot_logo} ]; then
+        local boot_part_size=$(get_partition_size ${DEVICE_DIR}/${PARTMAP_TXT} bootloader_a)
+        make_bootloader \
             ${boot_part_size} \
-            ${bl1} \
-            65536 \
             ${loader} \
-            393216 \
+            ${OFFSET_SECURE} \
             ${secure} \
-            1966080 \
+            ${OFFSET_NONSECURE} \
             ${nonsecure} \
-            3014656 \
+            ${OFFSET_PARAM} \
             ${param} \
-            3031040 \
+            ${OFFSET_BOOTLOGO} \
             ${boot_logo} \
             ${out_file}
 
