@@ -24,4 +24,3 @@ set_prop(vendor_init, vendor_charge_prop)
 
 dontaudit vendor_init unlabeled:dir getattr;
 dontaudit vendor_init unlabeled:file getattr;
-
