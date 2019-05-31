@@ -1,3 +1,0 @@
-allow vold vendor_file:dir { read open ioctl };
-allow vold cache_backup_file:dir { getattr setattr };
-allow vold storage_stub_file:dir { read open write add_name search };
