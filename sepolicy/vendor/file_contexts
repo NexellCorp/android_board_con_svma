@@ -35,3 +35,18 @@
 
 #/system/bin/com.android.car.powertestservice                       u:object_r:power_test_service_exec:s0
 /system/bin/com.android.car.procfsinspector                         u:object_r:procfs_inspector_exec:s0
+
+# fsck
+/system/bin/fsck\.exfat	--	u:object_r:fsck_exec:s0
+/system/bin/fsck\.ntfs	--	u:object_r:fsck_exec:s0
+#/system/bin/mount\.exfat  --	u:object_r:fsck_exec:s0
+#/system/bin/mount\.ntfs	--	u:object_r:fsck_exec:s0
+/system/bin/mkfs\.exfat  --	u:object_r:fsck_exec:s0
+/system/bin/mkfs\.ntfs	--	u:object_r:fsck_exec:s0
+
+#/system/bin/fsck\.exfat	--	u:object_r:fs_support_exec:s0
+#/system/bin/fsck\.ntfs	--	u:object_r:fs_support_exec:s0
+/system/bin/mount\.exfat  --	u:object_r:fs_support_exec:s0
+/system/bin/mount\.ntfs	--	u:object_r:fs_support_exec:s0
+#/system/bin/mkfs\.exfat  --	u:object_r:fs_support_exec:s0
+#/system/bin/mkfs\.ntfs	--	u:object_r:fs_support_exec:s0
