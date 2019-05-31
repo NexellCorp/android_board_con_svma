@@ -299,3 +299,12 @@ AB_OTA_POSTINSTALL_CONFIG += \
 # For A/B update test
 PRODUCT_PACKAGES += \
   updater
+
+# For vold
+PRODUCT_PACKAGES += \
+  fsck.exfat \
+  mkfs.exfat \
+  mount.exfat \
+  fsck.ntfs \
+  mkfs.ntfs \
+  mount.ntfs
