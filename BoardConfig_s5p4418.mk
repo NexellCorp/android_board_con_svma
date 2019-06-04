@@ -14,10 +14,16 @@
 # limitations under the License.
 #
 
+include device/nexell/con_svma/BoardConfigCommon.mk
+
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a9
 
-include device/nexell/con_svma/BoardConfigCommon.mk
+BOARD_CAMERA_BACK_DEVICE := "7"
+BOARD_CAMERA_BACK_ORIENTATION := "0"
+BOARD_CAMERA_NUM := 1
+BOARD_CAMERA_USE_ZOOM := false
+BOARD_CAMERA_SUPPORT_SCALING := true
