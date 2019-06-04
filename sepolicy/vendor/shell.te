@@ -16,3 +16,4 @@ allow shell bootanim_exec:file { getattr execute };
 allow shell bootstat_exec:file { getattr execute };
 allow shell servicemanager_exec:file { getattr execute };
 allow shell runtime_event_log_tags_file:file getattr;
+dontaudit otapreopt_chroot system_file:dir mounton;
