@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a85afb23_101cd705",
+        "filename": "sepolicy/vendor/shell.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1014972
+      },
+      "writtenOn": "2019-06-04T01:41:33Z",
+      "side": 1,
+      "message": "move this line to vendor/otapreopt_chroot.te file",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 51
+      },
+      "revId": "a7e17516ed3a2c010e787c6edb8699738adfc65a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
