@@ -1,0 +1,1 @@
+allow shell audioserver_exec:file { execute getattr };

@@ -5,3 +5,4 @@ allow platform_app unlabeled:dir write;
 allow platform_app unlabeled:file { write getattr };
 allow platform_app unlabeled:dir write;
 allow platform_app unlabeled:file write;
+allow platform_app system_app_data_file:dir getattr;
