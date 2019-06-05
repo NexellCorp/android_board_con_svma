@@ -123,11 +123,12 @@ PRODUCT_PACKAGES += \
     wifilogd \
     libwpa_client
 
-#
-# Bluetooth HAL and Compatibility Bluetooth library (for older revs).
-#
+# bluetooth
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-service.sim
+    android.hardware.bluetooth@1.0 \
+    android.hardware.bluetooth@1.0-impl \
+    android.hardware.bluetooth@1.0-service \
+    libbt-vendor
 
 # power
 PRODUCT_PACKAGES += \
@@ -204,9 +205,16 @@ PRODUCT_COPY_FILES += \
     device/nexell/con_svma/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml \
     device/nexell/con_svma/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 
+# bluetooth
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
+    device/nexell/con_svma/bluetooth/bt_vendor.conf:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth/bt_vendor.conf \
+    device/nexell/con_svma/bluetooth/BCM434545.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/BCM434545.hcd
+
+# connection service
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.software.connectionservice.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.connectionservice.xml
 
 ########################################################################
 # PRODUCT_PROPERTY_OVERRIDES

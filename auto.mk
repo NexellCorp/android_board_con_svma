@@ -60,5 +60,7 @@ BOARD_SEPOLICY_DIRS += \
 
 BOARD_IS_AUTOMOTIVE := true
 
+TARGET_USES_CAR_FUTURE_FEATURES := true
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
