@@ -97,3 +97,15 @@ BOARD_CAMERA_BACK_ORIENTATION := "0"
 BOARD_CAMERA_NUM := 1
 BOARD_CAMERA_USE_ZOOM := false
 BOARD_CAMERA_SUPPORT_SCALING := true
+
+# bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/nexell/con_svma/bluetooth
+BOARD_CUSTOM_BT_CONFIG := device/nexell/con_svma/bluetooth/vnd_con_svma.txt
+
+# bluetooth audio paths
+SND_BT_CARD_ID := 0
+SND_BT_DEVICE_ID := 0
+SND_BT_SCO_CARD_ID := 0
+SND_BT_SCO_DEVICE_ID := 1

@@ -1,0 +1,1 @@
+dontaudit bluetooth netd_service:service_manager find;
