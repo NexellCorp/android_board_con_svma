@@ -80,7 +80,7 @@ def OTA_InstallEnd(info):
         print "no bootloader in target_files, skipping install"
 
     if dtb_img is not None:
-        WriteDTB(info, dtb_img, "mmc")
+        WriteDTB(info, dtb_img, "0x2A00000")
 
 	root_img = None
     try:
