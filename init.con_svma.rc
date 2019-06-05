@@ -92,3 +92,14 @@ on boot && property:ro.vendor.ota_update_verifier=true
     # chown system system /dev/cpuset/camera-daemon
     # chown system system /dev/cpuset/camera-daemon/tasks
     # chmod 0664 /dev/cpuset/camera-daemon/tasks
+
+    # Bluetooth
+    chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt /dev/ttyAMA1
+    chmod 0660 /dev/ttyAMA1
+
+    # Bluetooth init
+    setprop ro.boot.btmacaddr "00:00:00:00:00:00"
+    setprop ro.bluetooth.hfp.ver 1.7

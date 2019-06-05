@@ -1,4 +1,5 @@
 genfscon sysfs /class/rtc/rtc0/hctosys                                                  u:object_r:hctosys_file:s0
+genfscon sysfs /class/rfkill/rfkill0/state                                              u:object_r:sysfs_bluetooth_writable:s0
 genfscon proc /cpu/alignment                                                            u:object_r:cpu_file:s0
 genfscon proc /slabinfo                                                                 u:object_r:slabinfo_file:s0
 
