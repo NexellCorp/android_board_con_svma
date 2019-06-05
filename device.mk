@@ -59,6 +59,14 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@2.0-impl \
     android.hardware.soundtrigger@2.0-impl
 
+# evs
+PRODUCT_PACKAGES += \
+    android.hardware.automotive.evs@1.0 \
+    android.hardware.automotive.evs.manager@1.0 \
+    android.hardware.automotive.evs@1.0-sample \
+    evs_app \
+    android.hardware.automotive.evs@1.0-service
+
 # hal
 PRODUCT_PACKAGES += \
     gralloc.s5pxx18 \
@@ -207,6 +215,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml
+
+#evs
+PRODUCT_COPY_FILES += \
+	packages/services/Car/evs/app/config.json:$(TARGET_OUT)/system/etc/automotive/evs/config.json \
+	packages/services/Car/evs/app/CarFromTop.png:$(TARGET_OUT)/system/etc/automotive/evs/CarFromTop.png \
+	packages/services/Car/evs/app/LabeledChecker.png:$(TARGET_OUT)/system/etc/automotive/evs/LabeledChecker.png
 
 ########################################################################
 # PRODUCT_PROPERTY_OVERRIDES
