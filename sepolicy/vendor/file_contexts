@@ -8,10 +8,6 @@
 /vendor/usr/keylayout(/.*)?                                         u:object_r:keylayout_file:s0
 /vendor/usr/keychars(/.*)?                                          u:object_r:keychar_file:s0
 
-
-# bluetooth hal service exec file context
-/vendor/bin/hw/android.hardware.bluetooth@1.0-service.sim           u:object_r:hal_bluetooth_default_exec:s0
-
 # usb hal
 #/vendor/bin/hw/android.hardware.usb@1.1-service-nexell             u:object_r:hal_usb_default_exec:s0
 /vendor/bin/hw/android.hardware.usb@1.1-service-nexell              u:object_r:hal_usb_nexell_default_exec:s0
@@ -44,13 +40,13 @@
 /dev/block/platform/c0000000.soc/c0069000.dw_mmc/by-name/vendor_[ab]       u:object_r:system_block_device:s0
 /dev/block/platform/c0000000.soc/c0069000.dw_mmc/by-name/misc              u:object_r:nx_block_device:s0
 
-/dev/ttyAMA[0-9]*                                                   u:object_r:console_device:s0
+/dev/ttyAMA[0,2-9]*                                                 u:object_r:console_device:s0
+/dev/ttyAMA1                                                        u:object_r:hci_attach_dev:s0
 /dev/ttySAC[0-9]*                                                   u:object_r:console_device:s0
 /dev/scaler                                                         u:object_r:nx_scaler_device:s0
 /dev/nx-deinterlacer                                                u:object_r:nx_deinterlacer_device:s0
 
 #/system/bin/com.android.car.powertestservice                       u:object_r:power_test_service_exec:s0
-/system/bin/com.android.car.procfsinspector                         u:object_r:procfs_inspector_exec:s0
 
 # fsck
 /system/bin/fsck\.exfat	--	u:object_r:fsck_exec:s0
@@ -59,3 +55,5 @@
 /system/bin/mkfs\.ntfs	--	u:object_r:fsck_exec:s0
 /system/bin/mount\.exfat  --	u:object_r:fs_support_exec:s0
 /system/bin/mount\.ntfs	--	u:object_r:fs_support_exec:s0
+
+/sys/devices/platform/bt_control/rfkill/rfkill0/state               u:object_r:sysfs_bluetooth_writable:s0
