@@ -724,6 +724,17 @@ function post_process()
         -S ${android_out}/root/file_contexts.bin -L root \
         -a / ${android_out}/root.img ${android_out}/root
         cp -af ${android_out}/root.img ${result_dir}/root.img
+
+    	if [ -d ${TOP}/device/nexell/con_svma/svmdata ] ; then
+			if [ -d ${result_dir}/svmdata ] ; then
+				rm -rf ${result_dir}/svmdata
+			fi
+			cp -af ${TOP}/device/nexell/con_svma/svmdata  ${result_dir}
+	        svmdata_size=$(get_partition_size ${partmap} "svmdata:ext4")
+    	    ${TOP}/out/host/linux-x86/bin/make_ext4fs -s -l ${svmdata_size} \
+	         -L svmdata -a / ${result_dir}/svmdata.img ${result_dir}/svmdata
+		fi
+
     fi
 
     generate_update_script ${result_dir}

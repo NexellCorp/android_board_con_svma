@@ -224,5 +224,6 @@ PRODUCT_COPY_FILES += \
 	device/nexell/con_svma/wifi/fw_bcmdhd.bin:system/etc/firmware/fw_bcmdhd.bin \
 	device/nexell/con_svma/wifi/fw_bcmdhd_apsta.bin:system/etc/firmware/fw_bcmdhd_apsta.bin
 
+
 $(call inherit-product, frameworks/base/data/fonts/fonts.mk)
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)

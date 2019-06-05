@@ -15,6 +15,10 @@ int main(int argc, char *argv[])
 	int access_ret = 0;
 
     mount("sysfs", "/sys", "sysfs", 0, NULL);
+#ifndef NXQUICKREARCAM
+	mkdir("/svmdata", 0755);
+    mount("/dev/mmcblk0p8", "/svmdata", "ext4", 0, NULL);
+#endif
 	pid = fork();
 	switch(pid) {
 		case -1:
@@ -23,7 +27,7 @@ int main(int argc, char *argv[])
 			return -1;
 		}
 		case 0:
-		{		
+		{
 #ifdef NXQUICKREARCAM
 			execl("/sbin/NxQuickRearCam", "NxQuickRearCam", "-m1", "-b1", "-c26", "-r704x480", NULL);
 #endif
