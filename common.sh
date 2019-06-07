@@ -899,7 +899,7 @@ function make_uboot_recoverycmd()
     local dtb_load=$3
     local ramdisk_size=$(printf "%x" $(ls -al ${4} | awk '{print $5}'))
 
-    bootcmd="ext4load mmc 0:6 ${kernel_load} recovery.kernel; ext4load mmc 0:6 ${ramdisk_load} ramdisk-recovery.img; ext4load mmc 0:6 ${dtb_load} recovery.dtb; bootz $(printf "%x" ${kernel_load}) $(printf "%x" ${ramdisk_load}):${ramdisk_size} $(printf "%x" ${dtb_load})"
+    bootcmd="ext4load mmc 0:7 ${kernel_load} recovery.kernel; ext4load mmc 0:7 ${ramdisk_load} ramdisk-recovery.img; ext4load mmc 0:7 ${dtb_load} recovery.dtb; bootz $(printf "%x" ${kernel_load}) $(printf "%x" ${ramdisk_load}):${ramdisk_size} $(printf "%x" ${dtb_load})"
     echo -n ${bootcmd}
 
 }
@@ -978,7 +978,7 @@ function make_uboot_bootcmd_svm()
     local partition_kernel_block_num_hex=$(get_blocknum_hex ${partition_kernel_offset} 512)
     local kernel_size=$(get_fsize ${kernel} ${page_size})
     local kernel_block_size=$(get_blocknum_hex ${kernel_size} 512)
-    local partition_dtb_offset=$(get_partition_offset ${partmap} "dtb:raw")
+    local partition_dtb_offset=$(get_partition_offset ${partmap} "dtb:emmc")
     local partition_dtb_block_num_hex=$(get_blocknum_hex ${partition_dtb_offset} 512)
     local dtb_size=$(get_fsize ${dtb} ${page_size})
     local dtb_block_size=$(get_blocknum_hex ${dtb_size} 512)
@@ -996,11 +996,11 @@ function make_uboot_bootcmd_svm()
 
 if [ "${KERNEL_ZIMAGE}" == "false" ] ; then
     local bootcmd="mmc read ${load_addr} ${partition_kernel_block_num_hex} ${kernel_block_size};\
-        mmc read ${dtb_dest_addr} ${partition_dtb_block_num_hex} ${dtb_block_size};\
+		dtimg load_mmc ${partition_dtb_block_num_hex} ${dtb_dest_addr} 0;\
         bootl ${kernel_start_hex} - ${dtb_dest_addr}"
 else
     local bootcmd="mmc read ${load_addr} ${partition_kernel_block_num_hex} ${kernel_block_size};\
-        mmc read ${dtb_dest_addr} ${partition_dtb_block_num_hex} ${dtb_block_size};\
+        dtimg load_mmc ${partition_dtb_block_num_hex} ${dtb_dest_addr} 0;\
         bootz ${kernel_start_hex} - ${dtb_dest_addr}"
 fi
     echo -n ${bootcmd}
