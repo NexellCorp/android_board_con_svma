@@ -25,25 +25,25 @@ def WriteBootloader(info, img, btype):
     info.script.AppendExtra('nexell.write_bootloader(package_extract_file("bootloader"), "%s");' % btype)
     info.script.Print("End of Writing bootloader")
 
-def WriteKernel(info, img, btype):
+def WriteKernel(info, img, offset):
     print "WriteKernel ..."
     common.ZipWriteStr(info.output_zip, "kernel", img)
     info.script.Print("Writing kernel ...")
-    info.script.AppendExtra('nexell.write_kernel(package_extract_file("kernel"), "%s");' % btype)
+    info.script.AppendExtra('nexell.write_kernel(package_extract_file("kernel"), "%s");' % offset)
     info.script.Print("End of Writing kernel")
 
-def WriteDTB(info, img, btype):
+def WriteDTB(info, img, offset):
     print "WriteDTB ..."
-    common.ZipWriteStr(info.output_zip, "dtb", img)
+    common.ZipWriteStr(info.output_zip, "dtb.img", img)
     info.script.Print("Writing dtb ...")
-    info.script.AppendExtra('nexell.write_dtb(package_extract_file("dtb"), "%s");' % btype)
+    info.script.AppendExtra('nexell.write_dtb(package_extract_file("dtb.img"), "%s");' % offset)
     info.script.Print("End of Writing dtb")
 
-def WriteRoot(info, img, btype):
+def WriteRoot(info, img, offset):
     print "WriteRoot ..."
     common.ZipWriteStr(info.output_zip, "root.img", img)
     info.script.Print("Writing root.img ...")
-    info.script.AppendExtra('nexell.write_root(package_extract_file("root.img"), "%s");' % btype)
+    info.script.AppendExtra('nexell.write_root(package_extract_file("root.img"), "%s");' % offset)
     info.script.Print("End of Writing root")
 
 def OTA_InstallEnd(info):
@@ -69,13 +69,13 @@ def OTA_InstallEnd(info):
         print "no kernel in target_files, skipping install"
 
     if kernel_img is not None:
-        WriteKernel(info, kernel_img, "mmc")
+        WriteKernel(info, kernel_img, "0xA00000")
 
 	dtb_img = None
     try:
-        dtb_img = info.input_zip.read("IMAGES/dtb")
+        dtb_img = info.input_zip.read("RADIO/dtb.img")
     except AttributeError:
-        dtb_img = info.target_zip.read("IMAGES/dtb")
+        dtb_img = info.target_zip.read("RADIO/dtb.img")
     except KeyError:
         print "no bootloader in target_files, skipping install"
 
@@ -91,7 +91,7 @@ def OTA_InstallEnd(info):
         print "no bootloader in target_files, skipping install"
 
     if root_img is not None:
-        WriteRoot(info, root_img, "mmc")
+        WriteRoot(info, root_img, "2")
 
     return
 
