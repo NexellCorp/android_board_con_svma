@@ -185,14 +185,7 @@ if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
             ${OUT_DIR}/ramdisk.img \
             "boot:emmc")
     else
-        UBOOT_BOOTCMD=$(make_uboot_bootcmd \
-            ${PARTMAP_FILE} \
-            ${UBOOT_LOAD_ADDR} \
-            2048 \
-            ${KERNEL_IMG} \
-            ${DTB_IMG} \
-            ${OUT_DIR}/ramdisk.img \
-            "boot:emmc")
+		UBOOT_BOOTCMD="aboot load_mmc 5000 40008000 48000000;dtimg load_mmc 23800 49000000 0;bootz 40008000 0x48000000:\$\{ramdisk_size\} 0x49000000"
     fi
 
 if [ "${MEMSIZE}" == "2GB" ]; then
@@ -210,7 +203,7 @@ elif [ "${MEMSIZE}" == "1GB" ]; then
 fi
 
 if [ "${QUICKBOOT}" == "true" ]; then
-    UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF root=\/dev\/mmcblk0p1 rw rootfstype=ext4 rootwait init=\/sbin\/nx_init quiet androidboot.selinux=permissive"
+    UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF root=\/dev\/mmcblk0p2 rw rootfstype=ext4 rootwait init=\/sbin\/nx_init quiet androidboot.selinux=permissive"
 else
     UBOOT_BOOTARGS="console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789ABCDEF quiet androidboot.selinux=permissive"
 fi
@@ -283,6 +276,8 @@ post_process ${TARGET_SOC} \
 
 cp -f ${TOP}/device/nexell/con_svma/boot_by_usb.sh ${RESULT_DIR}
 
+cp -f ${OUT_DIR}/dtb.img ${RESULT_DIR}
+
 make_ext4_recovery_image \
     ${OUT_DIR}/kernel \
     ${KERNEL_DIR}/arch/arm/boot/dts/s5p4418-con_svma-rev00.dtb \
@@ -306,9 +301,6 @@ fi
 
 make_build_info ${RESULT_DIR}
 
-if [ -f "${DTB_IMG}" ];then
-cp -af ${DTB_IMG} ${RESULT_DIR}
-fi
 
 if [ -f "${KERNEL_IMG}" ];then
 cp -af ${KERNEL_IMG} ${RESULT_DIR}
