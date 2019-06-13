@@ -55,6 +55,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.broadcastradio@2.0-service
 
+# AudioControl HAL
+PRODUCT_PACKAGES += \
+    android.hardware.automotive.audiocontrol@1.0-service-nexell
+
 BOARD_SEPOLICY_DIRS += \
     device/generic/car/common/sepolicy
 

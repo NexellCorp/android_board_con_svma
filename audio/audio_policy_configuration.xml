@@ -46,12 +46,19 @@
         <!-- Primary Audio HAL -->
         <module name="primary" halVersion="3.0">
             <attachedDevices>
-                <item>Speaker</item>
+                <item>bus0_media_out</item>
+                <item>bus1_navigation_out</item>
                 <item>Built-In Mic</item>
             </attachedDevices>
-            <defaultOutputDevice>Speaker</defaultOutputDevice>
+            <defaultOutputDevice>bus0_media_out</defaultOutputDevice>
             <mixPorts>
-                <mixPort name="primary output" role="source" flags="AUDIO_OUTPUT_FLAG_PRIMARY">
+                <mixPort name="mixport_bus0_media_out" role="source"
+                        flags="AUDIO_OUTPUT_FLAG_PRIMARY">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="mixport_bus1_navigation_out" role="source"
+                        flags="AUDIO_OUTPUT_FLAG_PRIMARY">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
@@ -63,13 +70,13 @@
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
-                <mixPort name="primary input" role="sink">
-                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
-                             samplingRates="8000,11025,16000,22050,32000,44100,48000" channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
-                </mixPort>
                 <mixPort name="mmap_no_irq_out" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT|AUDIO_OUTPUT_FLAG_MMAP_NOIRQ">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="primary input" role="sink">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="8000,11025,16000,22050,32000,44100,48000" channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
                 </mixPort>
                 <mixPort name="mmap_no_irq_in" role="sink" flags="AUDIO_INPUT_FLAG_MMAP_NOIRQ">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
@@ -78,10 +85,24 @@
             </mixPorts>
             <devicePorts>
                 <!-- Output devices declaration, i.e. Sink DEVICE PORT -->
-                <devicePort tagName="Speaker" role="sink" type="AUDIO_DEVICE_OUT_SPEAKER" address="">
+                <devicePort tagName="bus0_media_out" role="sink" type="AUDIO_DEVICE_OUT_BUS"
+                        address="bus0_media_out">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
-                             samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
-		</devicePort>
+                            samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                    <gains>
+                        <gain name="" mode="AUDIO_GAIN_MODE_JOINT"
+                                minValueMB="-3200" maxValueMB="600" defaultValueMB="0" stepValueMB="100"/>
+                    </gains>
+                </devicePort>
+                <devicePort tagName="bus1_navigation_out" role="sink" type="AUDIO_DEVICE_OUT_BUS"
+                        address="bus1_navigation_out">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                            samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                    <gains>
+                        <gain name="" mode="AUDIO_GAIN_MODE_JOINT"
+                                minValueMB="-3200" maxValueMB="600" defaultValueMB="0" stepValueMB="100"/>
+                    </gains>
+                </devicePort>
                 <devicePort tagName="BT SCO" type="AUDIO_DEVICE_OUT_BLUETOOTH_SCO" role="sink">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,16000" channelMasks="AUDIO_CHANNEL_OUT_MONO"/>
@@ -109,8 +130,8 @@
             </devicePorts>
             <!-- route declaration, i.e. list all available sources for a given sink -->
             <routes>
-                <route type="mix" sink="Speaker"
-			sources="primary output,deep_buffer,BT SCO Headset Mic,mmap_no_irq_out"/>
+                <route type="mix" sink="bus0_media_out" sources="mixport_bus0_media_out,deep_buffer,BT SCO Headset Mic,mmap_no_irq_out"/>
+                <route type="mix" sink="bus1_navigation_out" sources="mixport_bus1_navigation_out,deep_buffer,mmap_no_irq_out"/>
 		<route type="mix" sink="HDMI Out"
                        sources="hdmi output"/>
                 <route type="mix" sink="primary input"
