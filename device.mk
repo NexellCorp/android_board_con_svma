@@ -308,3 +308,11 @@ PRODUCT_PACKAGES += \
   fsck.ntfs \
   mkfs.ntfs \
   mount.ntfs
+
+# libaaudio example
+PRODUCT_PACKAGES += \
+  input_monitor \
+  input_monitor_callback \
+  aaudio_loopback \
+  write_sine \
+  write_sine_callback
