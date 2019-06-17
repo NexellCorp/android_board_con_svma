@@ -15,6 +15,8 @@ print_args
 setup_toolchain
 export_work_dir
 
+DTIMGE_TOOL=${TOP}/device/nexell/tools/mkdtimg
+
 if [ "${QUICKBOOT}" == "true" ]; then
 	KERNEL_ZIMAGE=false
 	BUILD_SKIP_RECOVERY_KERNEL=false
@@ -145,6 +147,13 @@ if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_KERNEL}" == "true" ]; then
 
 fi
 
+if [ "${BUILD_KERNEL}" == "true" ]; then
+    ${DTIMGE_TOOL} create ${OUT_DIR}/dtb.img \
+     ${TOP}/device/nexell/kernel/kernel-4.4.x/arch/arm/boot/dts/s5p4418-con_svma-rev00.dtb --id=0 \
+     ${TOP}/device/nexell/kernel/kernel-4.4.x/arch/arm/boot/dts/s5p4418-con_svma-rev01.dtb --id=1
+fi
+
+
 if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_MODULE}" == "true" ]; then
     build_module ${KERNEL_DIR} ${TARGET_SOC} ${CROSS_COMPILE}
 fi
@@ -181,11 +190,10 @@ if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
             ${UBOOT_LOAD_ADDR} \
             2048 \
             ${KERNEL_IMG} \
-            ${DTB_IMG} \
             ${OUT_DIR}/ramdisk.img \
             "boot:emmc")
     else
-		UBOOT_BOOTCMD="aboot load_mmc 5000 40008000 48000000;dtimg load_mmc 23800 49000000 0;bootz 40008000 0x48000000:\$\{ramdisk_size\} 0x49000000"
+		UBOOT_BOOTCMD="aboot load_mmc 5000 40008000 48000000;dtimg load_mmc 23800 49000000 \$\{board_rev\};bootz 40008000 0x48000000:\$\{ramdisk_size\} 0x49000000"
     fi
 
 if [ "${MEMSIZE}" == "2GB" ]; then
