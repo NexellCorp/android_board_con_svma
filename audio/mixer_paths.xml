@@ -60,7 +60,7 @@
     <path name="headphones" />
   </path>
 
-   <!-- Capture paths -->
+  <!-- Capture paths -->
 
   <path name="media-main-mic">
     <path name="main-mic" />
@@ -88,6 +88,52 @@
 
   <path name="communication-headset-mic">
     <path name="main-mic" />
+  </path>
+
+  <!-- Playback gain paths -->
+
+  <path name="volume_100">
+    <ctl name="SPK Playback Volume" value="31"/>
+  </path>
+
+  <path name="volume_90">
+    <ctl name="SPK Playback Volume" value="30"/>
+  </path>
+
+  <path name="volume_80">
+    <ctl name="SPK Playback Volume" value="29"/>
+  </path>
+
+  <path name="volume_70">
+    <ctl name="SPK Playback Volume" value="28"/>
+  </path>
+
+  <path name="volume_60">
+    <ctl name="SPK Playback Volume" value="27"/>
+  </path>
+
+  <path name="volume_50">
+    <ctl name="SPK Playback Volume" value="26"/>
+  </path>
+
+  <path name="volume_40">
+    <ctl name="SPK Playback Volume" value="25"/>
+  </path>
+
+  <path name="volume_30">
+    <ctl name="SPK Playback Volume" value="24"/>
+  </path>
+
+  <path name="volume_20">
+    <ctl name="SPK Playback Volume" value="23"/>
+  </path>
+
+  <path name="volume_10">
+    <ctl name="SPK Playback Volume" value="22"/>
+  </path>
+
+  <path name="volume_0">
+    <ctl name="SPK Playback Volume" value="0"/>
   </path>
 
 </mixer>
