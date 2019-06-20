@@ -136,4 +136,14 @@
     <ctl name="SPK Playback Volume" value="0"/>
   </path>
 
+  <!-- Master mute paths -->
+
+  <path name="master-mute_true">
+    <ctl name="DAC Mute Control" value="1"/>
+  </path>
+
+  <path name="master-mute_false">
+    <ctl name="DAC Mute Control" value="1"/>
+  </path>
+
 </mixer>
