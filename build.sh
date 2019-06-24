@@ -198,12 +198,14 @@ if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
 
 if [ "${MEMSIZE}" == "2GB" ]; then
     UBOOT_RECOVERYCMD=$(make_uboot_recoverycmd \
+					${PARTMAP_FILE} \
                     0x40008000 \
                     0x48000000 \
                     0x49000000 \
                     ${OUT_DIR}/ramdisk-recovery.img)
 elif [ "${MEMSIZE}" == "1GB" ]; then
     UBOOT_RECOVERYCMD=$(make_uboot_recoverycmd \
+					${PARTMAP_FILE} \
                     0x71008000 \
                     0x79000000 \
                     0x7A000000 \
