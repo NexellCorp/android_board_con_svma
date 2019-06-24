@@ -894,12 +894,16 @@ function get_blocknum_hex()
 
 function make_uboot_recoverycmd()
 {
-    local kernel_load=$1
-    local ramdisk_load=$2
-    local dtb_load=$3
-    local ramdisk_size=$(printf "%x" $(ls -al ${4} | awk '{print $5}'))
+	local partmap=$1
+    local kernel_load=$2
+    local ramdisk_load=$3
+    local dtb_load=$4
+    local ramdisk_size=$(printf "%x" $(ls -al ${5} | awk '{print $5}'))
 
-    bootcmd="ext4load mmc 0:7 ${kernel_load} recovery.kernel; ext4load mmc 0:7 ${ramdisk_load} ramdisk-recovery.img; dtimg load_mmc 23800 ${dtb_load} \$\{board_rev\}; bootz $(printf "%x" ${kernel_load}) $(printf "%x" ${ramdisk_load}):${ramdisk_size} $(printf "%x" ${dtb_load})"
+    local partition_dtb_offset=$(get_partition_offset ${partmap} "dtb:emmc")
+	local partition_dtb_block_num_hex=$(get_blocknum_hex ${partition_dtb_offset} 512)
+
+    bootcmd="ext4load mmc 0:7 ${kernel_load} recovery.kernel; ext4load mmc 0:7 ${ramdisk_load} ramdisk-recovery.img; dtimg load_mmc ${partition_dtb_block_num_hex} ${dtb_load} \$\{board_rev\}; bootz $(printf "%x" ${kernel_load}) $(printf "%x" ${ramdisk_load}):${ramdisk_size} $(printf "%x" ${dtb_load})"
     echo -n ${bootcmd}
 
 }
