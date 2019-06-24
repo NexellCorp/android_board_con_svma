@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     mount("sysfs", "/sys", "sysfs", 0, NULL);
 #ifndef NXQUICKREARCAM
 	mkdir("/svmdata", 0755);
-    mount("/dev/mmcblk0p8", "/svmdata", "ext4", 0, NULL);
+    mount("/dev/mmcblk0p9", "/svmdata", "ext4", 0, NULL);
 #endif
 	pid = fork();
 	switch(pid) {
