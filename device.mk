@@ -116,12 +116,21 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vndk_package
 
+# neteutils
+PRODUCT_PACKAGES += \
+    netutils-wrapper-1.0
+
 # wifi
 PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0 \
     android.hardware.wifi@1.0-service \
+    android.hardware.wifi.hostapd@1.0 \
     wificond \
     wifilogd \
-    libwpa_client
+    libwpa_client \
+    hostapd \
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 # bluetooth
 PRODUCT_PACKAGES += \
@@ -134,7 +143,7 @@ PRODUCT_PACKAGES += \
 
 # power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.1-service \
+    android.hardware.power@1.1-service
 
 PRODUCT_PROPERTY_OVERRIDES += ro.hardware.power=nexell
 
@@ -195,9 +204,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
-    frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
-    frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml \
-    frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml
+    frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.voip.xml \
+    device/nexell/con_svma/wifi/dhd:$(TARGET_COPY_OUT_VENDOR)/bin/dhd \
+    device/nexell/con_svma/wifi/wl:$(TARGET_COPY_OUT_VENDOR)/bin/wl \
+    device/nexell/con_svma/wifi/bcmdhd.cal:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/bcmdhd.cal \
+    device/nexell/con_svma/wifi/fw_bcmdhd.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/fw_bcmdhd.bin \
+    device/nexell/con_svma/wifi/fw_bcmdhd_apsta.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/fw_bcmdhd_apsta.bin \
+    device/nexell/con_svma/wifi/config/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+    device/nexell/con_svma/wifi/config/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf
 
 # camera
 PRODUCT_COPY_FILES += \
@@ -326,3 +340,6 @@ PRODUCT_PACKAGES += \
   aaudio_loopback \
   write_sine \
   write_sine_callback
+
+$(call add-product-sanitizer-module-config,wpa_supplicant,never)
+$(call add-product-sanitizer-module-config,hostapd,never)
