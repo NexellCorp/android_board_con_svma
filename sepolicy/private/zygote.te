@@ -1,1 +1,2 @@
 allow zygote self:capability sys_resource;
+allow zygote vendor_file:file read;

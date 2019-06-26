@@ -1,1 +1,1 @@
-allow bootanim vendor_file:file read;
+allow bootanim vendor_file:file { open read };

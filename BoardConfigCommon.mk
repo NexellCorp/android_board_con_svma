@@ -73,6 +73,7 @@ BOARD_PLAT_PRIVATE_SEPOLICY_DIR += packages/services/Car/car_product/sepolicy/pr
 
 # vendor interface manifest
 DEVICE_MANIFEST_FILE := $(LOCAL_PATH)/manifest.xml
+DEVICE_MATRIX_FILE   := $(LOCAL_PATH)/compatibility_matrix.xml
 
 # HIDL configstore
 VSYNC_EVENT_PHASE_OFFSET_NS := 0
@@ -109,3 +110,16 @@ SND_BT_CARD_ID := 0
 SND_BT_DEVICE_ID := 0
 SND_BT_SCO_CARD_ID := 0
 SND_BT_SCO_DEVICE_ID := 1
+
+# Wifi releated defines
+WPA_SUPPLICANT_VERSION      := VER_0_8_X
+BOARD_WLAN_DEVICE           := bcmdhd
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_HOSTAPD_DRIVER        := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB   := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_P2P     := ""
+WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
