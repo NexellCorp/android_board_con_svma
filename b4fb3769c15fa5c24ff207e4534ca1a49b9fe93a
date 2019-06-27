@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a817003_74f60733",
+        "filename": "sepolicy/public/shell.te",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-06-27T01:04:28Z",
+      "side": 1,
+      "message": "Is this te file related to wifi?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "b4fb3769c15fa5c24ff207e4534ca1a49b9fe93a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}

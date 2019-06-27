@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b6ad95b_0f197cf7",
+        "filename": "auto.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-06-27T01:04:28Z",
+      "side": 0,
+      "message": "Why is this removed? I think this is not related to this commit subject.",
+      "revId": "2637e1c2a3410572fb9b87fcbef6b8a82e1ffdb1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
