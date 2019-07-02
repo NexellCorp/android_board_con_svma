@@ -122,3 +122,7 @@ WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_P2P     := ""
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+
+# ffmpeg extractor
+EN_FFMPEG_EXTRACTOR := false
+EN_FFMPEG_AUDIO_DEC := false

@@ -156,6 +156,10 @@ PRODUCT_PACKAGES += \
     libNX_OMX_Core \
     libNX_OMX_Common
 
+# ffmpeg extractor
+EN_FFMPEG_EXTRACTOR := false
+EN_FFMPEG_AUDIO_DEC := false
+
 ########################################################################
 # PRODUCT_COPY_FILES
 ########################################################################
