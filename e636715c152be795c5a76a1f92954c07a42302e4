@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4cace19_833f27b4",
+        "filename": "BoardConfigCommon.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-07-02T06:35:07Z",
+      "side": 1,
+      "message": "Why this condition is defined multiple(in device.mk)?",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 28
+      },
+      "revId": "e636715c152be795c5a76a1f92954c07a42302e4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
