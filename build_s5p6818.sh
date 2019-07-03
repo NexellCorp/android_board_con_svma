@@ -482,9 +482,11 @@ function run_kernel_build()
 {
     if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_KERNEL}" == "true" ]; then
         build_kernel ${KERNEL_DIR} ${TARGET_SOC} ${BOARD_NAME} s5p6818_con_svma_pie_defconfig ${CROSS_COMPILE}
-        test -d ${OUT_DIR} && \
-            cp ${KERNEL_IMG} ${OUT_DIR}/kernel && \
-            cp ${DTB_IMG} ${OUT_DIR}/2ndbootloader
+		if [ ! -d ${OUT_DIR} ]; then
+			mkdir -p ${OUT_DIR}
+		fi
+		cp ${KERNEL_IMG} ${OUT_DIR}/kernel
+		cp ${DTB_IMG} ${OUT_DIR}/2ndbootloader
     fi
 }
 
