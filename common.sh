@@ -982,6 +982,7 @@ function make_uboot_bootcmd_svm()
     local dtb_size=$(get_fsize ${dtb} ${page_size})
     local dtb_block_size=$(get_blocknum_hex ${dtb_size} 512)
     local dtb_dest_addr=0x49000000
+    local var='${change_devicetree}'
 
     #echo "\n"
     #echo "kernel_offset ==> ${partition_kernel_offset}"
@@ -996,10 +997,12 @@ function make_uboot_bootcmd_svm()
 if [ "${KERNEL_ZIMAGE}" == "false" ] ; then
     local bootcmd="mmc read ${load_addr} ${partition_kernel_block_num_hex} ${kernel_block_size};\
 		dtimg load_mmc ${partition_dtb_block_num_hex} ${dtb_dest_addr} \$\{board_rev\};\
+		if test !-z $var; then run change_devicetree; fi;\
         bootl ${kernel_start_hex} - ${dtb_dest_addr}"
 else
     local bootcmd="mmc read ${load_addr} ${partition_kernel_block_num_hex} ${kernel_block_size};\
         dtimg load_mmc ${partition_dtb_block_num_hex} ${dtb_dest_addr} \$\{board_rev\};\
+		if test !-z $var; then run change_devicetree; fi;\
         bootz ${kernel_start_hex} - ${dtb_dest_addr}"
 fi
     echo -n ${bootcmd}
