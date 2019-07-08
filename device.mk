@@ -99,10 +99,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.1-service-nexell
 
-# launcher
-# PRODUCT_PACKAGES += \
-    Launcher3
-
 # VNDK libraries
 PRODUCT_PACKAGES += \
     vndk_package
