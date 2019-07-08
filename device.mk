@@ -228,7 +228,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # density
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=160
+    ro.sf.lcd_density=160 \
+	ro.sf.disable_triple_buffer=0
 
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapstartsize=5m \
