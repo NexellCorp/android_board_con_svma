@@ -143,6 +143,19 @@ PRODUCT_PACKAGES += \
     libNX_OMX_Core \
     libNX_OMX_Common
 
+# automotive
+PRODUCT_PACKAGES += \
+	vhal_v2_0_defaults \
+	android.hardware.automotive.vehicle@2.0-manager-lib \
+	android.hardware.automotive.vehicle@2.0-default-impl-lib \
+	android.hardware.automotive.vehicle@2.0-service \
+	android.hardware.automotive.vehicle@2.0-libproto-native \
+	android.hardware.automotive.vehicle@2.0 \
+	android.hardware.automotive.audiocontrol@1.0 \
+	android.hardware.automotive.audiocontrol@1.0-service \
+	android.hardware.automotive.evs@1.0 \
+	android.hardware.automotive.evs@1.0-service
+
 ########################################################################
 # PRODUCT_COPY_FILES
 ########################################################################
