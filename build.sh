@@ -27,6 +27,7 @@ run_bl1_build
 run_uboot_build
 run_secure_build
 run_kernel_build
+run_dtb_build
 run_android_build
 run_make_uboot_env
 run_make_bootloader
