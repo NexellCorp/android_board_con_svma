@@ -66,8 +66,11 @@ if [ "${OTA_AB_UPDATE}" == "true" ]; then
 OPTEE_BUILD_OPT+=" SUPPORT_OTA_AB_UPDATE=1"
 fi
 
+DEVICE_DIR=${TOP}/device/nexell/con_svma
 KERNEL_IMG=${KERNEL_DIR}/arch/arm64/boot/Image
-DTB_IMG=${KERNEL_DIR}/arch/arm64/boot/dts/nexell/s5p6818-con_svma-rev01.dtb
+DTB_DIR=${KERNEL_DIR}/arch/arm64/boot/dts/nexell
+DTIMG_ARG="${DTB_DIR}/s5p6818-con_svma-rev01.dtb --id=1 "
+
 
 # secure common
 function gen_hash_rsa()
@@ -482,11 +485,29 @@ function run_kernel_build()
 {
     if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_KERNEL}" == "true" ]; then
         build_kernel ${KERNEL_DIR} ${TARGET_SOC} ${BOARD_NAME} s5p6818_con_svma_pie_defconfig ${CROSS_COMPILE}
-		if [ ! -d ${OUT_DIR} ]; then
-			mkdir -p ${OUT_DIR}
-		fi
-		cp ${KERNEL_IMG} ${OUT_DIR}/kernel
-		cp ${DTB_IMG} ${OUT_DIR}/2ndbootloader
+        if [ ! -d ${OUT_DIR} ]; then
+            mkdir -p ${OUT_DIR}
+        fi
+        cp -af ${KERNEL_IMG} ${DEVICE_DIR}/kernel
+        cp -af ${KERNEL_IMG} ${OUT_DIR}/kernel
+    fi
+}
+
+
+function run_dtb_build()
+{
+    if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_DTB}" == "true" ]; then
+        if [ ! -f ${DEVICE_DIR}/kernel ]; then
+            echo "ERROR: kernel build must be done before dtb build"
+            exit 0
+        fi
+        build_dtb ${KERNEL_DIR} ${TARGET_SOC} ${CROSS_COMPILE}
+        echo ${DTIMG_ARG}
+        if [ ! -d ${OUT_DIR} ]; then
+            mkdir -p ${OUT_DIR}
+        fi
+        ${TOP}/device/nexell/tools/mkdtimg create ${DEVICE_DIR}/dtbo.img ${DTIMG_ARG}
+        cp -af ${DEVICE_DIR}/dtbo.img ${OUT_DIR}/dtbo.img
     fi
 }
 
@@ -521,16 +542,24 @@ function run_make_uboot_env()
                    ${UBOOT_LOAD_ADDR} \
                    ${PAGESIZE} \
                    ${KERNEL_IMG} \
-                   ${DTB_IMG} \
+                    0x49000000 \
                    ${DEVICE_DIR}/ramdisk-not-used \
                    "boot_a:emmc" \
                    "boot_b:emmc" \
-                   UBOOT_BOOTCMD \
-                   VENDOR_BLK_SELECT
+                   UBOOT_BOOTCMD
 
         UBOOT_RECOVERYCMD="ext4load mmc 0:6 0x49000000 recovery.dtb; ext4load mmc 0:6 0x40080000 recovery.kernel; ext4load mmc 0:6 0x48000000 ramdisk-recovery.img; booti 40080000 0x48000000:2d0f8f 0x49000000"
 
-        UBOOT_BOOTARGS='console=ttySAC0,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttySAC0 androidboot.serialno=0123456789abcdef root=\/dev\/mmcblk0p2 rootwait rootfstype=ext4 init=\/init skip_initramfs vmalloc=384M'
+        UBOOT_BOOTARGS='console=ttySAC0,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttySAC0 androidboot.serialno=0123456789abcdef '
+        UBOOT_BOOTARGS+=' root=\/dev\/mmcblk0p2 rw rootwait rootfstype=ext4 init=\/init skip_initramfs vmalloc=384M '
+        UBOOT_BOOTARGS+='blkdevparts=mmcblk0:65024@512(bl1),'
+        UBOOT_BOOTARGS+='4915200@66048(bootloader_a),4915200@5046784(bootloader_b),'
+        UBOOT_BOOTARGS+='62914560@11075584(boot_a),62914560@75038720(boot_b),'
+        UBOOT_BOOTARGS+='3145728@139001856(dtbo_a),3145728@143196160(dtbo_b),'
+        UBOOT_BOOTARGS+='1073741824@147390464(system_a),1073741824@1222180864(system_b),'
+		UBOOT_BOOTARGS+='268435456@2296971264(vendor_a),268435456@2566455296(vendor_b),'
+		UBOOT_BOOTARGS+='1048576@2835939328(misc),'
+		UBOOT_BOOTARGS+='305237797168@2838036480(userdata)'
 
         SPLASH_SOURCE="mmc"
         SPLASH_OFFSET="0x2e4200"
@@ -540,8 +569,6 @@ function run_make_uboot_env()
         echo -e "----------------------------------------------------"
         echo -e "UBOOT_BOOTCMD_A = ${UBOOT_BOOTCMD[0]}"
         echo -e "UBOOT_BOOTCMD_B = ${UBOOT_BOOTCMD[1]}"
-        echo -e "VENDOR_BLK_SELECT_A = ${VENDOR_BLK_SELECT[0]}"
-        echo -e "VENDOR_BLK_SELECT_B = ${VENDOR_BLK_SELECT[1]}"
         echo -e "----------------------------------------------------"
         echo -e "UBOOT_RECOVERYCMD ==> ${UBOOT_RECOVERYCMD}\n"
 
@@ -593,7 +620,6 @@ function run_make_android_bootimg()
 {
     make_android_bootimg \
         ${KERNEL_IMG} \
-        ${DTB_IMG} \
         ${DEVICE_DIR}/ramdisk-not-used \
         ${OUT_DIR}/boot.img \
         ${PAGESIZE} \
