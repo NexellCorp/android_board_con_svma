@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "489c4ee2_140f2cae",
+        "filename": "build_s5p6818.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-07-11T08:48:04Z",
+      "side": 1,
+      "message": "change tab with spaces",
+      "range": {
+        "startLine": 488,
+        "startChar": 1,
+        "endLine": 492,
+        "endChar": 40
+      },
+      "revId": "05c15f6e6608cd056b9146ef97443b767acf996c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddd55584_41b064fd",
+        "filename": "build_s5p6818.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-07-11T08:48:04Z",
+      "side": 1,
+      "message": "Do not use tab",
+      "range": {
+        "startLine": 499,
+        "startChar": 1,
+        "endLine": 511,
+        "endChar": 3
+      },
+      "revId": "05c15f6e6608cd056b9146ef97443b767acf996c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaf1acc0_e5ff4abd",
+        "filename": "build_s5p6818.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-07-11T08:48:04Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 545,
+        "startChar": 2,
+        "endLine": 545,
+        "endChar": 4
+      },
+      "revId": "05c15f6e6608cd056b9146ef97443b767acf996c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d92ff5fd_0a8c3bcd",
+        "filename": "build_s5p6818.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1015389
+      },
+      "writtenOn": "2019-07-11T08:48:04Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 554,
+        "startChar": 1,
+        "endLine": 562,
+        "endChar": 53
+      },
+      "revId": "05c15f6e6608cd056b9146ef97443b767acf996c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
