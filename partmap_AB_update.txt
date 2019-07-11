@@ -4,8 +4,10 @@
 flash=mmc,0:bl1:2nd:0x200,0xFE00:bl1-emmcboot.bin;
 flash=mmc,0:bootloader_a:emmc:0x10200,0x4B0000:bootloader;
 flash=mmc,0:bootloader_b:emmc:0x4D0200,0x4B0000:dummy.img;
-flash=mmc,0:boot_a:emmc:0xA90000,0x4000000:boot.img;
-flash=mmc,0:boot_b:emmc:0x4B90000,0x4000000:dummy.img;
+flash=mmc,0:boot_a:emmc:0xA90000,0x3C00000:boot.img;
+flash=mmc,0:boot_b:emmc:0x4790000,0x3C00000:dummy.img;
+flash=mmc,0:dtbo_a:emmc:0x8490000,0x300000:dtbo.img;
+flash=mmc,0:dtbo_b:emmc:0x8890000,0x300000:dummy.img;
 flash=mmc,0:system_a:ext4:0x8C90000,0x40000000:system.img;
 flash=mmc,0:system_b:ext4:0x48D90000,0x40000000:dummy.img;
 flash=mmc,0:vendor_a:ext4:0x88E90000,0x10000000:vendor.img;
