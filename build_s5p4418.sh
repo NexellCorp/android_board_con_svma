@@ -10,20 +10,17 @@ OTA_AB_UPDATE=true
 ADDRESS=0x93c00000
 if [ "${MEMSIZE}" == "2GB" ]; then
     ADDRESS=0x63c00000
-    UBOOT_LOAD_ADDR=0x40007800
+    UBOOT_LOAD_ADDR=0x40008000
     UBOOT_IMG_LOAD_ADDR=0x43c00000
     UBOOT_IMG_JUMP_ADDR=0x43c00000
 
 elif [ "${MEMSIZE}" == "1GB" ]; then
     ADDRESS=0x83c00000
-    UBOOT_LOAD_ADDR=0x71007800
+    UBOOT_LOAD_ADDR=0x71008000
     UBOOT_IMG_LOAD_ADDR=0x74c00000
     UBOOT_IMG_JUMP_ADDR=0x74c00000
 fi
 
-KERNEL_IMG=${KERNEL_DIR}/arch/arm/boot/zImage
-RECOVERY_KERNEL_IMG=${KERNEL_DIR}/arch/arm/boot/zImage
-DTB_IMG=${KERNEL_DIR}/arch/arm/boot/dts/s5p4418-con_svma-rev00.dtb
 
 CROSS_COMPILE="arm-eabi-"
 PARTMAP_TXT="partmap_legacy.txt"
@@ -31,6 +28,12 @@ PARTMAP_TXT="partmap_legacy.txt"
 if [ "${OTA_AB_UPDATE}" == "true" ]; then
     PARTMAP_TXT="partmap_AB_update.txt"
 fi
+
+DEVICE_DIR=${TOP}/device/nexell/con_svma
+KERNEL_IMG=${KERNEL_DIR}/arch/arm/boot/zImage
+DTB_DIR=${KERNEL_DIR}/arch/arm/boot/dts
+DTIMG_ARG="${DTB_DIR}/s5p4418-con_svma-rev00.dtb --id=0 "
+DTIMG_ARG+="${DTB_DIR}/s5p4418-con_svma-rev01.dtb --id=1 "
 
 function run_clean_packages()
 {
@@ -58,7 +61,7 @@ function run_uboot_build()
 
 function run_secure_build()
 {
-    if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_SECURE}" == "true" ]; then
+    if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_SECURE}" == "true"] || [ "${BUILD_UBOOT}" == "true" ]; then
         pos=0
         file_size=0
 
@@ -104,8 +107,27 @@ function run_kernel_build()
         if [ ! -d ${OUT_DIR} ]; then
             mkdir -p ${OUT_DIR}
         fi
-        cp ${KERNEL_IMG} ${OUT_DIR}/kernel && \
-            cp ${DTB_IMG} ${OUT_DIR}/2ndbootloader
+        cp -af ${KERNEL_IMG} ${DEVICE_DIR}/kernel
+        cp -af ${KERNEL_IMG} ${OUT_DIR}/kernel
+    fi
+}
+
+
+function run_dtb_build()
+{
+    CROSS_COMPILE_KERNEL=arm-linux-androideabi-
+    if [ "${BUILD_ALL}" == "true" ] || [ "${BUILD_DTB}" == "true" ]; then
+        if [ ! -f ${DEVICE_DIR}/kernel ]; then
+            echo "ERROR: kernel build must be done before dtb build"
+            exit 0
+        fi
+        build_dtb ${KERNEL_DIR} ${TARGET_SOC} ${CROSS_COMPILE_KERNEL}
+        echo ${DTIMG_ARG}
+        if [ ! -d ${OUT_DIR} ]; then
+            mkdir -p ${OUT_DIR}
+        fi
+        ${TOP}/device/nexell/tools/mkdtimg create ${DEVICE_DIR}/dtbo.img ${DTIMG_ARG}
+        cp -af ${DEVICE_DIR}/dtbo.img ${OUT_DIR}/dtbo.img
     fi
 }
 
@@ -137,29 +159,34 @@ function run_make_uboot_env()
     local VENDOR_BLK_SELECT
     if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
         test -f ${UBOOT_DIR}/u-boot.bin && \
-        make_uboot_bootcmd ${DEVICE_DIR}/${PARTMAP_TXT} \
-                           ${UBOOT_LOAD_ADDR} \
-                           ${PAGESIZE} \
-                           ${KERNEL_IMG} \
-                           ${DTB_IMG} \
-                           ${DEVICE_DIR}/dummy_ramdisk.img \
-                           "boot_a:emmc" \
-                           "boot_b:emmc" \
-                           UBOOT_BOOTCMD \
-                           VENDOR_BLK_SELECT
+            make_uboot_bootcmd ${DEVICE_DIR}/${PARTMAP_TXT} \
+                   ${UBOOT_LOAD_ADDR} \
+                   ${PAGESIZE} \
+                   ${KERNEL_IMG} \
+                    0x49000000 \
+                   ${DEVICE_DIR}/ramdisk-not-used \
+                   "boot_a:emmc" \
+                   "boot_b:emmc" \
+                   UBOOT_BOOTCMD
 
         UBOOT_RECOVERYCMD="ext4load mmc 0:6 0x49000000 recovery.dtb; ext4load mmc 0:6 0x40008000 recovery.kernel; ext4load mmc 0:6 0x48000000 ramdisk-recovery.img; bootz 40008000 0x48000000:2d0f8f 0x49000000"
 
         UBOOT_BOOTARGS='console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789abcdef rootwait rootfstype=ext4 init=\/init skip_initramfs blkdevparts=mmcblk0:64M@5242880(boot),1G(system),256M(vendor),4987027456(userdata) vmalloc=384M'
-
+        UBOOT_BOOTARGS+=' root=\/dev\/mmcblk0p2 rw rootwait rootfstype=ext4 init=\/init skip_initramfs vmalloc=384M '
+        UBOOT_BOOTARGS+='blkdevparts=mmcblk0:65024@512(bl1),'
+        UBOOT_BOOTARGS+='4915200@66048(bootloader_a),4915200@5046784(bootloader_b),'
+        UBOOT_BOOTARGS+='62914560@11075584(boot_a),62914560@75038720(boot_b),'
+        UBOOT_BOOTARGS+='3145728@139001856(dtbo_a),3145728@143196160(dtbo_b),'
+        UBOOT_BOOTARGS+='1073741824@147390464(system_a),1073741824@1222180864(system_b),'
+        UBOOT_BOOTARGS+='268435456@2296971264(vendor_a),268435456@2566455296(vendor_b),'
+        UBOOT_BOOTARGS+='1048576@2835939328(misc),'
+        UBOOT_BOOTARGS+='305237797168@2838036480(userdata)'
         SPLASH_SOURCE="mmc"
         SPLASH_OFFSET="0x2e4200"
 
         echo -e "----------------------------------------------------"
         echo -e "UBOOT_BOOTCMD_A = ${UBOOT_BOOTCMD[0]}"
         echo -e "UBOOT_BOOTCMD_B = ${UBOOT_BOOTCMD[1]}"
-        echo -e "VENDOR_BLK_SELECT_A = ${VENDOR_BLK_SELECT[0]}"
-        echo -e "VENDOR_BLK_SELECT_B = ${VENDOR_BLK_SELECT[1]}"
         echo -e "----------------------------------------------------"
         echo -e "UBOOT_RECOVERYCMD ==> ${UBOOT_RECOVERYCMD}\n"
 
@@ -216,8 +243,7 @@ function run_make_android_bootimg()
 {
     make_android_bootimg \
         ${KERNEL_IMG} \
-        ${DTB_IMG} \
-        ${OUT_DIR}/ramdisk-recovery.img \
+        ${DEVICE_DIR}/ramdisk-not-used \
         ${OUT_DIR}/boot.img \
         ${PAGESIZE} \
         "buildvariant=${BUILD_TAG}"
