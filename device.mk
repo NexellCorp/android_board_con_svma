@@ -59,6 +59,14 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@2.0-impl \
     android.hardware.soundtrigger@2.0-impl
 
+# evs
+PRODUCT_PACKAGES += \
+    android.hardware.automotive.evs@1.0 \
+    android.hardware.automotive.evs.manager@1.0 \
+    android.hardware.automotive.evs@1.0-sample \
+    evs_app \
+    #android.hardware.automotive.evs@1.0-service
+
 # hal
 PRODUCT_PACKAGES += \
     gralloc.s5pxx18 \

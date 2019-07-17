@@ -1,2 +1,3 @@
 allow surfaceflinger graphics_device:chr_file { read write ioctl };
 allow surfaceflinger same_process_hal_file:file { read getattr open };
+allow surfaceflinger hal_evs_driver:binder { call };
