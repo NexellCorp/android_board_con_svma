@@ -152,7 +152,9 @@ PRODUCT_PACKAGES += \
 	android.hardware.automotive.vehicle@2.0-libproto-native \
 	android.hardware.automotive.vehicle@2.0 \
 	android.hardware.automotive.audiocontrol@1.0 \
-	android.hardware.automotive.audiocontrol@1.0-service
+	android.hardware.automotive.audiocontrol@1.0-service \
+	android.hardware.automotive.evs@1.0 \
+	android.hardware.automotive.evs@1.0-service
 
 ########################################################################
 # PRODUCT_COPY_FILES
