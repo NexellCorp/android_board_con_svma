@@ -14,9 +14,7 @@
 # limitations under the License.
 #
 #
-# DEVICE_MANIFEST_FILE += device/nexell/con_svma/manifest-auto.xml
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 $(call inherit-product, device/nexell/con_svma/soc.mk)
 $(call inherit-product, device/nexell/con_svma/device.mk)
 
@@ -29,7 +27,8 @@ PRODUCT_COPY_FILES += \
 
 # Auto core hardware permissions
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/car_core_hardware.xml:system/etc/permissions/car_core_hardware.xml
+    frameworks/native/data/etc/car_core_hardware.xml:system/etc/permissions/car_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.type.automotive.xml:system/etc/permissions/android.hardware.type.automotive.xml
 
 # Enable landscape
 PRODUCT_COPY_FILES += \
@@ -42,6 +41,9 @@ PRODUCT_COPY_FILES += \
 # Broadcast Radio permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.broadcastradio.xml:system/etc/permissions/android.hardware.broadcastradio.xml
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    android.car.hvac.demo=true
 
 # vehicle HAL
 PRODUCT_PACKAGES += \
@@ -61,4 +63,5 @@ BOARD_SEPOLICY_DIRS += \
 BOARD_IS_AUTOMOTIVE := true
 TARGET_USES_CAR_FUTURE_FEATURES := true
 
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
