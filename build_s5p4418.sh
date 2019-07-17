@@ -172,7 +172,8 @@ function run_make_uboot_env()
         UBOOT_RECOVERYCMD="ext4load mmc 0:6 0x49000000 recovery.dtb; ext4load mmc 0:6 0x40008000 recovery.kernel; ext4load mmc 0:6 0x48000000 ramdisk-recovery.img; bootz 40008000 0x48000000:2d0f8f 0x49000000"
 
         UBOOT_BOOTARGS='console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789abcdef rootwait rootfstype=ext4 init=\/init skip_initramfs blkdevparts=mmcblk0:64M@5242880(boot),1G(system),256M(vendor),4987027456(userdata) vmalloc=384M'
-        UBOOT_BOOTARGS+=' root=\/dev\/mmcblk0p2 rw rootwait rootfstype=ext4 init=\/init skip_initramfs vmalloc=384M '
+        UBOOT_BOOTARGS+=' root=\/dev\/mmcblk0p2 rw rootwait rootfstype=ext4 init=\/sbin\/nx_init skip_initramfs vmalloc=384M '
+        UBOOT_BOOTARGS+=' product_part=\/dev\/mmcblk0p13 '
         UBOOT_BOOTARGS+='blkdevparts=mmcblk0:65024@512(bl1),'
         UBOOT_BOOTARGS+='4915200@66048(bootloader_a),4915200@5046784(bootloader_b),'
         UBOOT_BOOTARGS+='62914560@11075584(boot_a),62914560@75038720(boot_b),'
@@ -180,7 +181,8 @@ function run_make_uboot_env()
         UBOOT_BOOTARGS+='1073741824@147390464(system_a),1073741824@1222180864(system_b),'
         UBOOT_BOOTARGS+='268435456@2296971264(vendor_a),268435456@2566455296(vendor_b),'
         UBOOT_BOOTARGS+='1048576@2835939328(misc),'
-        UBOOT_BOOTARGS+='305237797168@2838036480(userdata)'
+        UBOOT_BOOTARGS+='3145728@2838036480(product),'
+        UBOOT_BOOTARGS+='305237797168@2842230784(userdata)'
         SPLASH_SOURCE="mmc"
         SPLASH_OFFSET="0x2e4200"
 
