@@ -67,6 +67,7 @@ PRODUCT_PACKAGES += \
     lights.s5pxx18 \
     audio.primary.s5pxx18 \
     gatekeeper.s5pxx18 \
+    camera.s5pxx18 \
     bootctrl.s5pxx18
 
 # audio
@@ -98,6 +99,18 @@ PRODUCT_PACKAGES += \
 # usb
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.1-service-nexell
+
+# camera
+PRODUCT_PACKAGES += \
+    Camera2 \
+    camera.device@3.2-impl \
+    android.hardware.camera.provider@2.4 \
+    android.hardware.camera.provider@2.4-impl \
+    android.hardware.camera.provider@2.4-service
+
+# launcher
+# PRODUCT_PACKAGES += \
+    Launcher3
 
 # VNDK libraries
 PRODUCT_PACKAGES += \
@@ -213,10 +226,11 @@ PRODUCT_COPY_FILES += \
     device/nexell/con_svma/wifi/config/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     device/nexell/con_svma/wifi/config/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf
 
-# media
+# camera
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
+    frameworks/native/data/etc/android.hardware.camera.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.xml \
     device/nexell/con_svma/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml \
     device/nexell/con_svma/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 
