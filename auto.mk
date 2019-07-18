@@ -51,6 +51,7 @@ PRODUCT_PACKAGES += \
 
 # AudioControl HAL
 PRODUCT_PACKAGES += \
+    android.hardware.automotive.audiocontrol@1.0 \
     android.hardware.automotive.audiocontrol@1.0-service-nexell
 
 BOARD_SEPOLICY_DIRS += \
