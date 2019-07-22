@@ -57,3 +57,8 @@
 /system/bin/mount\.ntfs	--	u:object_r:fs_support_exec:s0
 
 /sys/devices/platform/bt_control/rfkill/rfkill0/state               u:object_r:sysfs_bluetooth_writable:s0
+
+/oem/3DS/*                                                          u:object_r:rootfs:s0
+/oem/ui/*                                                           u:object_r:rootfs:s0
+/product/avm/*                                                      u:object_r:rootfs:s0
+/product/avm_onecam/*                                               u:object_r:rootfs:s0
