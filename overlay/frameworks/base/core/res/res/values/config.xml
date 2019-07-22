@@ -130,4 +130,7 @@
         <item>1</item>
     </integer-array>
 
+    <!-- Is the lock-screen disabled for new users by default -->
+    <bool name="config_disableLockscreenByDefault">true</bool>
+
 </resources>
