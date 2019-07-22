@@ -54,3 +54,7 @@ genfscon sysfs /devices/platform/c0000000.soc/c0080000.video-codec/video4linux/v
 genfscon sysfs /devices/platform/c0000000.soc/c0080000.video-codec/video4linux/video13      u:object_r:sysfs_video:s0
 genfscon sysfs /devices/platform/c0000000.soc/c0080000.video-codec/video4linux/video14      u:object_r:sysfs_video:s0
 genfscon sysfs /devices/platform/c0000000.soc/c0080000.video-codec/video4linux/video15      u:object_r:sysfs_video:s0
+
+# backgear
+genfscon sysfs /devices/platform/c0000000.soc/c001a000.pinctrl/gpio/                    u:object_r:sysfs_geardetect:s0
+genfscon sysfs /devices/platform/cpu                                                  u:object_r:sysfs_cpuid:s0
