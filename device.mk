@@ -347,3 +347,6 @@ $(call add-product-sanitizer-module-config,hostapd,never)
 $(call inherit-product-if-exists, device/nexell/app/svm_daemon/svm-daemon.mk)
 PRODUCT_PACKAGES += \
     nx_init
+
+PRODUCT_PACKAGES += \
+    NxQuickRearCam
