@@ -30,3 +30,7 @@ BOARD_CAMERA_BACK_ORIENTATION := "0"
 BOARD_CAMERA_NUM := 1
 BOARD_CAMERA_USE_ZOOM := false
 BOARD_CAMERA_SUPPORT_SCALING := true
+
+#one_cam topview config
+PRODUCT_COPY_FILES += \
+    device/nexell/app/svm_daemon/data/avm_onecam/avm_config_onecam_m1.txt:$(TARGET_COPY_OUT_PRODUCT)/avm_onecam/avm_config_onecam.txt
