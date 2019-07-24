@@ -26,3 +26,8 @@ TARGET_USES_64_BIT_BINDER := true
 
 # misc by-name path
 NEXELL_MISC_PARTITION := /dev/block/platform/c0000000.soc/c0069000.dw_mmc/by-name/misc
+
+
+#one_cam topview config
+PRODUCT_COPY_FILES += \
+    device/nexell/app/svm_daemon/data/avm_onecam/avm_config_onecam_m2.txt:$(TARGET_COPY_OUT_PRODUCT)/avm_onecam/avm_config_onecam.txt
