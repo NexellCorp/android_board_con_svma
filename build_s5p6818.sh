@@ -71,6 +71,10 @@ KERNEL_IMG=${KERNEL_DIR}/arch/arm64/boot/Image
 DTB_DIR=${KERNEL_DIR}/arch/arm64/boot/dts/nexell
 DTIMG_ARG="${DTB_DIR}/s5p6818-con_svma-rev01.dtb --id=1 "
 
+#NxQuickRear arguments (tw9900, tp2825)
+NXQUICKREAR_ARGS=("nx_cam.m=-m2 nx_cam.b=-b1 nx_cam.c=-c26 nx_cam.r=-r704x480 nx_cam.end")
+NXQUICKREAR_ARGS+=("nx_cam.m=-m9 nx_cam.b=-b1 nx_cam.c=-c26 nx_cam.r=-r1280x720 nx_cam.end")
+
 
 # secure common
 function gen_hash_rsa()
@@ -535,7 +539,6 @@ function run_make_uboot_env()
 {
     echo "make u-boot env"
     local UBOOT_BOOTCMD
-    local VENDOR_BLK_SELECT
     if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
         test -f ${UBOOT_DIR}/u-boot.bin && \
             make_uboot_bootcmd ${DEVICE_DIR}/${PARTMAP_TXT} \
@@ -577,11 +580,8 @@ function run_make_uboot_env()
         pushd `pwd`
         cd ${UBOOT_DIR}
 
-        build_uboot_env_param ${CROSS_COMPILE} "UBOOT_BOOTCMD[@]" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}" "VENDOR_BLK_SELECT[@]"
+        build_uboot_env_param ${CROSS_COMPILE} "UBOOT_BOOTCMD[@]" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}" "NXQUICKREAR_ARGS[@]"
 
-        # build_uboot_env_param_legacy ${CROSS_COMPILE} "${UBOOT_BOOTCMD}" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}"
-        # for sd card auto recovery
-        #build_uboot_env_param ${CROSS_COMPILE} "${UBOOT_BOOTCMD}" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}" "${AUTORECOVERY_CMD}" "params_sd.bin"
         popd
     fi
 }
