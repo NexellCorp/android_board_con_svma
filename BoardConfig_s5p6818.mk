@@ -14,20 +14,22 @@
 # limitations under the License.
 #
 
+include device/nexell/con_svma/BoardConfigCommon.mk
+
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a9
 
-include device/nexell/con_svma/BoardConfigCommon.mk
-
 TARGET_USES_64_BIT_BINDER := true
 
 # misc by-name path
 NEXELL_MISC_PARTITION := /dev/block/platform/c0000000.soc/c0069000.dw_mmc/by-name/misc
 
-
 #one_cam topview config
 PRODUCT_COPY_FILES += \
     device/nexell/app/svm_daemon/data/avm_onecam/avm_config_onecam_m2.txt:$(TARGET_COPY_OUT_PRODUCT)/avm_onecam/avm_config_onecam.txt
+
+# bluetooth
+BOARD_CUSTOM_BT_CONFIG := device/nexell/con_svma/bluetooth/vnd_con_svma_s5p6818.txt

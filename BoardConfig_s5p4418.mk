@@ -34,3 +34,6 @@ BOARD_CAMERA_SUPPORT_SCALING := true
 #one_cam topview config
 PRODUCT_COPY_FILES += \
     device/nexell/app/svm_daemon/data/avm_onecam/avm_config_onecam_m1.txt:$(TARGET_COPY_OUT_PRODUCT)/avm_onecam/avm_config_onecam.txt
+
+# bluetooth
+BOARD_CUSTOM_BT_CONFIG := device/nexell/con_svma/bluetooth/vnd_con_svma_s5p4418.txt

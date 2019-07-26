@@ -42,7 +42,8 @@
 
 /dev/ttyAMA[0,2-9]*                                                 u:object_r:console_device:s0
 /dev/ttyAMA1                                                        u:object_r:hci_attach_dev:s0
-/dev/ttySAC[0-9]*                                                   u:object_r:console_device:s0
+/dev/ttySAC[0,2-9]*                                                 u:object_r:console_device:s0
+/dev/ttySAC1                                                        u:object_r:hci_attach_dev:s0
 /dev/scaler                                                         u:object_r:nx_scaler_device:s0
 /dev/nx-deinterlacer                                                u:object_r:nx_deinterlacer_device:s0
 
