@@ -230,6 +230,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.connectionservice.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.connectionservice.xml
 
+# nx_vpu, sdio module
+ifeq ($(QUICKBOOT), 1)
+PRODUCT_COPY_FILES += \
+    device/nexell/kernel/kernel-4.4.x/drivers/media/platform/nx-vpu/nx_vpu.ko:system/lib/modules/nx_vpu.ko \
+    device/nexell/kernel/kernel-4.4.x/drivers/mmc/host/dw_mmc-nexell_sdio_1.ko:system/lib/modules/dw_mmc-nexell_sdio_1.ko
+endif
+
 ########################################################################
 # PRODUCT_PROPERTY_OVERRIDES
 ########################################################################
