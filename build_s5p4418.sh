@@ -35,6 +35,11 @@ DTB_DIR=${KERNEL_DIR}/arch/arm/boot/dts
 DTIMG_ARG="${DTB_DIR}/s5p4418-con_svma-rev00.dtb --id=0 "
 DTIMG_ARG+="${DTB_DIR}/s5p4418-con_svma-rev01.dtb --id=1 "
 
+#NxQuickRear arguments (tw9900, tp2825)
+NXQUICKREAR_ARGS=("nx_cam.m=-m1 nx_cam.b=-b1 nx_cam.c=-c26 nx_cam.r=-r704x480 nx_cam.end")
+NXQUICKREAR_ARGS+=("nx_cam.m=-m6 nx_cam.b=-b1 nx_cam.c=-c26 nx_cam.r=-r1280x720 nx_cam.end")
+
+
 function run_clean_packages()
 {
     if [ "${BUILD_DIST}" == "true" ]; then
@@ -156,7 +161,6 @@ function run_make_uboot_env()
     # u-boot envs
     echo "make u-boot env"
     local UBOOT_BOOTCMD
-    local VENDOR_BLK_SELECT
     if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
         test -f ${UBOOT_DIR}/u-boot.bin && \
             make_uboot_bootcmd ${DEVICE_DIR}/${PARTMAP_TXT} \
@@ -171,7 +175,7 @@ function run_make_uboot_env()
 
         UBOOT_RECOVERYCMD="ext4load mmc 0:6 0x49000000 recovery.dtb; ext4load mmc 0:6 0x40008000 recovery.kernel; ext4load mmc 0:6 0x48000000 ramdisk-recovery.img; bootz 40008000 0x48000000:2d0f8f 0x49000000"
 
-        UBOOT_BOOTARGS='console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789abcdef rootwait rootfstype=ext4 init=\/init skip_initramfs blkdevparts=mmcblk0:64M@5242880(boot),1G(system),256M(vendor),4987027456(userdata) vmalloc=384M'
+        UBOOT_BOOTARGS='console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789abcdef '
         UBOOT_BOOTARGS+=' root=\/dev\/mmcblk0p2 rw rootwait rootfstype=ext4 init=\/sbin\/nx_init skip_initramfs vmalloc=384M '
         UBOOT_BOOTARGS+=' product_part=\/dev\/mmcblk0p13 '
         UBOOT_BOOTARGS+='blkdevparts=mmcblk0:65024@512(bl1),'
@@ -194,7 +198,7 @@ function run_make_uboot_env()
 
         pushd `pwd`
         cd ${UBOOT_DIR}
-        build_uboot_env_param ${CROSS_COMPILE} "UBOOT_BOOTCMD[@]" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}" "VENDOR_BLK_SELECT[@]"
+        build_uboot_env_param ${CROSS_COMPILE} "UBOOT_BOOTCMD[@]" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}" "NXQUICKREAR_ARGS[@]"
         popd
     fi
 }
