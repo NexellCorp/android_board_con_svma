@@ -21,6 +21,10 @@ on zygote-start
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
     chown dhcp dhcp /data/misc/dhcp
 
+on early-boot
+    chown system system /sys/class/backlight/pwm-backlight/brightness
+    chmod 0660 /sys/class/backlight/pwm-backlight/brightness
+
 on boot
     class_start main
     class_start late_start
