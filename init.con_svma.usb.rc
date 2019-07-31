@@ -1,4 +1,4 @@
-on boot
+on early-boot
 	mount configfs none /config
 	mkdir /config/usb_gadget/g1 0770
 	mkdir /config/usb_gadget/g1/strings/0x409 0770
@@ -30,6 +30,8 @@ on boot
 	setprop sys.usb.controller "c0040000.dwc2otg"
 	write /sys/module/libcomposite/parameters/disable_l1_for_hs "y"
 	symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
+
+on boot
 	setprop sys.usb.configfs 1
 
 on property:sys.usb.config=none && property:sys.usb.configfs=1
