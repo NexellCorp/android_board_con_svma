@@ -555,6 +555,7 @@ function run_make_uboot_env()
 
         UBOOT_BOOTARGS='console=ttySAC0,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttySAC0 androidboot.serialno=0123456789abcdef '
         UBOOT_BOOTARGS+=' root=\/dev\/mmcblk0p2 rw rootwait rootfstype=ext4 init=\/sbin\/nx_init skip_initramfs vmalloc=384M '
+        UBOOT_BOOTARGS+=' androidboot.selinux=permissive '
         UBOOT_BOOTARGS+=' product_part=\/dev\/mmcblk0p13 '
         UBOOT_BOOTARGS+='blkdevparts=mmcblk0:65024@512(bl1),'
         UBOOT_BOOTARGS+='4915200@66048(bootloader_a),4915200@5046784(bootloader_b),'
