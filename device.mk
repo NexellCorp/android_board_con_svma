@@ -57,7 +57,9 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
     android.hardware.audio@2.0-service \
     android.hardware.audio.effect@2.0-impl \
-    android.hardware.soundtrigger@2.0-impl
+    android.hardware.soundtrigger@2.0-impl \
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.memtrack@1.0-service
 
 # hal
 PRODUCT_PACKAGES += \
@@ -67,7 +69,8 @@ PRODUCT_PACKAGES += \
     lights.s5pxx18 \
     audio.primary.s5pxx18 \
     gatekeeper.s5pxx18 \
-    bootctrl.s5pxx18
+    bootctrl.s5pxx18 \
+    memtrack.s5pxx18
 
 # audio
 PRODUCT_PACKAGES += \
@@ -347,6 +350,7 @@ PRODUCT_PACKAGES += \
   aaudio_loopback \
   write_sine \
   write_sine_callback
+
 
 $(call add-product-sanitizer-module-config,wpa_supplicant,never)
 $(call add-product-sanitizer-module-config,hostapd,never)
