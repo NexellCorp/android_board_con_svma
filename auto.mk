@@ -60,6 +60,11 @@ BOARD_SEPOLICY_DIRS += \
 BOARD_IS_AUTOMOTIVE := true
 TARGET_USES_CAR_FUTURE_FEATURES := true
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+# Settings
+PRODUCT_PACKAGES += \
+    Settings \
+    SettingsIntelligence
+
+# $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
 # $(call inherit-product, device/nexell/con_svma/car.mk)
