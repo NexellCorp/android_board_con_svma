@@ -61,7 +61,7 @@ BOARD_IS_AUTOMOTIVE := true
 TARGET_USES_CAR_FUTURE_FEATURES := true
 
 # Settings
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     Settings \
     SettingsIntelligence
 
