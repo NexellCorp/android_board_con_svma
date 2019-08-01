@@ -41,7 +41,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.broadcastradio.xml:system/etc/permissions/android.hardware.broadcastradio.xml
 
-# vehicle HAL
+# Vehicle HAL
 PRODUCT_PACKAGES += \
     android.hardware.automotive.vehicle@2.0-service
 
@@ -54,16 +54,16 @@ PRODUCT_PACKAGES += \
     android.hardware.automotive.audiocontrol@1.0 \
     android.hardware.automotive.audiocontrol@1.0-service-nexell
 
+# Internet browser
+PRODUCT_PACKAGES += \
+    Browser2
+
 BOARD_SEPOLICY_DIRS += \
     device/generic/car/common/sepolicy
 
 BOARD_IS_AUTOMOTIVE := true
 TARGET_USES_CAR_FUTURE_FEATURES := true
 
-# Settings
-PRODUCT_PACKAGES += \
-    Settings \
-    SettingsIntelligence
 
 # $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
