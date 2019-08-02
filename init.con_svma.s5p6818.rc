@@ -35,22 +35,23 @@ on boot
 on boot && property:ro.vendor.ota_update_verifier=true
     exec_start update_verifier_nonencrypted
 
-    # Bluetooth
-    chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
-    chown bluetooth net_bt /sys/class/rfkill/rfkill0/state
-    chmod 0660 /sys/class/rfkill/rfkill0/state
-    chown bluetooth net_bt /dev/ttySAC1
-    chmod 0660 /dev/ttySAC1
-
-    # Bluetooth init
-    setprop ro.boot.btmacaddr "00:00:00:00:00:00"
-    setprop ro.bluetooth.hfp.ver 1.7
-
     # Wifi init
     setprop wifi.interface wlan0
 
     # Wifi bcmdhd firmware reload path
     chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
+
+on property:sys.boot_completed=1
+    # Bluetooth
+    chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+
+    chown bluetooth net_bt /dev/ttySAC1
+    chmod 0660 /dev/ttySAC1
+
+    # Bluetooth init
+    setprop ro.boot.btmacaddr "00:00:00:00:00:00"
 
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 -dd \
