@@ -13,3 +13,6 @@ allow kernel sysfs_cpuid:file { open read write };
 allow kernel sysfs_video:file { open read write };
 allow kernel sysfs_camerasensor:file { open read write };
 allow kernel sysfs_v4l-subdev:file { open read write };
+allow kernel device:dir create;
+allow kernel self:capability net_bind_service;
+allow kernel self:system module_request;
