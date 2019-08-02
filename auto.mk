@@ -65,6 +65,9 @@ PRODUCT_PACKAGES += \
     Settings \
     SettingsIntelligence
 
+PRODUCT_PACKAGES += \
+    Gallery2
+
 # $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
 # $(call inherit-product, device/nexell/con_svma/car.mk)
