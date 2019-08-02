@@ -59,6 +59,15 @@ PRODUCT_PACKAGES += \
     Browser2 \
     Gallery2
 
+# Call related components
+PRODUCT_PACKAGES += \
+    Telecom \
+    TeleService \
+    TelephonyProvider
+
+PRODUCT_SYSTEM_SERVER_APPS += \
+    Telecom
+
 BOARD_SEPOLICY_DIRS += \
     device/generic/car/common/sepolicy
 
