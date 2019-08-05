@@ -553,10 +553,15 @@ function run_make_uboot_env()
 
         UBOOT_RECOVERYCMD="ext4load mmc 0:6 0x49000000 recovery.dtb; ext4load mmc 0:6 0x40080000 recovery.kernel; ext4load mmc 0:6 0x48000000 ramdisk-recovery.img; booti 40080000 0x48000000:2d0f8f 0x49000000"
 
-        UBOOT_BOOTARGS='console=ttySAC0,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttySAC0 androidboot.serialno=0123456789abcdef '
+        UBOOT_BOOTARGS='console=ttySAC0,115200n8 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttySAC0 androidboot.serialno=0123456789abcdef '
         UBOOT_BOOTARGS+=' root=\/dev\/mmcblk0p2 rw rootwait rootfstype=ext4 init=\/sbin\/nx_init skip_initramfs vmalloc=384M '
         UBOOT_BOOTARGS+=' androidboot.selinux=permissive '
         UBOOT_BOOTARGS+=' product_part=\/dev\/mmcblk0p13 '
+        if [ "${QUICKBOOT}" == "true" ]; then
+            UBOOT_BOOTARGS+=' loglevel=4 quite '
+        else
+            UBOOT_BOOTARGS+=' loglevel=7 '
+        fi
         UBOOT_BOOTARGS+='blkdevparts=mmcblk0:65024@512(bl1),'
         UBOOT_BOOTARGS+='4915200@66048(bootloader_a),4915200@5046784(bootloader_b),'
         UBOOT_BOOTARGS+='62914560@11075584(boot_a),62914560@75038720(boot_b),'
