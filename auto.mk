@@ -57,7 +57,10 @@ PRODUCT_PACKAGES += \
 # Etc
 PRODUCT_PACKAGES += \
     Browser2 \
-    Gallery2
+    Gallery2 \
+    Contacts \
+    BluetoothMidiService \
+    vr
 
 # Call related components
 PRODUCT_PACKAGES += \
