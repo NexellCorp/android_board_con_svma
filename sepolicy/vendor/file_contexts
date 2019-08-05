@@ -47,8 +47,6 @@
 /dev/scaler                                                         u:object_r:nx_scaler_device:s0
 /dev/nx-deinterlacer                                                u:object_r:nx_deinterlacer_device:s0
 
-#/system/bin/com.android.car.powertestservice                       u:object_r:power_test_service_exec:s0
-
 # fsck
 /system/bin/fsck\.exfat	--	u:object_r:fsck_exec:s0
 /system/bin/fsck\.ntfs	--	u:object_r:fsck_exec:s0
