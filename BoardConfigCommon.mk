@@ -38,6 +38,8 @@ TARGET_NO_RECOVERY := true
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/nexell/con_svma
 
+DEVICE_MATRIX_FILE += device/nexell/con_svma/compatibility_matrix.xml
+
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 
 # boot image layout

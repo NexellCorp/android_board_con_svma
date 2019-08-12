@@ -63,3 +63,10 @@
 /oem/ui/*                                                           u:object_r:rootfs:s0
 /product/avm/*                                                      u:object_r:rootfs:s0
 /product/avm_onecam/*                                               u:object_r:rootfs:s0
+
+# netutils
+/system/bin/ip-wrapper-1\.0                                         u:object_r:system_file:s0
+/system/bin/ip6tables-wrapper-1\.0                                  u:object_r:system_file:s0
+/system/bin/iptables-wrapper-1\.0                                   u:object_r:system_file:s0
+/system/bin/ndc-wrapper-1\.0                                        u:object_r:system_file:s0
+/system/bin/tc-wrapper-1\.0                                         u:object_r:system_file:s0
