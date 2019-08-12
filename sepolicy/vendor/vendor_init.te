@@ -29,3 +29,5 @@ dontaudit vendor_init unlabeled:file getattr;
 
 allow vendor_init self:capability sys_module;
 allow vendor_init system_file:system module_load;
+
+dontaudit vendor_init shell_data_file:dir setattr;

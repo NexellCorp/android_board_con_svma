@@ -1,1 +1,1 @@
-allow shell audioserver_exec:file { execute getattr };
+allow shell statsd_exec:file getattr;
