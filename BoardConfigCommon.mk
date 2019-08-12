@@ -16,6 +16,13 @@
 
 LOCAL_PATH := device/nexell/con_svma
 
+# quickboot
+ifeq ($(QUICKBOOT), 1)
+NEXELL_QUICKBOOT := true
+else
+NEXELL_QUICKBOOT := false
+endif
+
 # define targets
 TARGET_BOARD_PLATFORM := s5pxx18
 TARGET_BOOTLOADER_BOARD_NAME := con_svma
