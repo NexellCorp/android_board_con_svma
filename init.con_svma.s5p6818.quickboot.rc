@@ -4,14 +4,47 @@ on init
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
 
+on fs
+    # Start HW service manager early
+    start hwservicemanager
+    mount_all /vendor/etc/fstab.${ro.hardware} --early
+    swapon_all /vendor/etc/fstab.${ro.hardware}
+
 on zygote-start
+    mkdir /data/tombstones 0771 system system
+
     # Create the directories used by the Wireless subsystem
     mkdir /data/vendor/wifi 0771 wifi wifi
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
     chown dhcp dhcp /data/misc/dhcp
 
+    # Create the directories used by DPM subsystem
+    mkdir /data/dpm 0771 system system
+    chown system system /data/dpm
+
+    mkdir /data/dpm/nsrm 0771 system system
+    chown system system /data/dpm/nsrm
+
+    # Create directory used by audio subsystem
+    mkdir /data/vendor/audio 0770 audio audio
+
+    # Create directory for audio delta files
+    mkdir /data/vendor/audio/acdbdata 0770 media audio
+    mkdir /data/vendor/audio/acdbdata/delta 0770 media audio
+
+    # Create directory from IMS services
+    mkdir /data/shared 0755
+    chown system system /data/shared
+
+    # Create /data/time folder for time-services
+    mkdir /data/time 0700 system system
+    mkdir /data/audio 0770 media audio
+
 on early-boot
+    mkdir /data/dalvik-cache 0771 root root
+    mkdir /data/dalvik-cache/arm 0771 root system
+
     chown system system /sys/class/backlight/pwm-backlight/brightness
     chmod 0660 /sys/class/backlight/pwm-backlight/brightness
 
@@ -22,6 +55,16 @@ on early-boot
 
     chown bluetooth net_bt /dev/ttySAC1
     chmod 0660 /dev/ttySAC1
+
+    # Create UDS structure for base VR services.
+    mkdir /dev/socket/pdx 0775 system system
+    mkdir /dev/socket/pdx/system 0775 system system
+    mkdir /dev/socket/pdx/system/buffer_hub 0775 system system
+    mkdir /dev/socket/pdx/system/performance 0775 system system
+    mkdir /dev/socket/pdx/system/vr 0775 system system
+    mkdir /dev/socket/pdx/system/vr/display 0775 system system
+    mkdir /dev/socket/pdx/system/vr/pose 0775 system system
+    mkdir /dev/socket/pdx/system/vr/sensors 0775 system system
 
 on boot
     class_start main
