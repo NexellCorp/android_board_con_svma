@@ -26,8 +26,9 @@ set_prop(vendor_init, vendor_charge_prop)
 
 dontaudit vendor_init unlabeled:dir getattr;
 dontaudit vendor_init unlabeled:file getattr;
-
 allow vendor_init self:capability sys_module;
 allow vendor_init system_file:system module_load;
-
 dontaudit vendor_init shell_data_file:dir setattr;
+dontaudit vendor_init dalvikcache_data_file:dir { add_name create setattr write };
+allow vendor_init system_data_file:dir { add_name create setattr write };
+allow vendor_init tombstone_data_file:dir setattr;
