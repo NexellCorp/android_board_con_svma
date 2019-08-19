@@ -25,6 +25,8 @@ on boot
     insmod /system/lib/modules/nx_vpu.ko
     insmod /system/lib/modules/dw_mmc-nexell_sdio_1.ko
 
+    chmod 0777 /dev/kmsg
+
 on boot && property:ro.vendor.ota_update_verifier=true
     exec_start update_verifier_nonencrypted
 
