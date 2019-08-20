@@ -1,25 +1,61 @@
-# lighter version of packages/services/Car/car_product/build/car.mk
 #
+# Copyright (C) 2016 The Android Open-Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# Common make file for all car builds
+
 BOARD_PLAT_PUBLIC_SEPOLICY_DIR += packages/services/Car/car_product/sepolicy/public
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += packages/services/Car/car_product/sepolicy/private
 
 PRODUCT_PACKAGES += \
+    Bluetooth \
+    OneTimeInitializer \
+    Provision \
     SystemUI \
-    Bluetooth
+    SystemUpdater
 
 PRODUCT_PACKAGES += \
     clatd \
     clatd.conf \
-    pppd
+    pppd \
+    screenrecord
 
-PRODUCT_COPY_FILES += \
+# This is for testing
+ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+PRODUCT_PACKAGES += \
+    DefaultStorageMonitoringCompanionApp \
+    EmbeddedKitchenSinkApp \
+    VmsPublisherClientSample \
+    VmsSubscriberClientSample \
+    android.car.cluster.loggingrenderer \
+    DirectRenderingClusterSample \
+    com.android.car.powertestservice \
+
+# SEPolicy for test apps / services
+BOARD_SEPOLICY_DIRS += packages/services/Car/car_product/sepolicy/test
+endif
+
+PRODUCT_COPY_FILES := \
     frameworks/av/media/libeffects/data/audio_effects.conf:system/etc/audio_effects.conf \
-    packages/services/Car/car_product/preloaded-classes-car:system/etc/preloaded-classes
+    packages/services/Car/car_product/preloaded-classes-car:system/etc/preloaded-classes \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.carrier=unknown \
     persist.bluetooth.enablenewavrcp=false
 
+# Overlay for Google network and fused location providers
 $(call inherit-product, device/sample/products/location_overlay.mk)
 $(call inherit-product-if-exists, frameworks/base/data/fonts/fonts.mk)
 $(call inherit-product-if-exists, external/google-fonts/dancing-script/fonts.mk)
@@ -31,71 +67,18 @@ $(call inherit-product-if-exists, external/roboto-fonts/fonts.mk)
 $(call inherit-product-if-exists, external/hyphenation-patterns/patterns.mk)
 $(call inherit-product-if-exists, frameworks/base/data/keyboards/keyboards.mk)
 $(call inherit-product-if-exists, frameworks/webview/chromium/chromium.mk)
+$(call inherit-product, device/nexell/con_svma/car_base.mk)
 
-# $(call inherit-product, packages/services/Car/car_product/build/car_base.mk)
+# Overrides
+PRODUCT_BRAND := generic
+PRODUCT_DEVICE := generic
+PRODUCT_NAME := generic_car_no_telephony
 
-PRODUCT_PACKAGE_OVERLAYS += packages/services/Car/car_product/overlay
-
-PRODUCT_PACKAGES += \
-    FusedLocation \
-    InputDevices \
-    KeyChain \
-    Keyguard \
-    ManagedProvisioning \
-    PacProcessor \
-    libpac \
-    ProxyHandler \
-    ExternalStorageProvider \
-    atrace \
-    libandroidfw \
-    libaudiopreprocessing \
-    libaudioutils \
-    libfilterpack_imageproc \
-    libgabi++ \
-    libmdnssd \
-    libnfc_ndef \
-    libpowermanager \
-    libspeexresampler \
-    libstagefright_soft_aacdec \
-    libstagefright_soft_aacenc \
-    libstagefright_soft_amrdec \
-    libstagefright_soft_amrnbenc \
-    libstagefright_soft_amrwbenc \
-    libstagefright_soft_avcdec \
-    libstagefright_soft_avcenc \
-    libstagefright_soft_flacdec \
-    libstagefright_soft_flacenc \
-    libstagefright_soft_g711dec \
-    libstagefright_soft_gsmdec \
-    libstagefright_soft_hevcdec \
-    libstagefright_soft_mp3dec \
-    libstagefright_soft_mpeg2dec \
-    libstagefright_soft_mpeg4dec \
-    libstagefright_soft_mpeg4enc \
-    libstagefright_soft_opusdec \
-    libstagefright_soft_rawdec \
-    libstagefright_soft_vorbisdec \
-    libstagefright_soft_vpxdec \
-    libstagefright_soft_vpxenc \
-    libvariablespeed \
-    libwebrtc_audio_preprocessing \
-    mdnsd \
-    requestsync \
-    wifi-service \
-    A2dpSinkService \
-
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.type.automotive.xml:system/etc/permissions/android.hardware.type.automotive.xml
-
-PRODUCT_COPY_FILES += \
-    packages/services/Car/car_product/build/default-car-permissions.xml:system/etc/default-permissions/default-car-permissions.xml
-
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_minimal.mk)
-
-PRODUCT_PROPERTY_OVERRIDES += \
+PRODUCT_PROPERTY_OVERRIDES := \
     ro.config.ringtone=Girtab.ogg \
     ro.config.notification_sound=Tethys.ogg \
-    ro.config.alarm_alert=Oxygen.ogg
+    ro.config.alarm_alert=Oxygen.ogg \
+    $(PRODUCT_PROPERTY_OVERRIDES) \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true
