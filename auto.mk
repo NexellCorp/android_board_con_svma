@@ -74,4 +74,8 @@ BOARD_SEPOLICY_DIRS += \
 BOARD_IS_AUTOMOTIVE := true
 TARGET_USES_CAR_FUTURE_FEATURES := true
 
+ifeq ($(QUICKBOOT), 1)
+$(call inherit-product, device/nexell/con_svma/car.mk)
+else
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
+endif
