@@ -16,3 +16,5 @@ allow kernel sysfs_v4l-subdev:file { open read write };
 allow kernel device:dir create;
 allow kernel self:capability net_bind_service;
 allow kernel self:system module_request;
+allow kernel device:chr_file { getattr unlink };
+allow kernel device:dir rmdir;

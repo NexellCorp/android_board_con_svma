@@ -13,3 +13,6 @@ allow system_app update_engine:binder call;
 dontaudit system_app installd:binder call;
 dontaudit system_app netd:binder call;
 allow system_app vold:binder call;
+dontaudit system_app apk_data_file:dir { add_name remove_name write };
+dontaudit system_app apk_data_file:file { create unlink write };
+dontaudit system_app default_prop:property_service set;
