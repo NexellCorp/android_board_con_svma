@@ -28,6 +28,9 @@ PRODUCT_CHARACTERISTICS := tablet
 PRODUCT_SHIPPING_API_LEVEL := 26
 DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 
+ifeq ($(QUICKBOOT), 1)
+PRODUCT_PROPERTY_OVERRIDES += persist.quickboot.firstboot=1
+endif
 
 ########################################################################
 # PRODUCT_PACKAGES
