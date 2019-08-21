@@ -63,3 +63,5 @@
 /oem/ui/*                                                           u:object_r:rootfs:s0
 /product/avm/*                                                      u:object_r:rootfs:s0
 /product/avm_onecam/*                                               u:object_r:rootfs:s0
+
+/system/bin/input  u:object_r:input_exec:s0
