@@ -66,3 +66,4 @@
 
 /system/bin/usbmuxd	u:object_r:usbmuxd_exec:s0
 /system/bin/iproxy\.sh	u:object_r:iproxy_exec:s0
+/system/bin/input  u:object_r:input_exec:s0

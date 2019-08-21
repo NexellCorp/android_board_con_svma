@@ -50,6 +50,13 @@ on boot && property:ro.vendor.ota_update_verifier=true
 on property:sys.boot_completed=1
     class_start late_start
 
+on property:sys.boot_completed=1 && property:sys.firstboot=1
+    exec - system system -- /system/bin/input tap 50 650
+    setprop persist.quickboot.firstboot 0
+
+on property:persist.quickboot.firstboot=1
+    setprop sys.firstboot 1
+
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 -dd \
     -g@android:wpa_wlan0
