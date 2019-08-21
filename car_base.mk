@@ -22,26 +22,17 @@ PRODUCT_PACKAGE_OVERLAYS += packages/services/Car/car_product/overlay
 PRODUCT_PACKAGES += \
     ContactsProvider \
     DefaultContainerService \
-    Home \
-    BasicDreams \
     CaptivePortalLogin \
     CertInstaller \
-    DocumentsUI \
-    DownloadProviderUi \
     FusedLocation \
     InputDevices \
     KeyChain \
     Keyguard \
-    LatinIME \
-    Launcher2 \
     ManagedProvisioning \
     PacProcessor \
     libpac \
-    PrintSpooler \
     ProxyHandler \
-    Settings \
     SharedStorageBackup \
-    VpnDialogs \
     MmsService \
     ExternalStorageProvider \
     atrace \
@@ -83,7 +74,7 @@ PRODUCT_PACKAGES += \
     A2dpSinkService \
 
 # EVS resources
-PRODUCT_PACKAGES += android.automotive.evs.manager@1.0
+# PRODUCT_PACKAGES += android.automotive.evs.manager@1.0
 # The following packages, or their vendor specific equivalents should be include in the device.mk
 #PRODUCT_PACKAGES += evs_app
 #PRODUCT_PACKAGES += evs_app_default_resources
