@@ -21,7 +21,6 @@ BOARD_PLAT_PRIVATE_SEPOLICY_DIR += packages/services/Car/car_product/sepolicy/pr
 
 PRODUCT_PACKAGES += \
     Bluetooth \
-    OneTimeInitializer \
     Provision \
     SystemUI \
     SystemUpdater
@@ -29,23 +28,22 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     clatd \
     clatd.conf \
-    pppd \
-    screenrecord
+    pppd
 
 # This is for testing
-ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
-PRODUCT_PACKAGES += \
-    DefaultStorageMonitoringCompanionApp \
-    EmbeddedKitchenSinkApp \
-    VmsPublisherClientSample \
-    VmsSubscriberClientSample \
-    android.car.cluster.loggingrenderer \
-    DirectRenderingClusterSample \
-    com.android.car.powertestservice \
+# ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+# PRODUCT_PACKAGES += \
+#     DefaultStorageMonitoringCompanionApp \
+#     EmbeddedKitchenSinkApp \
+#     VmsPublisherClientSample \
+#     VmsSubscriberClientSample \
+#     android.car.cluster.loggingrenderer \
+#     DirectRenderingClusterSample \
+#     com.android.car.powertestservice \
 
-# SEPolicy for test apps / services
-BOARD_SEPOLICY_DIRS += packages/services/Car/car_product/sepolicy/test
-endif
+# # SEPolicy for test apps / services
+# BOARD_SEPOLICY_DIRS += packages/services/Car/car_product/sepolicy/test
+# endif
 
 PRODUCT_COPY_FILES := \
     frameworks/av/media/libeffects/data/audio_effects.conf:system/etc/audio_effects.conf \
