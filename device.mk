@@ -29,7 +29,9 @@ PRODUCT_SHIPPING_API_LEVEL := 26
 DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 
 ifeq ($(QUICKBOOT), 1)
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot=1
 PRODUCT_PROPERTY_OVERRIDES += persist.quickboot.firstboot=1
+PRODUCT_PROPERTY_OVERRIDES += config.disable_cameraservice=1
 endif
 
 ########################################################################
