@@ -207,6 +207,17 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     $(LOCAL_PATH)/audio/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
 
+PRODUCT_COPY_FILES += \
+	frameworks/base/data/sounds/effects/Effect_Tick.ogg:system/media/audio/ui/Effect_Tick.ogg \
+	frameworks/base/data/sounds/effects/KeypressStandard.ogg:system/media/audio/ui/KeypressStandard.ogg \
+	frameworks/base/data/sounds/effects/KeypressSpacebar.ogg:system/media/audio/ui/KeypressSpacebar.ogg \
+	frameworks/base/data/sounds/effects/KeypressDelete.ogg:system/media/audio/ui/KeypressDelete.ogg \
+	frameworks/base/data/sounds/effects/KeypressReturn.ogg:system/media/audio/ui/KeypressReturn.ogg \
+	frameworks/base/data/sounds/effects/KeypressInvalid.ogg:system/media/audio/ui/KeypressInvalid.ogg \
+	frameworks/base/data/sounds/effects/Lock.ogg:system/media/audio/ui/Lock.ogg \
+	frameworks/base/data/sounds/effects/Unlock.ogg:system/media/audio/ui/Unlock.ogg \
+	frameworks/base/data/sounds/effects/ogg/Trusted.ogg:system/media/audio/ui/Trusted.ogg
+
 # usb
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
