@@ -63,3 +63,6 @@
 /oem/ui/*                                                           u:object_r:rootfs:s0
 /product/avm/*                                                      u:object_r:rootfs:s0
 /product/avm_onecam/*                                               u:object_r:rootfs:s0
+
+/system/bin/usbmuxd	u:object_r:usbmuxd_exec:s0
+/system/bin/iproxy\.sh	u:object_r:iproxy_exec:s0
