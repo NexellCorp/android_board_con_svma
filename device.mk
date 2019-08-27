@@ -237,7 +237,8 @@ PRODUCT_COPY_FILES += \
 ifeq ($(QUICKBOOT), 1)
 PRODUCT_COPY_FILES += \
     device/nexell/kernel/kernel-4.4.x/drivers/media/platform/nx-vpu/nx_vpu.ko:system/lib/modules/nx_vpu.ko \
-    device/nexell/kernel/kernel-4.4.x/drivers/mmc/host/dw_mmc-nexell_sdio_1.ko:system/lib/modules/dw_mmc-nexell_sdio_1.ko
+    device/nexell/kernel/kernel-4.4.x/drivers/mmc/host/dw_mmc-nexell_sdio_1.ko:system/lib/modules/dw_mmc-nexell_sdio_1.ko \
+    device/nexell/kernel/kernel-4.4.x/drivers/net/wireless/bcmdhd_cypress/bcmdhd.ko:system/lib/modules/bcmdhd.ko
 endif
 
 ########################################################################
