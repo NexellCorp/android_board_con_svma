@@ -29,9 +29,10 @@ on boot
     # for omx videobufcopy (0:Disable, 1:Enable)
     setprop videobufcopy.mode 0
 
-    # nx_vpu, sdio module
+    # nx_vpu, sdio, wifi module
     insmod /system/lib/modules/nx_vpu.ko
     insmod /system/lib/modules/dw_mmc-nexell_sdio_1.ko
+    insmod /system/lib/modules/bcmdhd.ko
 
     chmod 0777 /dev/kmsg
 
