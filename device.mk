@@ -165,7 +165,7 @@ PRODUCT_PACKAGES += \
 
 # init rc
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.$(PRODUCT_HARDWARE).usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_HARDWARE).usb.rc \
+    $(LOCAL_PATH)/init.$(PRODUCT_HARDWARE).usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_HARDWARE).usb.rc
 
 # filesystem
 PRODUCT_COPY_FILES += \
@@ -284,14 +284,6 @@ AB_OTA_PARTITIONS := \
   system \
   vendor
 
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
-TARGET_NO_RECOVERY := true
-
-#for brillo_update_payload install. see, build/core/Makefile
-#make doest not null
-TARGET_RECOVERY_FSTAB_EXTRA := use   # use or 'null'
-
-BOARD_USES_RECOVERY_AS_BOOT := false
 PRODUCT_PACKAGES += \
   cppreopts.sh \
   update_engine \
