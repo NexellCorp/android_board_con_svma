@@ -14,3 +14,8 @@ PRODUCT_COPY_FILES += \
 # bluetooth
 PRODUCT_COPY_FILES += \
     device/nexell/con_svma/bluetooth/bt_vendor_s5p6818.conf:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth/bt_vendor.conf
+
+#recovery
+TARGET_RECOVERY_FSTAB := device/nexell/con_svma/fstab.s5p6818
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/init.recovery.con_svma.rc:root/init.recovery.$(PRODUCT_HARDWARE).rc
