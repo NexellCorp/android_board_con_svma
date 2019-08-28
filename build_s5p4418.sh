@@ -161,6 +161,7 @@ function run_make_uboot_env()
     # u-boot envs
     echo "make u-boot env"
     local UBOOT_BOOTCMD
+    local UBOOT_RECOVERY_BOOTCMD
     if [ -f ${UBOOT_DIR}/u-boot.bin ]; then
         test -f ${UBOOT_DIR}/u-boot.bin && \
             make_uboot_bootcmd ${DEVICE_DIR}/${PARTMAP_TXT} \
@@ -173,7 +174,16 @@ function run_make_uboot_env()
                    "boot_b:emmc" \
                    UBOOT_BOOTCMD
 
-        UBOOT_RECOVERYCMD="ext4load mmc 0:6 0x49000000 recovery.dtb; ext4load mmc 0:6 0x40008000 recovery.kernel; ext4load mmc 0:6 0x48000000 ramdisk-recovery.img; bootz 40008000 0x48000000:2d0f8f 0x49000000"
+            make_uboot_recovery_bootcmd ${DEVICE_DIR}/${PARTMAP_TXT} \
+                    ${UBOOT_LOAD_ADDR} \
+                    ${PAGESIZE} \
+                    ${KERNEL_IMG} \
+                    0x48000000 \
+                    0x49000000 \
+                    ${DEVICE_DIR}/ramdisk-not-used \
+                    "boot_a:emmc" \
+                    "boot_b:emmc" \
+                    UBOOT_RECOVERY_BOOTCMD
 
         UBOOT_BOOTARGS='console=ttyAMA3,115200n8 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789abcdef '
         UBOOT_BOOTARGS+=' root=\/dev\/mmcblk0p2 rw rootwait rootfstype=ext4 init=\/sbin\/nx_init skip_initramfs vmalloc=384M '
@@ -193,18 +203,33 @@ function run_make_uboot_env()
         UBOOT_BOOTARGS+='1048576@2835939328(misc),'
         UBOOT_BOOTARGS+='3145728@2838036480(product),'
         UBOOT_BOOTARGS+='305237797168@2842230784(userdata)'
+        UBOOT_BOOTARGS+=' product_part=\/dev\/mmcblk0p13 '
+
+        UBOOT_RECOVERY_BOOTARGS='console=ttyAMA3,115200n8 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3 androidboot.serialno=0123456789abcdef '
+        UBOOT_RECOVERY_BOOTARGS+='blkdevparts=mmcblk0:65024@512(bl1),'
+        UBOOT_RECOVEYR_BOOTARGS+='4915200@66048(bootloader_a),4915200@5046784(bootloader_b),'
+        UBOOT_RECOVERY_BOOTARGS+='62914560@11075584(boot_a),62914560@75038720(boot_b),'
+        UBOOT_RECOVERY_BOOTARGS+='3145728@139001856(dtbo_a),3145728@143196160(dtbo_b),'
+        UBOOT_RECOVERY_BOOTARGS+='1073741824@147390464(system_a),1073741824@1222180864(system_b),'
+        UBOOT_RECOVERY_BOOTARGS+='268435456@2296971264(vendor_a),268435456@2566455296(vendor_b),'
+        UBOOT_RECOVERY_BOOTARGS+='1048576@2835939328(misc),'
+        UBOOT_RECOVERY_BOOTARGS+='3145728@2838036480(product),'
+        UBOOT_RECOVERY_BOOTARGS+='305237797168@2842230784(userdata)'
+
         SPLASH_SOURCE="mmc"
         SPLASH_OFFSET="0x2e4200"
 
         echo -e "----------------------------------------------------"
         echo -e "UBOOT_BOOTCMD_A = ${UBOOT_BOOTCMD[0]}"
         echo -e "UBOOT_BOOTCMD_B = ${UBOOT_BOOTCMD[1]}"
+        echo -e "UBOOT_RECOVERYBOOTCMD_A = ${UBOOT_RECOVERY_BOOTCMD[0]}"
+        echo -e "UBOOT_RECOVERYBOOTCMD_B = ${UBOOT_RECOVERY_BOOTCMD[1]}"
         echo -e "----------------------------------------------------"
-        echo -e "UBOOT_RECOVERYCMD ==> ${UBOOT_RECOVERYCMD}\n"
+        echo -e "UBOOT_RECOVERY_BOOTARGS ==> ${UBOOT_RECOVER_BOOTARGS}"
 
         pushd `pwd`
         cd ${UBOOT_DIR}
-        build_uboot_env_param ${CROSS_COMPILE} "UBOOT_BOOTCMD[@]" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERYCMD}" "NXQUICKREAR_ARGS[@]"
+        build_uboot_env_param ${CROSS_COMPILE} "UBOOT_BOOTCMD[@]" "UBOOT_RECOVERY_BOOTCMD[@]" "${UBOOT_BOOTARGS}" "${SPLASH_SOURCE}" "${SPLASH_OFFSET}" "${UBOOT_RECOVERY_BOOTARGS}" "NXQUICKREAR_ARGS[@]"
         popd
     fi
 }
@@ -255,7 +280,7 @@ function run_make_android_bootimg()
 {
     make_android_bootimg \
         ${KERNEL_IMG} \
-        ${DEVICE_DIR}/ramdisk-not-used \
+        ${OUT_DIR}/ramdisk-recovery.img \
         ${OUT_DIR}/boot.img \
         ${PAGESIZE} \
         "buildvariant=${BUILD_TAG}"
