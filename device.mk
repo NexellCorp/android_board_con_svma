@@ -110,6 +110,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     netutils-wrapper-1.0
 
+PRODUCT_PACKAGES += \
+	libcurl \
+	libusb1.0
+
 # wifi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0 \
