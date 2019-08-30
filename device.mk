@@ -244,6 +244,10 @@ PRODUCT_COPY_FILES += \
     device/nexell/kernel/kernel-4.4.x/drivers/mmc/host/dw_mmc-nexell_sdio_1.ko:system/lib/modules/dw_mmc-nexell_sdio_1.ko
 endif
 
+PRODUCT_COPY_FILES += \
+device/nexell/kernel/kernel-4.4.x/drivers/usb/gadget/function/usb_f_iap.ko:system/lib/modules/usb_f_iap.ko \
+device/nexell/kernel/kernel-4.4.x/drivers/usb/gadget/legacy/g_iap_ncm.ko:system/lib/modules/g_iap_ncm.ko \
+
 ########################################################################
 # PRODUCT_PROPERTY_OVERRIDES
 ########################################################################
