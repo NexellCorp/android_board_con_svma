@@ -245,6 +245,10 @@ PRODUCT_COPY_FILES += \
     device/nexell/kernel/kernel-4.4.x/drivers/net/wireless/bcmdhd_cypress/bcmdhd.ko:system/lib/modules/bcmdhd.ko
 endif
 
+PRODUCT_COPY_FILES += \
+device/nexell/kernel/kernel-4.4.x/drivers/usb/gadget/function/usb_f_iap.ko:system/lib/modules/usb_f_iap.ko \
+device/nexell/kernel/kernel-4.4.x/drivers/usb/gadget/legacy/g_iap_ncm.ko:system/lib/modules/g_iap_ncm.ko \
+
 ########################################################################
 # PRODUCT_PROPERTY_OVERRIDES
 ########################################################################
