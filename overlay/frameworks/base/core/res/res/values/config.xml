@@ -111,10 +111,4 @@
         <item>1</item>
     </integer-array>
 
-    <!-- True if WallpaperService is enabled -->
-    <bool name="config_enableWallpaperService">false</bool>
-
-    <!-- True if the device should block turning display on at boot until wallpaper is ready -->
-    <bool name="config_checkWallpaperAtBoot">false</bool>
-
 </resources>
