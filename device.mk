@@ -417,6 +417,13 @@ PRODUCT_PACKAGES += \
 $(call add-product-sanitizer-module-config,wpa_supplicant,never)
 $(call add-product-sanitizer-module-config,hostapd,never)
 $(call inherit-product-if-exists, device/nexell/app/svm_daemon/svm-daemon.mk)
+$(call inherit-product-if-exists, device/nexell/app/nx_backgear_service/nxbackgearservice.mk)
+$(call inherit-product-if-exists, device/nexell/app/nx_rearcam_app/nxrearcam.mk)
+$(call inherit-product-if-exists, device/nexell/app/nx_svm_app/nxsvm.mk)
+$(call inherit-product-if-exists, device/nexell/app/nx_svm_autocalibration/nxsvmautocalibration.mk)
+$(call inherit-product-if-exists, device/nexell/app/nx_svm_demo/nxsvmdemo.mk)
+$(call inherit-product-if-exists, device/nexell/app/nx_svm_viewmode_editor/nxsvmviewmodeeditor.mk)
+
 PRODUCT_PACKAGES += \
     nx_init
 
