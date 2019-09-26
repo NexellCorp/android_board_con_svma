@@ -1,7 +1,12 @@
-# kernel
-# fstab
+ifeq ($(QUICKBOOT), 1)
 PRODUCT_COPY_FILES += \
-    device/nexell/con_svma/init.$(PRODUCT_HARDWARE).rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_HARDWARE).rc \
+    device/nexell/con_svma/init.$(PRODUCT_HARDWARE).quickboot.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_HARDWARE).rc
+else
+PRODUCT_COPY_FILES += \
+    device/nexell/con_svma/init.$(PRODUCT_HARDWARE).rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_HARDWARE).rc
+endif
+
+PRODUCT_COPY_FILES += \
     device/nexell/con_svma/fstab.$(PRODUCT_HARDWARE):$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(PRODUCT_HARDWARE)
 
 # bluetooth
