@@ -58,6 +58,7 @@ on boot && property:ro.vendor.ota_update_verifier=true
     # mkdir /data/misc/carlife/usbmuxd 0777 shell shell
 
 # on property:sys.boot_completed=1
+    chmod 0444 /proc/cmdline
     # exec -- /system/bin/iproxy.sh
 
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
