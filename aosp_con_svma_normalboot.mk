@@ -32,7 +32,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.product.first_api_level=21
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_bluetooth=false ro.bluetooth.hfp.ver=1.6
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_bluetooth=false
 
 # Disable other feature no needed in con_svma board
 

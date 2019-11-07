@@ -1,4 +1,0 @@
-allow bluetooth storage_stub_file:dir getattr;
-
-allow bluetooth sysfs:file read;
-allow bluetooth sysfs:file write;
