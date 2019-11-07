@@ -12,6 +12,8 @@
 -->
 <resources>
     <bool name="profile_supported_a2dp">false</bool>
+    <bool name="profile_supported_hs_hfp">false</bool>
+    <bool name="profile_supported_pbap">false</bool>
 
     <bool name="profile_supported_avrcp_controller">true</bool>
     <bool name="profile_supported_a2dp_sink">true</bool>

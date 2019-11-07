@@ -19,3 +19,6 @@
 /sbin/avm/* u:object_r:rootfs:s0
 /sbin/ui/*  u:object_r:rootfs:s0
 /sbin/NxQuickRearCam u:object_r:NxQuickRearCam_exec:s0
+
+# sysfs
+/sys/devices/platform/bt_control/rfkill/rfkill0/state   u:object_r:sysfs_bluetooth_writable:s0

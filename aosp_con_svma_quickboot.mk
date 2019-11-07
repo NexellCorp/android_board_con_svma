@@ -36,7 +36,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	persist.vold.check_fs=0
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_bluetooth=false ro.bluetooth.hfp.ver=1.6
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.disable_bluetooth=false
 
 # Disable other feature no needed in con_svma board
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += config.quickboot=true

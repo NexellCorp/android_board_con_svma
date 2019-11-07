@@ -68,7 +68,7 @@ endif
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/nexell/con_svma/bluetooth
-BOARD_CUSTOM_BT_CONFIG := device/nexell/con_svma/bluetooth/vnd_generic.txt
+BOARD_CUSTOM_BT_CONFIG := device/nexell/con_svma/bluetooth/vnd_con_svma.txt
 
 # bluetooth audio paths
 SND_BT_CARD_ID := 0
