@@ -2,6 +2,8 @@
 
 set -e
 
+export SKIP_ABI_CHECKS=true
+
 DEV_PORTNUM=0
 MEMSIZE="2GB"
 PAGESIZE=4096
