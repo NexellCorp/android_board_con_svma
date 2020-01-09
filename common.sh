@@ -39,6 +39,7 @@ QUICKBOOT=false
 AES_KEY=none
 RSA_KEY=none
 MODULE=none
+BOOTLOGO=false
 
 # KERNEL_ZIMAGE : true:zImage, false:Image
 KERNEL_ZIMAGE=true
@@ -51,12 +52,13 @@ function usage()
 	echo "If given -d <result-dir> -V <build-version>, result-dir-build-version is created in ANDROID_TOP dir"
 	echo "-i option is for generation of incremental ota image, -t dist option is needed and previous built target_files.zip file path must follow"
 	echo "-q option is given, quickboot patch is applied"
+	echo "-l option is given, nxbootanimation is used."
     echo "-S option is given, quicksvm patch is applied"
 }
 
 function parse_args()
 {
-	TEMP=`getopt -o "s:t:hvV:d:T:i:k:p:m:q" -- "$@"`
+	TEMP=`getopt -o "s:t:hvV:d:T:i:k:p:m:ql" -- "$@"`
 	eval set -- "$TEMP"
 
 	while true; do
@@ -80,6 +82,7 @@ function parse_args()
 			-T ) BUILD_TAG=$2; shift 2;;
 			-i ) OTA_INCREMENTAL=true; OTA_PREVIOUS_FILE=$2; shift 2;;
 			-q ) QUICKBOOT=true; shift 1 ;;
+			-l ) BOOTLOGO=true; shift 1 ;;
 			-k ) AES_KEY=$2; shift 2;;
 			-p ) RSA_KEY=$2; shift 2;;
 			-m ) MODULE=$2; shift 2;;
@@ -93,7 +96,7 @@ function parse_args()
 	! test -z ${BUILD_VERSION} && RESULT_DIR=${RESULT_DIR}-${BUILD_VERSION}
 	export TARGET_SOC BOARD_NAME RESULT_DIR BUILD_BL1 BUILD_UBOOT BUILD_SECURE BUILD_KERNEL \
 		BUILD_MODULE BUILD_ANDROID BUILD_ALL VERBOSE BUILD_VERSION BUILD_DATE BUILD_TAG QUICKBOOT \
-		AES_KEY RSA_KEY MODULE
+		AES_KEY RSA_KEY MODULE BOOTLOGO
 }
 
 function print_args()
@@ -118,6 +121,7 @@ function print_args()
 	echo "RSA_KEY ==> ${RSA_KEY}"
 	echo "CPU_MODULE ==> ${MODULE}"
 	echo "QUICKBOOT ==> ${QUICKBOOT}"
+	echo "BOOTLOGO ==> ${BOOTLOGO}"
 }
 
 function get_board_name()
