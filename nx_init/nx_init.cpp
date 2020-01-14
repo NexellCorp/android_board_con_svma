@@ -168,7 +168,6 @@ int main(int argc, char *argv[])
 
 		default:
 		{
-			sleep(1);
 			execl("/init","init", NULL);
 			break;
 		}
