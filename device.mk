@@ -48,9 +48,6 @@ PRODUCT_PACKAGES += \
 	tinypcminfo
 endif
 
-# NxQuickRearCam
-PRODUCT_COPY_FILES += \
-    device/nexell/con_svma/NxQuickRearCam/NxQuickRearCam:root/sbin/NxQuickRearCam
 
 PRODUCT_PACKAGES += \
     nx_init \
