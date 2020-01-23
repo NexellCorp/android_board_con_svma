@@ -27,3 +27,8 @@
 
 #backlight
 /sys/class/backlight/pwm-backlight brightness 0660 system system
+
+#for backgear
+/sys/devices/platform/c0000000.soc/c001a000.pinctrl/gpio/gpio71    direction	0666 system system
+/sys/devices/platform/c0000000.soc/c001a000.pinctrl/gpio/gpio71    edge		0666 system system
+/sys/devices/platform/c0000000.soc/c001a000.pinctrl/gpio/gpio71    value    0666 system system
