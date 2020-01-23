@@ -211,3 +211,6 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, frameworks/base/data/fonts/fonts.mk)
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)
+
+$(call inherit-product-if-exists, device/nexell/apps/nx_backgear_service/nxbackgearservice.mk)
+$(call inherit-product-if-exists, device/nexell/apps/nx_rearcam_app/nxrearcam.mk)
