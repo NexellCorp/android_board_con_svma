@@ -1,1 +1,3 @@
-allow mediaextractor vfat:file { read getattr };
+allow mediaextractor vfat:file { open read getattr };
+allow mediaextractor vendor_file:file { open read map getattr execute};
+allow mediaextractor vendor_file:dir { open read };
