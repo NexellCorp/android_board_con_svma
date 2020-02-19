@@ -1,2 +1,0 @@
-type nx_scaler_device, dev_type;
-type nx_deinterlacer_device, dev_type;

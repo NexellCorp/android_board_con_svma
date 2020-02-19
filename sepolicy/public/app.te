@@ -1,1 +1,0 @@
-allow appdomain console_device:chr_file { read write };
