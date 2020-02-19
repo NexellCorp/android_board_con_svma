@@ -1,1 +1,0 @@
-allow radio proc_cmdline:file { getattr open read };

@@ -1,1 +1,0 @@
-allow usbd hal_usb_nexell_default:binder call;

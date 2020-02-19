@@ -1,2 +1,0 @@
-allow carservice_app sysfs_life_time:file { getattr read open };
-allow carservice_app sysfs_pre_eol_info:file { getattr read open };

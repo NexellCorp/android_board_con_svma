@@ -1,2 +1,0 @@
-allow bootanim vendor_file:file read;
-allow bootanim kmsg_device:chr_file { open write };

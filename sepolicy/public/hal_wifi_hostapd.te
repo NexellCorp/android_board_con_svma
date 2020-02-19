@@ -1,1 +1,0 @@
-allow hal_wifi_hostapd_server sysfs_net:file r_file_perms;
