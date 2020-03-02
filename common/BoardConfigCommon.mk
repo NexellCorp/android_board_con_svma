@@ -135,5 +135,5 @@ WIFI_DRIVER_FW_PATH_P2P     := ""
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 ifeq ($(QUICKBOOT), 1)
 WIFI_DRIVER_MODULE_NAME     := bcmdhd
-WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/bcmdhd.ko"
+WIFI_DRIVER_MODULE_PATH     := "/vendof/lib/modules/bcmdhd.ko"
 endif

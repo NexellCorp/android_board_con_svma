@@ -23,14 +23,18 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a9
 
 # misc by-name path
-NEXELL_MISC_PARTITION := /dev/block/platform/c0000000.soc/c0062000.dw_mmc/by-name/misc
+NEXELL_MISC_PARTITION := /dev/block/by-name/misc
 
 # bluetooth
 BOARD_CUSTOM_BT_CONFIG := device/nexell/con_svma/s5p4418_con_svma/bluetooth_config/vnd_con_svma_s5p4418.txt
 
 
 # Kernel & DTB Setting
+ifneq ($(QUICKBOOT), 1)
 TARGET_KERNEL_DEFCONFIG := s5p4418_con_svma_pie_defconfig
+else
+TARGET_KERNEL_DEFCONFIG := s5p4418_con_svma_pie_quickboot_defconfig
+endif
 TARGET_KERNEL_SRC := vendor/nexell/kernel/kernel-4.4.x
 TARGET_KERNEL_ARCH := arm
 DTB_OUTDIR := out/target/product/s5p4418_con_svma/obj/KERNEL_OBJ
@@ -54,34 +58,38 @@ DEV_PORTNUM := 0
 
 # UBOOT Setting
 SOC_NAME := s5p4418
+TARGET_UBOOT_ARCH := arm
 UBOOT_CONFIG := s5p4418_con_svma_config
 TARGET_UBOOT_SRC := vendor/nexell/u-boot/u-boot-2016.01
 SECURE_BINGEN := vendor/nexell/tools/SECURE_BINGEN
 
-# Secure Setting
 
-# uboot make env
+#fip_loader
+
+# memory info
 MEMSIZE := 2GB
-PAGESIZE := 4096
-OTA_AB_UPDATE := true
-ADDRESS := 0x93c00000
 ifeq ($(MEMSIZE), 2GB)
-    ADDRESS := 0x63c00000
-    UBOOT_LOAD_ADDR := 0x40008000
     UBOOT_IMG_LOAD_ADDR := 0x43c00000
     UBOOT_IMG_JUMP_ADDR := 0x43c00000
+    FIP_LOAD_ADDR := 63c00000
+    FIP_JUMP_ADDR := 63c00000
+
 else ifeq ($(MEMSIZE), 1GB)
-    ADDRESS := 0x83c00000
-    UBOOT_LOAD_ADDR := 0x71008000
     UBOOT_IMG_LOAD_ADDR := 0x74c00000
     UBOOT_IMG_JUMP_ADDR := 0x74c00000
+    FIP_LOAD_ADDR := 83c00000
+    FIP_JUMP_ADDR := 83c00000
 endif
-PARTMAP_TXT := partmap_legacy.txt
-ifeq ($(OTA_AB_UPDATE), true)
-    PARTMAP_TXT := partmap_AB_update.txt
-endif
-PART_MAP := ${DEVICE_DIR}/${PARTMAP_TXT}
-PART_NAME1 := boot_a:emmc
-PART_NAME2 := boot_b:emmc
+#gen_bootloader
+BOOTLOADER_PARTITION_SIZE := 4915200
+#loader=LOADER_BIN
+#secure=BL_MON_BIN -> SECURE_BIN
+#nonsecure=UBOOT_BIN
+#param=PARAM_BIN
+BOOT_LOGO := device/nexell/con_svma/common/logo.bmp
+OFFSET_SECURE=196608        # 0x40000 - 0x10000 = 0x 30000
+OFFSET_NONSECURE=1900544    #0x1E0000 - 0x10000 = 0x1D0000
+OFFSET_PARAM=2949120        #0x2E0000 - 0x10000 = 0x2D0000
+OFFSET_BOOTLOGO=2965504     #0x2E4000 - 0x10000 = 0x2D4000
 
-#export UBOOT_DIR DEVICE_DIR PARTMAP_TXT UBOOT_LOAD_ADDR PAGESIZE TARGET_SOC
+
