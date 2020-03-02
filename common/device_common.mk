@@ -321,15 +321,15 @@ PRODUCT_COPY_FILES += \
 
 # nx_vpu, sdio module
 ifeq ($(QUICKBOOT), 1)
-PRODUCT_COPY_FILES += \
-    device/nexell/kernel/kernel-4.4.x/drivers/media/platform/nx-vpu/nx_vpu.ko:system/lib/modules/nx_vpu.ko \
-    device/nexell/kernel/kernel-4.4.x/drivers/mmc/host/dw_mmc-nexell_sdio_1.ko:system/lib/modules/dw_mmc-nexell_sdio_1.ko \
-    device/nexell/kernel/kernel-4.4.x/drivers/net/wireless/bcmdhd_cypress/bcmdhd.ko:system/lib/modules/bcmdhd.ko
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/media/platform/nx-vpu/nx_vpu.ko \
+    $(KERNEL_OUT)/drivers/mmc/host/dw_mmc-nexell_sdio_1.ko \
+    $(KERNEL_OUT)/drivers/net/wireless/bcmdhd_cypress/bcmdhd.ko
 endif
 
-#PRODUCT_COPY_FILES += \
-device/nexell/kernel/kernel-4.4.x/drivers/usb/gadget/function/usb_f_iap.ko:system/lib/modules/usb_f_iap.ko \
-device/nexell/kernel/kernel-4.4.x/drivers/usb/gadget/legacy/g_iap_ncm.ko:system/lib/modules/g_iap_ncm.ko \
+BOARD_VENDOR_KERNEL_MODULES += \
+	$(KERNEL_OUT)/drivers/usb/gadget/function/usb_f_iap.ko \
+	$(KERNEL_OUT)/drivers/usb/gadget/legacy/g_iap_ncm.ko
 
 ########################################################################
 # PRODUCT_PROPERTY_OVERRIDES
@@ -437,6 +437,9 @@ PRODUCT_PACKAGES += \
 # Boot animation
 PRODUCT_COPY_FILES += \
     device/nexell/con_svma/common/bootanimation.zip:system/media/bootanimation.zip
+# partmap
+PRODUCT_COPY_FILES += \
+    device/nexell/con_svma/common/partmap.txt:partmap.txt
 
 
 $(call add-product-sanitizer-module-config,wpa_supplicant,never)
