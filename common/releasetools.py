@@ -22,7 +22,7 @@ import common
 def WriteBootloader(info, img, btype):
     print("[SUKER][DEBUG] ++++++++++++++++++++++++++")
     print("WriteBootloader ...")
-    common.ZipWriteStr(info.output_zip, "bootloader", img)
+    common.ZipWriteStr(info.output_zip, "bootloader.img", img)
     info.script.Print("Writing bootloader ...")
     # info.script.AppendExtra('nexell.write_bootloader(package_extract_file("bootloader"), "%s");' % btype)
     info.script.Print("End of Writing bootloader")
@@ -34,9 +34,9 @@ def OTA_InstallEnd(info):
 
     bootloader_img = None
     try:
-        bootloader_img = info.input_zip.read("IMAGES/bootloader")
+        bootloader_img = info.input_zip.read("IMAGES/bootloader.img")
     except AttributeError:
-        bootloader_img = info.target_zip.read("IMAGES/bootloader")
+        bootloader_img = info.target_zip.read("IMAGES/bootloader.img")
     except KeyError:
         print("no bootloader in target_files, skipping install")
 
