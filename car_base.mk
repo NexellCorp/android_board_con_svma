@@ -16,7 +16,9 @@
 
 # Base platform for car builds
 # car packages should be added to car.mk instead of here
-
+ifeq ($(QUICKBOOT), 1)
+PRODUCT_PACKAGE_OVERLAYS += device/nexell/con_svma/auto/overlay
+endif
 PRODUCT_PACKAGE_OVERLAYS += packages/services/Car/car_product/overlay
 
 PRODUCT_PACKAGES += \
