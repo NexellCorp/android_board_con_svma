@@ -37,8 +37,8 @@ on boot
     setprop videobufcopy.mode 0
 
     # nx_vpu, sdio module
-    insmod /system/lib/modules/nx_vpu.ko
-    insmod /system/lib/modules/dw_mmc-nexell_sdio_1.ko
+    insmod /vendor/lib/modules/nx_vpu.ko
+    insmod /vendor/lib/modules/dw_mmc-nexell_sdio_1.ko
 
 on boot && property:ro.vendor.ota_update_verifier=true
     exec_start update_verifier_nonencrypted
