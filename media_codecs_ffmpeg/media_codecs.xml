@@ -151,13 +151,6 @@ Only the three quirks included above are recognized at this point:
             <Limit name="block-size" value="16x16" />
             <Limit name="bitrate" range="1-40000000" />
         </MediaCodec>
-        <MediaCodec name="OMX.NX.VIDEO_DECODER.vp8" type="video/x-vnd.on2.vp8">
-            <Limit name="size" min="32x32" max="1920x1088" />
-            <Limit name="alignment" value="2x2" />
-            <Limit name="block-size" value="16x16" />
-            <Limit name="bitrate" range="1-20000000" />
-            <Feature name="adaptive-playback" />
-        </MediaCodec>
     </Decoders>
 
     <Encoders>
