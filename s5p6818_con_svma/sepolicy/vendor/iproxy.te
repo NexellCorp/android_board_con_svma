@@ -1,0 +1,12 @@
+type iproxy, domain, coredomain, mlstrustedsubject;
+type iproxy_exec, exec_type, file_type;
+
+init_daemon_domain(iproxy)
+
+allow iproxy self:capability { net_raw };
+allow iproxy self:tcp_socket { create setopt bind name_bind node_bind };
+allow iproxy shell_exec:file { getattr read };
+allow iproxy system_file:file { execute_no_trans };
+allow iproxy port:tcp_socket { name_bind node_bind };
+allow iproxy iproxy:tcp_socket { node_bind listen accept };
+allow iproxy node:tcp_socket { node_bind };
