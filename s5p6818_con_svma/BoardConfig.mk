@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
--include device/nexell/con_svma/common/BoardConfigCommon.mk
+-include device/nexell/con_svma/s5p6818_con_svma/BoardConfigCommon.mk
 
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
@@ -77,4 +77,4 @@ endif
 
 #gen_bootloader
 BOOTLOADER_PARTITION_SIZE := 4915200
-BOOT_LOGO := device/nexell/con_svma/common/logo.bmp
+BOOT_LOGO := device/nexell/con_svma/s5p6818_con_svma/logo.bmp

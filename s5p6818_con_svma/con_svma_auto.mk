@@ -2,7 +2,7 @@
 PRODUCT_CAR := true
 
 
-$(call inherit-product, device/nexell/con_svma/common/automotive/auto.mk)
+$(call inherit-product, device/nexell/con_svma/s5p6818_con_svma/automotive/auto.mk)
 
 PRODUCT_NAME := s5p6818_con_svma_auto
 PRODUCT_DEVICE := s5p6818_con_svma
@@ -15,19 +15,19 @@ PRODUCT_HARDWARE := con_svma
 #BOARD_PLAT_PUBLIC_SEPOLICY_DIR := packages/services/Car/car_product/sepolicy/public
 #BOARD_PLAT_PRIVATE_SEPOLICY_DIR := packages/services/Car/car_product/sepolicy/private
 #sepolicy
-BOARD_SEPOLICY_DIRS := device/nexell/con_svma/common/sepolicy_car/vendor
-BOARD_PLAT_PUBLIC_SEPOLICY_DIR += device/nexell/con_svma/common/sepolicy_car/public
-BOARD_PLAT_PRIVATE_SEPOLICY_DIR += device/nexell/con_svma/common/sepolicy_car/private
+BOARD_SEPOLICY_DIRS := device/nexell/con_svma/s5p6818_con_svma/sepolicy_car/vendor
+BOARD_PLAT_PUBLIC_SEPOLICY_DIR += device/nexell/con_svma/s5p6818_con_svma/sepolicy_car/public
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += device/nexell/con_svma/s5p6818_con_svma/sepolicy_car/private
 
 
 # automatically called
--include device/nexell/con_svma/common/device_common.mk
+-include device/nexell/con_svma/s5p6818_con_svma/device_common.mk
 
-DEVICE_MANIFEST_FILE := device/nexell/con_svma/common/manifest_car.xml
+DEVICE_MANIFEST_FILE := device/nexell/con_svma/s5p6818_con_svma/manifest_car.xml
 
 -include device/nexell/con_svma/s5p6818_con_svma/common.mk
 
-DEVICE_PACKAGE_OVERLAYS := device/nexell/con_svma/common/overlay_car
+DEVICE_PACKAGE_OVERLAYS := device/nexell/con_svma/s5p6818_con_svma/overlay_car
 
 BOOTCMD_A=aboot load_kernel 0x5480 0x4007f000;
 BOOTCMD_A+=dtimg load_mmc 0x42480 0x49000000 $$\{board_rev\};

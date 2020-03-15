@@ -10,18 +10,18 @@ PRODUCT_MANUFACTURER := Nexell
 PRODUCT_HARDWARE := con_svma
 
 # automatically called
--include device/nexell/con_svma/common/device_common.mk
+-include device/nexell/con_svma/s5p6818_con_svma/device_common.mk
 
-DEVICE_MANIFEST_FILE := device/nexell/con_svma/common/manifest.xml
+DEVICE_MANIFEST_FILE := device/nexell/con_svma/s5p6818_con_svma/manifest.xml
 
 -include device/nexell/con_svma/s5p6818_con_svma/common.mk
 
-DEVICE_PACKAGE_OVERLAYS := device/nexell/con_svma/common/overlay
+DEVICE_PACKAGE_OVERLAYS := device/nexell/con_svma/s5p6818_con_svma/overlay
 
 #sepolicy
-BOARD_SEPOLICY_DIRS := device/nexell/con_svma/common/sepolicy/vendor
-BOARD_PLAT_PUBLIC_SEPOLICY_DIR := device/nexell/con_svma/common/sepolicy/public
-BOARD_PLAT_PRIVATE_SEPOLICY_DIR := device/nexell/con_svma/common/sepolicy/private
+BOARD_SEPOLICY_DIRS := device/nexell/con_svma/s5p6818_con_svma/sepolicy/vendor
+BOARD_PLAT_PUBLIC_SEPOLICY_DIR := device/nexell/con_svma/s5p6818_con_svma/sepolicy/public
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR := device/nexell/con_svma/s5p6818_con_svma/sepolicy/private
 
 BOOTCMD_A=aboot load_kernel 0x5480 0x4007f000;
 BOOTCMD_A+=dtimg load_mmc 0x42480 0x49000000 $$\{board_rev\};
