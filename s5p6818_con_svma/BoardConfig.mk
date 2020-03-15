@@ -39,7 +39,7 @@ TARGET_KERNEL_SRC := vendor/nexell/kernel/kernel-4.4.x
 TARGET_KERNEL_ARCH := arm64
 DTB_OUTDIR := out/target/product/s5p6818_con_svma/obj/KERNEL_OBJ
 DTB_DIR := ${DTB_OUTDIR}/arch/arm64/boot/dts/nexell
-DTIMG_ARG := "${DTB_DIR}/s5p6818-con_svma-rev01.dtb --id=1"
+DTIMG_ARG := ${DTB_DIR}/s5p6818-con_svma-rev01.dtb --id=1
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/s5p6818_con_svma/dtbo_con_svma.img
 
 # BL1 Setting
@@ -71,7 +71,7 @@ OPTEE_BUILD_OPT := PLAT_DRAM_SIZE=2048 PLAT_UART_BASE=0xc00a1000 SECURE_ON=0 SUP
 OPTEE_BUILD_OPT += CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE32=arm-linux-gnueabihf-
 OPTEE_BUILD_OPT += SUPPORT_OTA_AB_UPDATE=1
 OPTEE_BUILD_OPT += UBOOT_DIR=vendor/nexell/u-boot/u-boot-2016.01
-ifeq ($(QUICKBOOT), true)
+ifeq ($(QUICKBOOT), 1)
 OPTEE_BUILD_OPT += QUICKBOOT=1
 endif
 

@@ -16,6 +16,14 @@ DEVICE_MANIFEST_FILE := device/nexell/con_svma/common/manifest.xml
 
 -include device/nexell/con_svma/s5p4418_con_svma/common.mk
 
+DEVICE_PACKAGE_OVERLAYS := device/nexell/con_svma/common/overlay
+
+#sepolicy
+BOARD_SEPOLICY_DIRS := device/nexell/con_svma/common/sepolicy/vendor
+BOARD_PLAT_PUBLIC_SEPOLICY_DIR := device/nexell/con_svma/common/sepolicy/public
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR := device/nexell/con_svma/common/sepolicy/private
+
+
 BOOTCMD_A=aboot load_zImage 0x5480 0x40008000;
 BOOTCMD_A+=dtimg load_mmc 0x42480 0x49000000 $$\{board_rev\};
 BOOTCMD_A+=if test !-z $$\{change_devicetree\}; then run change_devicetree; fi;
@@ -53,7 +61,7 @@ UBOOT_BOOTARGS+=blkdevparts=mmcblk0:4915200@66048(bootloader_a),4915200@5046784(
 UBOOT_RECOVERY_BOOTARGS=console=ttyAMA3,115200n8 printk.time=1
 UBOOT_RECOVERY_BOOTARGS+=androidboot.hardware=con_svma androidboot.console=ttyAMA3
 UBOOT_RECOVERY_BOOTARGS+=androidboot.serialno=0123456789abcdef
-UBOOT_RECOVERY_BOOTARGS+=blkdevparts=mmcblk0:4915200@66048(bootloader_a),4915200@5046784(bootloader_b),62914560@11075584(boot_a),2097152@73990114(extended),62914560@75038720(boot_b),3145728@139001856(dtbo_a),3145728@143196160(dtbo_b),1073741824@147390464(system_a),1073741824@1222180864(system_b),268435456@2296971264(vendor_a),268435456@2566455296(vendor_b),1048576@2835939328(misc),3145728@2838036480(product),=305237797168@2842230784(userdata)
+UBOOT_RECOVERY_BOOTARGS+=blkdevparts=mmcblk0:4915200@66048(bootloader_a),4915200@5046784(bootloader_b),62914560@11075584(boot_a),2097152@73990114(extended),62914560@75038720(boot_b),3145728@139001856(dtbo_a),3145728@143196160(dtbo_b),1073741824@147390464(system_a),1073741824@1222180864(system_b),268435456@2296971264(vendor_a),268435456@2566455296(vendor_b),1048576@2835939328(misc),3145728@2838036480(product),305237797168@2842230784(userdata)
 
 SPLASH_SOURCE="mmc"
 SPLASH_OFFSET="0x2e4200"
