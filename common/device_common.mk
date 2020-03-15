@@ -26,7 +26,6 @@ PRODUCT_AAPT_PREF_CONFIG := mdpi
 PRODUCT_AAPT_PREBUILT_DPI := hdpi mdpi ldpi
 PRODUCT_CHARACTERISTICS := tablet
 PRODUCT_SHIPPING_API_LEVEL := 26
-DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 
 ifeq ($(QUICKBOOT), 1)
 PRODUCT_PROPERTY_OVERRIDES += ro.quickboot=1
@@ -435,7 +434,7 @@ PRODUCT_PACKAGES += \
   write_sine_callback
 
 # Boot animation
-PRODUCT_COPY_FILES += \
+#PRODUCT_COPY_FILES += \
     device/nexell/con_svma/common/bootanimation.zip:system/media/bootanimation.zip
 # partmap
 PRODUCT_COPY_FILES += \

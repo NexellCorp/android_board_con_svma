@@ -15,7 +15,7 @@
 #
 #
 
-$(call inherit-product, device/nexell/con_svma/common/device_common.mk)
+#$(call inherit-product, device/nexell/con_svma/common/device_common.mk)
 
 ################################################
 # Begin general Android Auto Embedded configurations

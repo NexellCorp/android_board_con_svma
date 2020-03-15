@@ -18,16 +18,8 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- True if WallpaperService is enabled -->
-    <bool name="config_enableWallpaperService">false</bool>
-
-    <!-- True if the device should block turning display on at boot until wallpaper is ready -->
-    <bool name="config_checkWallpaperAtBoot">false</bool>
     <!-- Car uses hardware amplifier for volume. -->
     <bool name="config_useFixedVolume">true</bool>
-
-	<!-- Separate software navigation bar required on this device. -->
-	<bool name="config_showNavigationBar">true</bool>
 
     <!--
       Handle volume keys directly in CarAudioService without passing them to the foreground app

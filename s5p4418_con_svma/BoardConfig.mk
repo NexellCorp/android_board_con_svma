@@ -39,8 +39,8 @@ TARGET_KERNEL_SRC := vendor/nexell/kernel/kernel-4.4.x
 TARGET_KERNEL_ARCH := arm
 DTB_OUTDIR := out/target/product/s5p4418_con_svma/obj/KERNEL_OBJ
 DTB_DIR := ${DTB_OUTDIR}/arch/arm/boot/dts
-DTIMG_ARG := "${DTB_DIR}/s5p4418-con_svma-rev00.dtb --id=0"
-DTIMG_ARG += "${DTB_DIR}/s5p4418-con_svma-rev01.dtb --id=1"
+DTIMG_ARG :=${DTB_DIR}/s5p4418-con_svma-rev00.dtb --id=0
+DTIMG_ARG +=${DTB_DIR}/s5p4418-con_svma-rev01.dtb --id=1
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/s5p4418_con_svma/dtbo_con_svma.img
 
 # BL1 Setting

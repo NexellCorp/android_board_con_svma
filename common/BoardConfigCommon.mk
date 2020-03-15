@@ -79,9 +79,9 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 MAX_VIRTUAL_DISPLAY_DIMENSION := 2048
 
 #sepolicy
-BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy/vendor
-BOARD_PLAT_PUBLIC_SEPOLICY_DIR := $(LOCAL_PATH)/sepolicy/public
-BOARD_PLAT_PRIVATE_SEPOLICY_DIR := $(LOCAL_PATH)/sepolicy/private
+#BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy/vendor
+#BOARD_PLAT_PUBLIC_SEPOLICY_DIR := $(LOCAL_PATH)/sepolicy/public
+#BOARD_PLAT_PRIVATE_SEPOLICY_DIR := $(LOCAL_PATH)/sepolicy/private
 
 # vendor interface manifest
 #DEVICE_MANIFEST_FILE := $(LOCAL_PATH)/manifest.xml
@@ -135,5 +135,5 @@ WIFI_DRIVER_FW_PATH_P2P     := ""
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 ifeq ($(QUICKBOOT), 1)
 WIFI_DRIVER_MODULE_NAME     := bcmdhd
-WIFI_DRIVER_MODULE_PATH     := "/vendof/lib/modules/bcmdhd.ko"
+WIFI_DRIVER_MODULE_PATH     := "/vendor/lib/modules/bcmdhd.ko"
 endif

@@ -106,6 +106,10 @@ PRODUCT_PACKAGES += \
 # System Server components
 PRODUCT_SYSTEM_SERVER_JARS += car-frameworks-service
 
+# Boot animation
+PRODUCT_COPY_FILES += \
+    device/nexell/con_svma/common/bootanimation.zip:system/media/bootanimation.zip
+
 PRODUCT_PROPERTY_OVERRIDES += \
     fmas.spkr_6ch=35,20,110 \
     fmas.spkr_2ch=35,25 \
