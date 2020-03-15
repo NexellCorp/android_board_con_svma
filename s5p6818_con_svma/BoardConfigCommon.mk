@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/nexell/con_svma/common
+LOCAL_PATH := device/nexell/con_svma/s5p6818_con_svma
 
 # quickboot
 ifeq ($(QUICKBOOT), 1)

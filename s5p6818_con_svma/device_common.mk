@@ -15,7 +15,7 @@
 #
 
 #PRODUCT_HARDWARE := con_svma
-LOCAL_PATH := device/nexell/con_svma/common
+LOCAL_PATH := device/nexell/con_svma/s5p6818_con_svma
 
 ########################################################################
 # PRODUCT_AAPT_CONFIG

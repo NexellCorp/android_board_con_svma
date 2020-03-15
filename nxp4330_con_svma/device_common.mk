@@ -15,7 +15,7 @@
 #
 
 #PRODUCT_HARDWARE := con_svma
-LOCAL_PATH := device/nexell/con_svma/common
+LOCAL_PATH := device/nexell/con_svma/nxp4330_con_svma
 
 ########################################################################
 # PRODUCT_AAPT_CONFIG
