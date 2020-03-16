@@ -23,6 +23,7 @@
 /dev/scaler		0666	system	system
 /dev/nx-deinterlacer	0666	system	system
 /dev/kmsg		0666	system	system
+/dev/dri/card0  0666    system  system
 /sys/devices/platform/c0000000.soc/c0040000.dwc2otg     sel_dr_mode	0666	system	system
 /sys/devices/platform/c0000000.soc/c0040000.dwc2otg     h_ddma_en	0666	system	system
 /sys/devices/platform/c0000000.soc/c0040000.dwc2otg     g_ddma_en	0666	system	system
