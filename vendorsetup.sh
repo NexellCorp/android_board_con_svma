@@ -1,6 +1,0 @@
-add_lunch_combo con_svma-eng
-add_lunch_combo con_svma-user
-add_lunch_combo con_svma-userdebug
-add_lunch_combo con_svma_auto-eng
-add_lunch_combo con_svma_auto-user
-add_lunch_combo con_svma_auto-userdebug
