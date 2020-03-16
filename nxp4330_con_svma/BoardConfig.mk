@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
--include device/nexell/con_svmaa/nxp4330/con_svma/BoardConfigCommon.mk
+-include device/nexell/con_svma/nxp4330/con_svma/BoardConfigCommon.mk
 
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
