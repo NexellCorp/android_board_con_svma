@@ -33,14 +33,19 @@ BOARD_CUSTOM_BT_CONFIG := device/nexell/con_svma/nxp4330_con_svma/bluetooth_conf
 ifneq ($(QUICKBOOT), 1)
 TARGET_KERNEL_DEFCONFIG := s5p4418_con_svma_pie_defconfig
 else
-TARGET_KERNEL_DEFCONFIG := s5p4418_con_svma_pie_quickboot_defconfig
+TARGET_KERNEL_DEFCONFIG := s5p4418_con_svma_pie_auto_defconfig
 endif
 TARGET_KERNEL_SRC := vendor/nexell/kernel/kernel-4.4.x
 TARGET_KERNEL_ARCH := arm
 DTB_OUTDIR := out/target/product/nxp4330_con_svma/obj/KERNEL_OBJ
 DTB_DIR := ${DTB_OUTDIR}/arch/arm/boot/dts
+ifeq ($(PRODUCT_CAR), true)
+DTIMG_ARG :=${DTB_DIR}/s5p4418-con_svma_auto-rev00.dtb --id=0
+DTIMG_ARG +=${DTB_DIR}/s5p4418-con_svma_auto-rev01.dtb --id=1
+else
 DTIMG_ARG :=${DTB_DIR}/s5p4418-con_svma-rev00.dtb --id=0
-DTIMG_ARG +=${DTB_DIR}/s5p4418-con_svma-rev01.dtb --id=1
+DTIMG_ARG :=${DTB_DIR}/s5p4418-con_svma-rev01.dtb --id=1
+endif
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/nxp4330_con_svma/dtbo_con_svma.img
 
 # BL1 Setting
