@@ -28,9 +28,85 @@ PRODUCT_CHARACTERISTICS := tablet
 PRODUCT_SHIPPING_API_LEVEL := 26
 
 ifeq ($(QUICKBOOT), 1)
+# init rc service
+CAMERA_SERVER_QUICKBOOT := true
+MEDIA_DRM_SERVER_QUICKBOOT := true
+BOOT_ANIMATION_QUICKBOOT := true
+INCIDENTD_QUICKBOOT := true
+STATSD_QUICKBOOT := true
+OTA_PRE_OPT_QUICKBOOT := true
+WIFI_SERVICE_QUICKBOOT := true
+INIT_RC_QUICKBOOT := true
+
+# CPP frameworks
+BATTERY_NOTIFIER_QUICKBOOT := true
+GUI_QUICKBOOT := true
+OPEN_GL_QUICKBOOT := true
+SURFACE_FLINGER_QUICKBOOT := true
+
+#JAVA frameworks
 PRODUCT_PROPERTY_OVERRIDES += ro.quickboot=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.power_manager=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.kernel_cpu_speed_reader=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.kernel_uid_cpu_freq_time_reader=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.kernel_wake_lock_reader=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.audio_manager=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.keyguard_display_manager=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.keyguard_update_monitor=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.keyguard_slice_provider=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.keyguard_view_mediator=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.cellular_tile=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.system_services_proxy=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.notification_media_manager=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.auto_tile_manager=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.phone_status_bar_policy=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.status_bar=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.access_point_controller_impl=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.network_controller_impl=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.wifi_signal_controller=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.notification_channels=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.activity_manager_service=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.device_idle_controller=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.input_method_manager_service=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.job_scheduler_service=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.lock_settings_service=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.lock_settings_storage=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.notification_manager_service=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.phone_window_manager=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.power_manager_service=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.storage_manager_service=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.system_service_manager=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.window_manager_service=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.device_policy_manager_service=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.system_server=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.usage_stats_service=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.usb_service=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.telephony_manager=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.inbound_sms_handler=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.radio_config=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.ril=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.wake_lock_state_machine=1
+#PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.wifi_thread=1
+#PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.bluetooth_delay=1
 PRODUCT_PROPERTY_OVERRIDES += persist.quickboot.firstboot=1
 PRODUCT_PROPERTY_OVERRIDES += config.disable_cameraservice=1
+else
+# init rc service
+CAMERA_SERVER_QUICKBOOT := false
+MEDIA_DRM_SERVER_QUICKBOOT := false
+BOOT_ANIMATION_QUICKBOOT := false
+INCIDENTD_QUICKBOOT := false
+STATSD_QUICKBOOT := false
+OTA_PRE_OPT_QUICKBOOT := false
+WIFI_SERVICE_QUICKBOOT := false
+INIT_RC_QUICKBOOT := false
+BATTERY_NOTIFIER_QUICKBOOT := false
+
+# CPP frameworks
+BATTERY_NOTIFIER_QUICKBOOT := false
+GUI_QUICKBOOT := false
+OPEN_GL_QUICKBOOT := false
+SURFACE_FLINGER_QUICKBOOT := false
 endif
 
 ########################################################################
