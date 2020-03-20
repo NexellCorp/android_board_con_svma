@@ -58,7 +58,7 @@ NXQUICKREAR_ARGS_1=nx_cam.m=-m6 nx_cam.b=-b1 nx_cam.c=-c26 nx_cam.r=-r1280x720 n
 UBOOT_BOOTARGS=console=ttyAMA3,115200n8 printk.time=1
 UBOOT_BOOTARGS+=androidboot.hardware=con_svma androidboot.console=ttyAMA3
 UBOOT_BOOTARGS+=androidboot.serialno=0123456789abcdef
-UBOOT_BOOTARGS+=root=\/dev\/mmcblk0p2 ro rootwait rootfstype=ext4
+UBOOT_BOOTARGS+=root=\/dev\/mmcblk0p2 ro rootwait rootfstype=squashfs
 UBOOT_BOOTARGS+=init=\/sbin\/nx_init skip_initramfs vmalloc=384M
 UBOOT_BOOTARGS+=androidboot.selinux=permissive
 UBOOT_BOOTARGS+=product_part=\/dev\/mmcblk0p13
