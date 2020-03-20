@@ -86,8 +86,11 @@ PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.inbound_sms_handler=1
 PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.radio_config=1
 PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.ril=1
 PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.wake_lock_state_machine=1
-#PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.wifi_thread=1
-#PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.bluetooth_delay=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.wifi_thread=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.bluetooth_delay=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.art_verify=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.zygote_thread=1
+PRODUCT_PROPERTY_OVERRIDES += ro.quickboot.system_server_thread=1
 PRODUCT_PROPERTY_OVERRIDES += persist.quickboot.firstboot=1
 PRODUCT_PROPERTY_OVERRIDES += config.disable_cameraservice=1
 else
