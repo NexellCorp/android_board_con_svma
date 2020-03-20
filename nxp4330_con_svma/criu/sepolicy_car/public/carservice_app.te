@@ -1,0 +1,4 @@
+allow carservice_app criu:fd use;
+allow carservice_app criu:unix_dgram_socket write;
+allow carservice_app criu:process sigchld;
+

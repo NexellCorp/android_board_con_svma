@@ -1,0 +1,1 @@
+allow lmkd hal_audio_default:file write;

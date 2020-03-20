@@ -479,6 +479,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     device/nexell/con_svma/nxp4330_con_svma/partmap.txt:partmap.txt
 
+# for CRIU
+ifeq ($(NEXELL_CRIU),true)
+PRODUCT_PROPERTY_OVERRIDES += ro.checkpoint_restore=true
+PRODUCT_PROPERTY_OVERRIDES += sys.criu.do_dump=false
+
+PRODUCT_COPY_FILES += \
+	device/nexell/con_svma/nxp4330_con_svma/criu/restore/unshare.static.32:/system/bin/unshare \
+	device/nexell/con_svma/nxp4330_con_svma/criu/restore/criu:/system/bin/criu \
+	device/nexell/con_svma/nxp4330_con_svma/criu/restore/criu_restore.sh:/system/bin/criu_restore.sh \
+	device/nexell/con_svma/nxp4330_con_svma/criu/restore/criu_dump.sh:/system/bin/criu_dump.sh
+endif
 
 $(call add-product-sanitizer-module-config,wpa_supplicant,never)
 $(call add-product-sanitizer-module-config,hostapd,never)

@@ -33,7 +33,12 @@ BOARD_CUSTOM_BT_CONFIG := device/nexell/con_svma/nxp4330_con_svma/bluetooth_conf
 ifneq ($(QUICKBOOT), 1)
 TARGET_KERNEL_DEFCONFIG := s5p4418_con_svma_pie_defconfig
 else
+# for CRIU
+ifeq ($(NEXELL_CRIU), true)
+TARGET_KERNEL_DEFCONFIG := s5p4418_con_svma_pie_auto_criu_defconfig
+else
 TARGET_KERNEL_DEFCONFIG := s5p4418_con_svma_pie_auto_defconfig
+endif
 endif
 TARGET_KERNEL_SRC := vendor/nexell/kernel/kernel-4.4.x
 TARGET_KERNEL_ARCH := arm
