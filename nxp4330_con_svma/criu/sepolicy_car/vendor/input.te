@@ -1,0 +1,3 @@
+allow input self:process execmem;
+allow input system_file:dir { open read };
+allow input zygote_exec:file read;
