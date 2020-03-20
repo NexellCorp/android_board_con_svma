@@ -11,6 +11,10 @@ PRODUCT_MODEL := AOSP on con_svma auto
 PRODUCT_MANUFACTURER := Nexell
 PRODUCT_HARDWARE := con_svma
 
+# for CRIU
+ifeq ($(QUICKBOOT), 1)
+NEXELL_CRIU := true
+endif
 
 #BOARD_PLAT_PUBLIC_SEPOLICY_DIR := packages/services/Car/car_product/sepolicy/public
 #BOARD_PLAT_PRIVATE_SEPOLICY_DIR := packages/services/Car/car_product/sepolicy/private
@@ -18,6 +22,17 @@ PRODUCT_HARDWARE := con_svma
 BOARD_SEPOLICY_DIRS := device/nexell/con_svma/nxp4330_con_svma/sepolicy_car/vendor
 BOARD_PLAT_PUBLIC_SEPOLICY_DIR += device/nexell/con_svma/nxp4330_con_svma/sepolicy_car/public
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += device/nexell/con_svma/nxp4330_con_svma/sepolicy_car/private
+
+# for CRIU
+ifeq ($(NEXELL_CRIU),true)
+BOARD_PLAT_PUBLIC_SEPOLICY_DIR += \
+    device/nexell/con_svma/nxp4330_con_svma/criu/sepolicy_car/public
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
+    device/nexell/con_svma/nxp4330_con_svma/criu/sepolicy_car/private
+BOARD_SEPOLICY_DIRS += \
+    device/nexell/con_svma/nxp4330_con_svma/criu/sepolicy_car/vendor
+endif
+
 BOARD_ROOT_EXTRA_FOLDERS := dev_q
 
 
@@ -58,7 +73,11 @@ NXQUICKREAR_ARGS_1=nx_cam.m=-m6 nx_cam.b=-b1 nx_cam.c=-c26 nx_cam.r=-r1280x720 n
 UBOOT_BOOTARGS=console=ttyAMA3,115200n8 printk.time=1
 UBOOT_BOOTARGS+=androidboot.hardware=con_svma androidboot.console=ttyAMA3
 UBOOT_BOOTARGS+=androidboot.serialno=0123456789abcdef
+ifeq ($(NEXELL_CRIU), true)
+UBOOT_BOOTARGS+=root=\/dev\/mmcblk0p2 rw rootwait rootfstype=ext4
+else
 UBOOT_BOOTARGS+=root=\/dev\/mmcblk0p2 ro rootwait rootfstype=ext4
+endif
 UBOOT_BOOTARGS+=init=\/sbin\/nx_init skip_initramfs vmalloc=384M
 UBOOT_BOOTARGS+=androidboot.selinux=permissive
 UBOOT_BOOTARGS+=product_part=\/dev\/mmcblk0p13

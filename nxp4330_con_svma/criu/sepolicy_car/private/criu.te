@@ -1,0 +1,4 @@
+allow criu procfsinspector:dir search;
+allow criu procfsinspector:file { open read };
+allow criu carservice_app:process dyntransition;
+

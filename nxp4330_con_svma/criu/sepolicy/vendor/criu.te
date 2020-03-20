@@ -1,0 +1,54 @@
+
+allow criu hal_audio_default:dir search;
+allow criu hal_audio_default:file { open read };
+
+allow criu hal_audiocontrol_default:dir search;
+allow criu hal_audiocontrol_default:file { open read };
+
+allow criu hal_bluetooth_default:dir search;
+allow criu hal_bluetooth_default:file { open read };
+
+allow criu hal_bootctl_default:dir search;
+allow criu hal_bootctl_default:file { open read };
+
+allow criu hal_broadcastradio_default:dir search;
+allow criu hal_broadcastradio_default:file { open read };
+
+allow criu hal_cas_default:dir search;
+allow criu hal_cas_default:file { open read };
+
+allow criu hal_configstore_default:dir search;
+allow criu hal_configstore_default:file { open read };
+
+allow criu hal_gatekeeper_default:dir search;
+allow criu hal_gatekeeper_default:file { open read };
+
+allow criu hal_graphics_allocator_default:dir search;
+allow criu hal_graphics_allocator_default:file { open read };
+
+allow criu hal_graphics_composer_default:dir search;
+allow criu hal_graphics_composer_default:file { open read };
+
+allow criu hal_keymaster_default:dir search;
+allow criu hal_keymaster_default:file { open read };
+
+allow criu hal_light_default:dir search;
+allow criu hal_light_default:file { open read };
+
+allow criu hal_memtrack_default:dir search;
+allow criu hal_memtrack_default:file { open read };
+
+allow criu hal_power_default:dir search;
+allow criu hal_power_default:file { open read };
+
+allow criu hal_usb_nexell_default:dir search;
+allow criu hal_usb_nexell_default:file { open read };
+
+allow criu hal_vehicle_default:dir search;
+allow criu hal_vehicle_default:file { open read };
+
+allow criu hal_wifi_default:dir search;
+allow criu hal_wifi_default:file { open read };
+
+allow criu procfs_inspector:dir search;
+allow criu procfs_inspector:file { open read };
