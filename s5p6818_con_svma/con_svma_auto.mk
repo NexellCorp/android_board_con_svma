@@ -18,7 +18,6 @@ PRODUCT_HARDWARE := con_svma
 BOARD_SEPOLICY_DIRS := device/nexell/con_svma/s5p6818_con_svma/sepolicy_car/vendor
 BOARD_PLAT_PUBLIC_SEPOLICY_DIR += device/nexell/con_svma/s5p6818_con_svma/sepolicy_car/public
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += device/nexell/con_svma/s5p6818_con_svma/sepolicy_car/private
-BOARD_ROOT_EXTRA_FOLDERS := dev_q
 
 
 # automatically called
