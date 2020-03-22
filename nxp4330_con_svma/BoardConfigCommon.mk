@@ -19,6 +19,7 @@ LOCAL_PATH := device/nexell/con_svma/nxp4330_con_svma
 # quickboot
 ifeq ($(QUICKBOOT), 1)
 NEXELL_QUICKBOOT := true
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := squashfs
 else
 NEXELL_QUICKBOOT := false
 endif
