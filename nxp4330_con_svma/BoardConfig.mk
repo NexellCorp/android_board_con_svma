@@ -97,4 +97,7 @@ OFFSET_NONSECURE=1900544    #0x1E0000 - 0x10000 = 0x1D0000
 OFFSET_PARAM=2949120        #0x2E0000 - 0x10000 = 0x2D0000
 OFFSET_BOOTLOGO=2965504     #0x2E4000 - 0x10000 = 0x2D4000
 
+#one_cam topview config
+PRODUCT_COPY_FILES += \
+    vendor/nexell/app/svm_daemon/data/avm_onecam/avm_config_onecam_m1.txt:$(TARGET_COPY_OUT_PRODUCT)/avm_onecam/avm_config_onecam.txt
 

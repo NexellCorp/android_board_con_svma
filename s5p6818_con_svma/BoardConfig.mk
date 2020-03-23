@@ -82,3 +82,7 @@ endif
 #gen_bootloader
 BOOTLOADER_PARTITION_SIZE := 4915200
 BOOT_LOGO := device/nexell/con_svma/s5p6818_con_svma/logo.bmp
+
+#one_cam topview config
+PRODUCT_COPY_FILES += \
+    vendor/nexell/app/svm_daemon/data/avm_onecam/avm_config_onecam_m2.txt:$(TARGET_COPY_OUT_PRODUCT)/avm_onecam/avm_config_onecam.txt
