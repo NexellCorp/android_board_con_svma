@@ -28,8 +28,6 @@ DEVICE_MANIFEST_FILE := device/nexell/con_svma/nxp4330_con_svma/manifest_car.xml
 
 -include device/nexell/con_svma/nxp4330_con_svma/common.mk
 
-DEVICE_PACKAGE_OVERLAYS := device/nexell/con_svma/nxp4330_con_svma/overlay_car
-
 BOOTCMD_A=aboot load_zImage 0x5480 0x40008000;
 BOOTCMD_A+=dtimg load_mmc 0x42480 0x49000000 $$\{board_rev\};
 BOOTCMD_A+=if test !-z $$\{change_devicetree\}; then run change_devicetree; fi;

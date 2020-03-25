@@ -18,7 +18,7 @@
 # car packages should be added to car.mk instead of here
 
 
-PRODUCT_PACKAGE_OVERLAYS += device/nexell/con_svma/nxp4330_con_svma/auto/overlay_car
+PRODUCT_PACKAGE_OVERLAYS += device/nexell/con_svma/nxp4330_con_svma/overlay_car
 
 PRODUCT_PACKAGE_OVERLAYS += packages/services/Car/car_product/overlay
 
