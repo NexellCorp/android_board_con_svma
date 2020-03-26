@@ -25,6 +25,7 @@ function usage()
 	echo "Usage: copy-results-images.sh -s <chip-name>  [-d <result-dir>] "
 	echo "ex) ./copy-results-images.sh -s nxp4330 -d results_nxp4330_con_svma "
 	echo "ex) ./copy-results-images.sh -s s5p6818 -d results_s5p6818_con_svma "
+	exit 1
 }
 
 function parse_args()
@@ -92,6 +93,7 @@ sudo fastboot flash vendor_a vendor.img
 sudo fastboot flash misc misc.img
 sudo fastboot flash product product.img
 sudo fastboot flash userdata userdata.img
+sudo fastboot reboot
 EOF
 chmod a+x ${RESULT_DIR}/flash-all.sh
 
@@ -107,6 +109,7 @@ fastboot flash vendor_a vendor.img
 fastboot flash misc misc.img
 fastboot flash product product.img
 fastboot flash userdata userdata.img
+fastboot reboot
 
 echo Press any key to exit...
 pause >nul
