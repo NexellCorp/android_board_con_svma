@@ -1,5 +1,4 @@
 
 PRODUCT_MAKEFILES := \
-    nxp4330_con_svma:$(LOCAL_DIR)/con_svma.mk \
-    nxp4330_con_svma_auto:$(LOCAL_DIR)/con_svma_auto.mk
+    nxp4330_con_svma:$(LOCAL_DIR)/con_svma.mk
 
